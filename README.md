@@ -1,3 +1,3 @@
 2022180030        4164015
 이소민      01063315365 
-somin207    somin207
+somin207    sominsominsomin
