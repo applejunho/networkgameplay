@@ -150,6 +150,13 @@ HBITMAP map3_wind[4];
 HDC hBackBuffer = NULL;
 HDC MemDC = NULL;
 
+void ClearAllRects()
+{
+    player1_rect1 = player1_rect2 = player1_rect3 = false;
+    player2_rect1 = player2_rect2 = player2_rect3 = false;
+    map_rect1 = map_rect2 = map_rect3 = false;
+}
+
 void SetPixelColor(HBITMAP hBitmap, int x, int y, COLORREF color) {
     HDC hdcMem = CreateCompatibleDC(NULL);
     HBITMAP hOldBitmap = (HBITMAP)SelectObject(hdcMem, hBitmap);
@@ -2001,66 +2008,39 @@ void OnMouseMove(HWND hWnd, LPARAM lParam)
 
     if (player1_select)
     {
+        // 먼저 플레이어1용 rect 초기화
+        player1_rect1 = player1_rect2 = player1_rect3 = false;
+
         if (mouseX > 190 && mouseX < 260 && mouseY > 80 && mouseY < 150)
             player1_rect1 = true;
-        else {
-            if (!player1_select) return;
-            player1_rect1 = false;
-        }
-
-        if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150)
+        else if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150)
             player1_rect2 = true;
-        else {
-            if (!player1_select) return;
-            player1_rect2 = false;
-        }
-
-        if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150)
+        else if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150)
             player1_rect3 = true;
-        else {
-            if (!player1_select) return;
-            player1_rect3 = false;
-        }
     }
     else if (player2_select)
     {
+        // 플레이어2용 rect 초기화
+        player2_rect1 = player2_rect2 = player2_rect3 = false;
+
         if (mouseX > 190 && mouseX < 260 && mouseY > 80 && mouseY < 150)
             player2_rect1 = true;
-        else {
-            if (!player2_select) return;
-            player2_rect1 = false;
-        }
-
-        if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150)
+        else if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150)
             player2_rect2 = true;
-        else {
-            if (!player2_select) return;
-            player2_rect2 = false;
-        }
-
-        if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150)
+        else if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150)
             player2_rect3 = true;
-        else {
-            if (!player2_select) return;
-            player2_rect3 = false;
-        }
     }
     else
     {
+        // 맵용 rect 초기화
+        map_rect1 = map_rect2 = map_rect3 = false;
+
         if (mouseX > 0 && mouseX < 200 && mouseY > 230 && mouseY < 440)
             map_rect1 = true;
-        else
-            map_rect1 = false;
-
-        if (mouseX > 201 && mouseX < 420 && mouseY > 230 && mouseY < 440)
+        else if (mouseX > 201 && mouseX < 420 && mouseY > 230 && mouseY < 440)
             map_rect2 = true;
-        else
-            map_rect2 = false;
-
-        if (mouseX > 421 && mouseX < 610 && mouseY > 230 && mouseY < 440)
+        else if (mouseX > 421 && mouseX < 610 && mouseY > 230 && mouseY < 440)
             map_rect3 = true;
-        else
-            map_rect3 = false;
     }
 
     InvalidateRect(hWnd, NULL, FALSE);

@@ -7,3 +7,5 @@ extern SOCKET g_sock;
 // 함수 선언
 bool InitNetwork(const char* serverIp, int port);
 void SendPacket(const char* buf, int len);
+void CloseNetwork();
+void SendPacket(const char* buf, int len);

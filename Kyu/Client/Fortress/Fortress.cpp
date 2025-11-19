@@ -114,64 +114,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         }
         break;
 
-    case WM_CHAR:
-        if (wParam == 'w')
-        {
-            if (camera_mode == true)
-            {
-                if (camera_y == 0)
-                {
-                    break;
-                }
-                camera_y -= 10;
-            }
-        }
-        else if (wParam == 's')
-        {
-            if (camera_mode == true)
-            {
-                if (camera_y == 400)
-                {
-                    break;
-                }
-                camera_y += 10;
-            }
-        }
-        else if (wParam == 'a')
-        {
-            if (camera_mode == true)
-            {
-                if (camera_x == 0)
-                {
-                    break;
-                }
-                camera_x -= 10;
-            }
-        }
-        else if (wParam == 'd')
-        {
-            if (camera_mode == true)
-            {
-                if (camera_x == 1000)
-                {
-                    break;
-                }
-                camera_x += 10;
-            }
-        }
-        else if (wParam == 'e')
-        {
-            if (camera_mode == true)
-            {
-                camera_mode = false;
-            }
-            else if (camera_mode == false)
-            {
-                camera_mode = true;
-            }
-        }
-        break;
-
     case WM_ERASEBKGND:
         return 1;
 

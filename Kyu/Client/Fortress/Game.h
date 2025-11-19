@@ -17,6 +17,9 @@ extern int yFPos[12];
 #define MAP2_X 1800
 #define MAP2_Y 450
 
+extern int mouseX;
+extern int mouseY;
+
 // ===== Àü¿ª °´Ã¼ =====
 extern Fire A;
 extern Fire B;

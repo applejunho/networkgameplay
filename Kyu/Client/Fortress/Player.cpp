@@ -1,4 +1,4 @@
-#include "Player.h"
+ï»¿#include "Player.h"
 #include "Packet.h"
 #include "ClientNet.h"
 // ========================== Player ===========================
@@ -41,49 +41,39 @@ void Player::Space_Down()
     }
 }
 
-void Player::Move(bool isFire, int tank_mode)
+void Player::Move(bool /*isFire*/, int tank_mode)
 {
-    if (isFire)
-        return;
+    // ğŸ”´ ë°œì‚¬ ì¤‘ì—ë„ ìœ„ì¹˜ ì¡°ì‘ ê°€ëŠ¥í•˜ê²Œ í•˜ê³  ì‹¶ë‹¤ë©´ isFire ì²´í¬ ì œê±°
+    // if (isFire)
+    //     return;
 
     if (GetAsyncKeyState(VK_LEFT))
     {
-        if (tank_mode == 1)
+        if (0 < left)
         {
-            if (0 < left && Speed < 30)
+            if (tank_mode == 1)
                 left -= 3;
-        }
-        else if (tank_mode == 3)
-        {
-            if (0 < left && Speed < 30)
-                left -= 1.5;
-        }
-        else if (tank_mode == 2)
-        {
-            if (0 < left && Speed < 30)
+            else if (tank_mode == 2)
                 left -= 4;
+            else if (tank_mode == 3)
+                left -= 1.5;
         }
     }
 
     if (GetAsyncKeyState(VK_RIGHT))
     {
-        if (tank_mode == 1)
+        if (1920 > left + 20)
         {
-            if (1920 > left + 20 && Speed < 30)
+            if (tank_mode == 1)
                 left += 3;
-        }
-        if (tank_mode == 3)
-        {
-            if (1920 > left + 20 && Speed < 30)
-                left += 1.5;
-        }
-        if (tank_mode == 2)
-        {
-            if (1920 > left + 20 && Speed < 30)
+            else if (tank_mode == 2)
                 left += 4;
+            else if (tank_mode == 3)
+                left += 1.5;
         }
     }
 }
+
 
 void Player::Render(HDC hdc)
 {
@@ -115,9 +105,11 @@ void Player::Update(bool isFire, HWND hWnd)
     if (isFire)
         return;
 
-    // ½ºÆäÀÌ½º(¹ß»ç ¹öÆ°) Ã³¸®
+    // ìŠ¤í˜ì´ìŠ¤(ë°œì‚¬ ë²„íŠ¼) ì²˜ë¦¬
     if (GetAsyncKeyState(VK_SPACE))
     {
+        if (isFire)
+            return;
         if (!isSpacePress)
         {
             isSpaceDown = true;
@@ -139,7 +131,7 @@ void Player::Update(bool isFire, HWND hWnd)
         }
     }
 
-    // ÁÂ¿ì ÀÌµ¿ Å°¿¡ µû¸¥ ¼Óµµ °ÔÀÌÁö
+    // ì¢Œìš° ì´ë™ í‚¤ì— ë”°ë¥¸ ì†ë„ ê²Œì´ì§€
     if (GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState(VK_RIGHT))
     {
         if (!isleftPress)
@@ -171,12 +163,12 @@ void Player::Render_PowerGauge(HDC hdc, int camera_x, int camera_y)
 
     int filledWidth = static_cast<int>((power_now / power_Max) * gaugeWidth);
 
-    // °ÔÀÌÁö ¹è°æ
+    // ê²Œì´ì§€ ë°°ê²½
     Rectangle(hdc,
         camera_x + 224, camera_y + 368,
         camera_x + 224 + gaugeWidth, camera_y + 368 + gaugeHeight);
 
-    // ÃæÀüµÈ ºÎºĞ
+    // ì¶©ì „ëœ ë¶€ë¶„
     HBRUSH brush = CreateSolidBrush(RGB(255, 0, 0));
     HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
 
@@ -195,12 +187,12 @@ void Player::Render_SpeedGauge(HDC hdc, int camera_x, int camera_y)
 
     int filledWidth = static_cast<int>((Speed / Speed_Max) * gaugeWidth);
 
-    // °ÔÀÌÁö ¹è°æ
+    // ê²Œì´ì§€ ë°°ê²½
     Rectangle(hdc,
         camera_x + 224, camera_y + 383,
         camera_x + 224 + gaugeWidth, camera_y + 383 + gaugeHeight);
 
-    // ÃæÀüµÈ ºÎºĞ
+    // ì¶©ì „ëœ ë¶€ë¶„
     HBRUSH brush = CreateSolidBrush(RGB(0, 0, 255));
     HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
 
@@ -219,12 +211,12 @@ void Player::Render_HP(HDC hdc, int left, int top)
 
     int filledWidth = static_cast<int>((HP / HP_MAX) * gaugeWidth);
 
-    // °ÔÀÌÁö ¹è°æ
+    // ê²Œì´ì§€ ë°°ê²½
     Rectangle(hdc,
         left, top + 22,
         left + gaugeWidth, top + 22 + gaugeHeight);
 
-    // ÃæÀüµÈ ºÎºĞ
+    // ì¶©ì „ëœ ë¶€ë¶„
     HBRUSH brush = CreateSolidBrush(RGB(0, 255, 0));
     HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
 
@@ -250,7 +242,7 @@ Line::Line()
 
 void Line::set_radian()
 {
-    // ÇöÀç´Â »ç¿ë ¾È ÇÔ (°¢µµ´Â toRadians·Î º¯È¯)
+    // í˜„ì¬ëŠ” ì‚¬ìš© ì•ˆ í•¨ (ê°ë„ëŠ” toRadiansë¡œ ë³€í™˜)
 }
 
 void Line::Render_Line(HDC hdc, int camera_x, int camera_y)
@@ -258,7 +250,7 @@ void Line::Render_Line(HDC hdc, int camera_x, int camera_y)
     begin_x = 70;
     begin_y = 350;
 
-    double radianAngle = toRadians(angle + 90); // °¢µµ¸¦ ¶óµğ¾ÈÀ¸·Î º¯È¯
+    double radianAngle = toRadians(angle + 90); // ê°ë„ë¥¼ ë¼ë””ì•ˆìœ¼ë¡œ ë³€í™˜
 
     MoveToEx(hdc,
         camera_x + static_cast<int>(begin_x),
@@ -294,7 +286,7 @@ void Line::Angle(bool isFire)
 
 Fire::Fire()
     : v_0(0)
-    , v_x(0)      // ÆÄ¿ö °ª 0 ~ 30 Á¤µµ
+    , v_x(0)      // íŒŒì›Œ ê°’ 0 ~ 30 ì •ë„
     , diameter(5.f)
     , gravity(10)
     , Time(0.1f)
@@ -321,7 +313,7 @@ void Fire::set_ball()
 
 void Fire::Render_Fire(HDC hdc)
 {
-    // ¹ß»ç Á¶°Ç¸¸ Ã³¸® (½ÇÁ¦ ±×¸®±â´Â ¿ÜºÎ¿¡¼­)
+    // ë°œì‚¬ ì¡°ê±´ë§Œ ì²˜ë¦¬ (ì‹¤ì œ ê·¸ë¦¬ê¸°ëŠ” ì™¸ë¶€ì—ì„œ)
     if (isSpaceUp)
         isFire = true;
 }
@@ -339,7 +331,7 @@ void Fire::Action(bool* player_1turn, bool* player_2turn,
         v_0 = power + 5;
         double radianAngle = toRadians(angle);
 
-        // ÅÊÅ© Å¸ÀÔ¿¡ µû¸¥ Áß·Â °ª
+        // íƒ±í¬ íƒ€ì…ì— ë”°ë¥¸ ì¤‘ë ¥ ê°’
         if (tank_mode == 1)
         {
             gravity = 10;
@@ -353,7 +345,7 @@ void Fire::Action(bool* player_1turn, bool* player_2turn,
             gravity = 15;
         }
 
-        // Æ÷¹°¼± ¿îµ¿
+        // í¬ë¬¼ì„  ìš´ë™
         x += v_0 * Time * cos(radianAngle) / 10;
         y -= (v_x * Time * sin(radianAngle) - 0.5 * gravity * Time * Time) / 10;
 
@@ -362,7 +354,7 @@ void Fire::Action(bool* player_1turn, bool* player_2turn,
         *ball_x = x;
         *ball_y = y;
 
-        // È­¸é ¹ÛÀ¸·Î ³ª°¡¸é ÅÏ Á¾·á
+        // í™”ë©´ ë°–ìœ¼ë¡œ ë‚˜ê°€ë©´ í„´ ì¢…ë£Œ
         if (y > 800 || x > 1600 || x < 0)
         {
             if (*player_1turn)
@@ -394,7 +386,7 @@ void Fire::Hit(bool* player_1turn, bool* player_2turn,
     double* Player1_HP, double* Player2_HP,
     int tank_mode)
 {
-    // ´Ü¼ø ¹Ú½º Ãæµ¹
+    // ë‹¨ìˆœ ë°•ìŠ¤ ì¶©ëŒ
     if (left - 15 < x + 5 && top - 15 < y + 5 &&
         left + 35 > x && top + 35 > y)
     {
@@ -564,20 +556,19 @@ void Fire::shootmode()
     }
 }
 
-// ¹ß»ç ½Ã ÆĞÅ¶ È£Ãâ
+// ë°œì‚¬ ì‹œ íŒ¨í‚· í˜¸ì¶œ
 void Fire::OnSpaceUp()
 {
     isFire = true;
     set_ball();
 
     PKT_FIRE pkt{};
-    pkt.type = PKT_FIRE_TYPE;
+    pkt.type = PKT_FIRE;
     pkt.playerId = myPlayerId;
-    pkt.startX = left;
-    pkt.startY = top;
-    pkt.angle = angle;
-    pkt.power = power;
-    pkt.shoot_mode = shoot_mode;
+    pkt.startX = (float)left;
+    pkt.startY = (float)top;
+    pkt.angle = (float)angle;
+    pkt.power = (float)power;
 
     SendPacket((char*)&pkt, sizeof(pkt));
 }
