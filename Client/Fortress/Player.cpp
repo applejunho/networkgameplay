@@ -107,11 +107,6 @@ void Player::SpaceUp(HWND hWnd)
 {
     isSpaceUp = true;
     power_now = power;
-
-    // 발사 애니메이션 타이머는 WinMain 쪽에서 관리
-    // SetTimer(hWnd, 6, 60, NULL); // 탱크 1
-    // SetTimer(hWnd, 7, 60, NULL); // 탱크 2
-    // SetTimer(hWnd, 8, 60, NULL); // 탱크 3
 }
 
 void Player::Update(bool isFire, HWND hWnd)
