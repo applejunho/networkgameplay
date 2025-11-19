@@ -4,4 +4,5 @@
 <img width="605" height="538" alt="일정표 최종" src="https://github.com/user-attachments/assets/a24e8216-0968-41d3-a358-45712191ea61" />
 
 ## 김준호 ##
-뭐한건지 모르겠움
+![Uploading 화면 캡처 2025-11-19 155140.png…]()
+
