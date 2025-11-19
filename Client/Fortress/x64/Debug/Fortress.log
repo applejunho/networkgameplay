@@ -1,1 +1,6 @@
-﻿  Fortress.vcxproj -> C:\Users\sinoh\Desktop\공부\윈플\텀 프로젝트\윈도우 프로그래밍 텀프로젝트 - 포트리스\x64\Debug\Fortress.exe
+﻿  Player.cpp
+C:\Users\sinoh\Desktop\git\networkgameplay\Client\Fortress\Player.cpp(89,46): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Client\Fortress\Player.cpp(89,34): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Client\Fortress\Player.cpp(89,24): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Client\Fortress\Player.cpp(89,18): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Fortress.vcxproj -> C:\Users\sinoh\Desktop\git\networkgameplay\Client\x64\Debug\Fortress.exe
