@@ -1,20 +1,21 @@
+// Packet.h
 #pragma once
-#include <stdint.h>   // BYTE 정의 대신 사용
+#include <Windows.h>
 
-enum PACKET_TYPE : uint8_t
+enum PACKET_TYPE : BYTE
 {
     PKT_FIRE = 1,
 };
 
 #pragma pack(push, 1)
-struct PKT_FIRE
+struct FirePacket
 {
-    uint8_t type;
-    int playerId;
+    BYTE  type;       // PKT_FIRE
+    int   playerId;
     float startX;
     float startY;
     float angle;
     float power;
-    int shoot_mode;
+    int   shoot_mode;
 };
 #pragma pack(pop)

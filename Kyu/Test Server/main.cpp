@@ -1,6 +1,7 @@
-﻿#define _WINSOCK_DEPRECATED_NO_WARNINGS
+﻿// main.cpp  (Test Server)
+
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <winsock2.h>
-#include <ws2tcpip.h>
 #include <windows.h>
 #include <stdio.h>
 #include "Packet.h"
@@ -12,15 +13,26 @@
 
 SOCKET g_clientSock[MAX_CLIENT] = { INVALID_SOCKET, INVALID_SOCKET };
 
+// 미리 선언
 DWORD WINAPI ClientThread(LPVOID arg);
 void BroadcastToAll(const char* buf, int len, SOCKET exceptSock = INVALID_SOCKET);
 
 int main()
 {
     WSADATA wsa;
-    WSAStartup(MAKEWORD(2, 2), &wsa);
+    if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
+    {
+        printf("WSAStartup() fail\n");
+        return 0;
+    }
 
     SOCKET listen_sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (listen_sock == INVALID_SOCKET)
+    {
+        printf("socket() fail\n");
+        WSACleanup();
+        return 0;
+    }
 
     SOCKADDR_IN serveraddr;
     memset(&serveraddr, 0, sizeof(serveraddr));
@@ -28,13 +40,19 @@ int main()
     serveraddr.sin_addr.s_addr = htonl(INADDR_ANY);
     serveraddr.sin_port = htons(SERVERPORT);
 
-    if (bind(listen_sock, (SOCKADDR*)&serveraddr, sizeof(serveraddr)) == SOCKET_ERROR) {
+    if (bind(listen_sock, (SOCKADDR*)&serveraddr, sizeof(serveraddr)) == SOCKET_ERROR)
+    {
         printf("bind() error\n");
+        closesocket(listen_sock);
+        WSACleanup();
         return 0;
     }
 
-    if (listen(listen_sock, SOMAXCONN) == SOCKET_ERROR) {
+    if (listen(listen_sock, SOMAXCONN) == SOCKET_ERROR)
+    {
         printf("listen() error\n");
+        closesocket(listen_sock);
+        WSACleanup();
         return 0;
     }
 
@@ -46,21 +64,25 @@ int main()
         int addrlen = sizeof(clientaddr);
 
         SOCKET client_sock = accept(listen_sock, (SOCKADDR*)&clientaddr, &addrlen);
-        if (client_sock == INVALID_SOCKET) {
+        if (client_sock == INVALID_SOCKET)
+        {
             printf("accept() error\n");
             continue;
         }
 
         // 빈 슬롯 찾기
         int slot = -1;
-        for (int i = 0; i < MAX_CLIENT; i++) {
-            if (g_clientSock[i] == INVALID_SOCKET) {
+        for (int i = 0; i < MAX_CLIENT; i++)
+        {
+            if (g_clientSock[i] == INVALID_SOCKET)
+            {
                 slot = i;
                 break;
             }
         }
 
-        if (slot == -1) {
+        if (slot == -1)
+        {
             printf("더 이상 접속 불가 (MAX_CLIENT 초과)\n");
             closesocket(client_sock);
             continue;
@@ -70,9 +92,9 @@ int main()
         printf("클라이언트 접속! slot=%d, sock=%d\n", slot, (int)client_sock);
 
         HANDLE hThread = CreateThread(
-            NULL, 0, ClientThread, (LPVOID)client_sock, 0, NULL
-        );
-        CloseHandle(hThread);
+            NULL, 0, ClientThread, (LPVOID)client_sock, 0, NULL);
+        if (hThread)
+            CloseHandle(hThread);
     }
 
     closesocket(listen_sock);
@@ -80,59 +102,53 @@ int main()
     return 0;
 }
 
+// ----------------------------------------------------
 // 클라이언트 스레드
+// ----------------------------------------------------
 DWORD WINAPI ClientThread(LPVOID arg)
 {
     SOCKET client_sock = (SOCKET)arg;
-    char buf[512];
 
     while (true)
     {
-        int recvlen = recv(client_sock, buf, sizeof(buf), 0);
-        if (recvlen <= 0) {
+        FirePacket pkt{};
+        int recvlen = recv(client_sock, (char*)&pkt, sizeof(pkt), 0);
+
+        if (recvlen <= 0)
+        {
             printf("클라이언트 종료 sock=%d\n", (int)client_sock);
             break;
         }
 
-        BYTE type = (BYTE)buf[0];
-
-        switch (type)
+        // 패킷 타입 확인
+        if (pkt.type == PKT_FIRE && recvlen == sizeof(FirePacket))
         {
-        case PKT_FIRE:
-        {
-            // ★ 아주 중요: printf에서 p를 쓰기 전에 여기서 "선언"
-            if (recvlen < (int)sizeof(PKT_FIRE)) {
-                printf("PKT_FIRE size mismatch: %d (need %d)\n",
-                    recvlen, (int)sizeof(PKT_FIRE));
-                break;
-            }
-
-            PKT_FIRE* p = (PKT_FIRE*)buf;   // ← 이 줄이 있어야 함
-
             printf("\n[SERVER] PKT_FIRE recv\n");
-            printf("  playerId : %d\n", p->playerId);
-            printf("  startX   : %.1f\n", p->startX);
-            printf("  startY   : %.1f\n", p->startY);
-            printf("  angle    : %.1f\n", p->angle);
-            printf("  power    : %.1f\n", p->power);
-            printf("  mode     : %d\n", p->shoot_mode);
+            printf("  playerId : %d\n", pkt.playerId);
+            printf("  startX   : %.1f\n", pkt.startX);
+            printf("  startY   : %.1f\n", pkt.startY);
+            printf("  angle    : %.1f\n", pkt.angle);
+            printf("  power    : %.1f\n", pkt.power);
+            printf("  mode     : %d\n", pkt.shoot_mode);
 
-            // 나중에 다른 클라에게도 쏴주고 싶으면:
-            // BroadcastToAll((char*)p, sizeof(PKT_FIRE), client_sock);
+            // 나중에 다른 클라이언트에게도 전달하고 싶으면:
+            // BroadcastToAll((char*)&pkt, sizeof(pkt), client_sock);
         }
-        break;
-
-        default:
-            printf("[SERVER] Unknown packet type=%d, len=%d\n", type, recvlen);
-            break;
+        else
+        {
+            printf("[SERVER] Unknown packet. type=%d len=%d\n",
+                pkt.type, recvlen);
         }
     }
 
+    // 소켓 정리
     closesocket(client_sock);
 
     // g_clientSock 배열에서 제거
-    for (int i = 0; i < MAX_CLIENT; i++) {
-        if (g_clientSock[i] == client_sock) {
+    for (int i = 0; i < MAX_CLIENT; i++)
+    {
+        if (g_clientSock[i] == client_sock)
+        {
             g_clientSock[i] = INVALID_SOCKET;
             break;
         }
@@ -141,3 +157,17 @@ DWORD WINAPI ClientThread(LPVOID arg)
     return 0;
 }
 
+// ----------------------------------------------------
+// 전체 브로드캐스트 (지금은 안 써도 됨)
+// ----------------------------------------------------
+void BroadcastToAll(const char* buf, int len, SOCKET exceptSock)
+{
+    for (int i = 0; i < MAX_CLIENT; i++)
+    {
+        if (g_clientSock[i] != INVALID_SOCKET &&
+            g_clientSock[i] != exceptSock)
+        {
+            send(g_clientSock[i], buf, len, 0);
+        }
+    }
+}
