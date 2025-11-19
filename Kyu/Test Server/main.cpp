@@ -1,21 +1,30 @@
-﻿// main.cpp  (Test Server)
-
-#define _WINSOCK_DEPRECATED_NO_WARNINGS
+﻿#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <winsock2.h>
 #include <windows.h>
 #include <stdio.h>
+#include <mutex>
+#include <cstring>
+
 #include "Packet.h"
 
 #pragma comment(lib, "ws2_32.lib")
 
 #define SERVERPORT 9000
-#define MAX_CLIENT 2
+#define MAX_CLIENT MAX_PLAYER
 
-SOCKET g_clientSock[MAX_CLIENT] = { INVALID_SOCKET, INVALID_SOCKET };
+struct ClientSlot
+{
+    SOCKET sock = INVALID_SOCKET;
+    int    id = -1;
+};
 
-// 미리 선언
+static ClientSlot g_clients[MAX_CLIENT];
+static PlayerStateData g_playerStates[MAX_PLAYER] = {};
+static std::mutex g_stateLock;
+
 DWORD WINAPI ClientThread(LPVOID arg);
-void BroadcastToAll(const char* buf, int len, SOCKET exceptSock = INVALID_SOCKET);
+void BroadcastPacket(const char* buf, int len, SOCKET exceptSock = INVALID_SOCKET);
+void BroadcastState();
 
 int main()
 {
@@ -34,8 +43,7 @@ int main()
         return 0;
     }
 
-    SOCKADDR_IN serveraddr;
-    memset(&serveraddr, 0, sizeof(serveraddr));
+    SOCKADDR_IN serveraddr = {};
     serveraddr.sin_family = AF_INET;
     serveraddr.sin_addr.s_addr = htonl(INADDR_ANY);
     serveraddr.sin_port = htons(SERVERPORT);
@@ -62,7 +70,6 @@ int main()
     {
         SOCKADDR_IN clientaddr;
         int addrlen = sizeof(clientaddr);
-
         SOCKET client_sock = accept(listen_sock, (SOCKADDR*)&clientaddr, &addrlen);
         if (client_sock == INVALID_SOCKET)
         {
@@ -70,11 +77,10 @@ int main()
             continue;
         }
 
-        // 빈 슬롯 찾기
         int slot = -1;
-        for (int i = 0; i < MAX_CLIENT; i++)
+        for (int i = 0; i < MAX_CLIENT; ++i)
         {
-            if (g_clientSock[i] == INVALID_SOCKET)
+            if (g_clients[i].sock == INVALID_SOCKET)
             {
                 slot = i;
                 break;
@@ -83,18 +89,26 @@ int main()
 
         if (slot == -1)
         {
-            printf("더 이상 접속 불가 (MAX_CLIENT 초과)\n");
+            printf("서버 풀 (MAX_CLIENT=%d) 초과. 접속 거부\n", MAX_CLIENT);
             closesocket(client_sock);
             continue;
         }
 
-        g_clientSock[slot] = client_sock;
-        printf("클라이언트 접속! slot=%d, sock=%d\n", slot, (int)client_sock);
+        g_clients[slot].sock = client_sock;
+        g_clients[slot].id = slot;
 
-        HANDLE hThread = CreateThread(
-            NULL, 0, ClientThread, (LPVOID)client_sock, 0, NULL);
+        PKT_JOIN join{};
+        join.type = PKT_TYPE_JOIN;
+        join.playerId = slot;
+        send(client_sock, (char*)&join, sizeof(join), 0);
+
+        printf("클라이언트 접속! slot=%d sock=%d\n", slot, (int)client_sock);
+
+        HANDLE hThread = CreateThread(NULL, 0, ClientThread, (LPVOID)(intptr_t)slot, 0, NULL);
         if (hThread)
             CloseHandle(hThread);
+
+        BroadcastState();
     }
 
     closesocket(listen_sock);
@@ -102,72 +116,84 @@ int main()
     return 0;
 }
 
-// ----------------------------------------------------
-// 클라이언트 스레드
-// ----------------------------------------------------
 DWORD WINAPI ClientThread(LPVOID arg)
 {
-    SOCKET client_sock = (SOCKET)arg;
+    int slot = (int)(intptr_t)arg;
+    SOCKET client_sock = g_clients[slot].sock;
+
+    char buf[1024];
 
     while (true)
     {
-        FirePacket pkt{};
-        int recvlen = recv(client_sock, (char*)&pkt, sizeof(pkt), 0);
-
+        int recvlen = recv(client_sock, buf, sizeof(buf), 0);
         if (recvlen <= 0)
         {
-            printf("클라이언트 종료 sock=%d\n", (int)client_sock);
+            printf("클라이언트 종료 slot=%d\n", slot);
             break;
         }
 
-        // 패킷 타입 확인
-        if (pkt.type == PKT_FIRE && recvlen == sizeof(FirePacket))
-        {
-            printf("\n[SERVER] PKT_FIRE recv\n");
-            printf("  playerId : %d\n", pkt.playerId);
-            printf("  startX   : %.1f\n", pkt.startX);
-            printf("  startY   : %.1f\n", pkt.startY);
-            printf("  angle    : %.1f\n", pkt.angle);
-            printf("  power    : %.1f\n", pkt.power);
-            printf("  mode     : %d\n", pkt.shoot_mode);
+        BYTE type = (BYTE)buf[0];
 
-            // 나중에 다른 클라이언트에게도 전달하고 싶으면:
-            // BroadcastToAll((char*)&pkt, sizeof(pkt), client_sock);
+        if (type == PKT_TYPE_MOVE && recvlen >= (int)sizeof(PKT_MOVE))
+        {
+            PKT_MOVE pkt{};
+            memcpy(&pkt, buf, sizeof(PKT_MOVE));
+            if (pkt.playerId >= 0 && pkt.playerId < MAX_PLAYER)
+            {
+                std::lock_guard<std::mutex> lock(g_stateLock);
+                g_playerStates[pkt.playerId] = pkt.state;
+                g_playerStates[pkt.playerId].flags |= PLAYER_FLAG_VALID;
+            }
+            BroadcastState();
+        }
+        else if (type == PKT_TYPE_FIRE && recvlen >= (int)sizeof(PKT_FIRE))
+        {
+            PKT_FIRE pkt{};
+            memcpy(&pkt, buf, sizeof(PKT_FIRE));
+            BroadcastPacket((char*)&pkt, sizeof(pkt), INVALID_SOCKET);
         }
         else
         {
-            printf("[SERVER] Unknown packet. type=%d len=%d\n",
-                pkt.type, recvlen);
+            printf("Unknown packet type=%d len=%d\n", type, recvlen);
         }
     }
 
-    // 소켓 정리
     closesocket(client_sock);
+    g_clients[slot].sock = INVALID_SOCKET;
+    g_clients[slot].id = -1;
 
-    // g_clientSock 배열에서 제거
-    for (int i = 0; i < MAX_CLIENT; i++)
     {
-        if (g_clientSock[i] == client_sock)
-        {
-            g_clientSock[i] = INVALID_SOCKET;
-            break;
-        }
+        std::lock_guard<std::mutex> lock(g_stateLock);
+        memset(&g_playerStates[slot], 0, sizeof(PlayerStateData));
     }
 
+    BroadcastState();
     return 0;
 }
 
-// ----------------------------------------------------
-// 전체 브로드캐스트 (지금은 안 써도 됨)
-// ----------------------------------------------------
-void BroadcastToAll(const char* buf, int len, SOCKET exceptSock)
+void BroadcastPacket(const char* buf, int len, SOCKET exceptSock)
 {
-    for (int i = 0; i < MAX_CLIENT; i++)
+    for (int i = 0; i < MAX_CLIENT; ++i)
     {
-        if (g_clientSock[i] != INVALID_SOCKET &&
-            g_clientSock[i] != exceptSock)
+        SOCKET s = g_clients[i].sock;
+        if (s != INVALID_SOCKET && s != exceptSock)
         {
-            send(g_clientSock[i], buf, len, 0);
+            send(s, buf, len, 0);
         }
     }
+}
+
+void BroadcastState()
+{
+    PKT_STATE pkt{};
+    pkt.type = PKT_TYPE_STATE;
+    pkt.playerCount = MAX_PLAYER;
+
+    {
+        std::lock_guard<std::mutex> lock(g_stateLock);
+        for (int i = 0; i < MAX_PLAYER; ++i)
+            pkt.players[i] = g_playerStates[i];
+    }
+
+    BroadcastPacket((char*)&pkt, sizeof(pkt));
 }

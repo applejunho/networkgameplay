@@ -5,34 +5,53 @@
 
 #define MAX_PLAYER 3
 
-// ---- 패킷 번호 ----
+// ---- Packet types ----
 enum PACKET_TYPE : BYTE
 {
     PKT_JOIN = 1,
     PKT_MOVE = 2,
     PKT_FIRE = 3,
-    PKT_STATE = 4
+    PKT_STATE = 4,
+};
+
+// ---- Player replication flags ----
+enum PlayerFlags : BYTE
+{
+    PLAYER_FLAG_VALID = 1 << 0,
+    PLAYER_FLAG_FACING_LEFT = 1 << 1,
+    PLAYER_FLAG_MOVING = 1 << 2,
+    PLAYER_FLAG_FIRING_ANIM = 1 << 3,
+    PLAYER_FLAG_MY_TURN = 1 << 4,
+    PLAYER_FLAG_PROJECTILE_FIRED = 1 << 5,
 };
 
 #pragma pack(push, 1)
 
-// ---- JOIN ----
+struct PlayerStateData
+{
+    float left;
+    float top;
+    float angle;
+    float hp;
+    float power;
+    int   shoot_mode;
+    int   tankType;
+    BYTE  flags;
+};
+
 struct PKT_JOIN
 {
     BYTE type;
     int  playerId;
 };
 
-// ---- MOVE ----
 struct PKT_MOVE
 {
-    BYTE type;
-    int  playerId;
-    float x, y;
-    float angle;
+    BYTE            type;
+    int             playerId;
+    PlayerStateData state;
 };
 
-// ---- FIRE ----
 struct PKT_FIRE
 {
     BYTE type;
@@ -41,18 +60,14 @@ struct PKT_FIRE
     float startY;
     float angle;
     float power;
-    int shoot_mode;        // ← Player.cpp에서 쓰는 필드 추가
+    int   shoot_mode;
 };
 
-// ---- 전체 상태 ----
 struct PKT_STATE
 {
     BYTE type;
     int  playerCount;
-    float x[MAX_PLAYER];
-    float y[MAX_PLAYER];
-    float angle[MAX_PLAYER];
-    float hp[MAX_PLAYER];
+    PlayerStateData players[MAX_PLAYER];
 };
 
 #pragma pack(pop)

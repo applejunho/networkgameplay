@@ -1,8 +1,9 @@
 // Game.h
 #pragma once
 #define WIN32_LEAN_AND_MEAN
-#define _WINSOCKAPI_ 
-
+#ifndef _WINSOCKAPI_
+#define _WINSOCKAPI_
+#endif
 #include <windows.h>
 #include "resource.h"
 #include "Player.h"
@@ -16,9 +17,6 @@ extern int yFPos[12];
 #define MAP1_Y 800
 #define MAP2_X 1800
 #define MAP2_Y 450
-
-extern int mouseX;
-extern int mouseY;
 
 // ===== Àü¿ª °´Ã¼ =====
 extern Fire A;

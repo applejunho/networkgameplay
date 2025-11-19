@@ -1,6 +1,6 @@
 ﻿#include "Player.h"
-#include "Packet.h"
 #include "ClientNet.h"
+
 // ========================== Player ===========================
 
 Player::Player()
@@ -41,39 +41,49 @@ void Player::Space_Down()
     }
 }
 
-void Player::Move(bool /*isFire*/, int tank_mode)
+void Player::Move(bool isFire, int tank_mode)
 {
-    // 🔴 발사 중에도 위치 조작 가능하게 하고 싶다면 isFire 체크 제거
-    // if (isFire)
-    //     return;
+    if (isFire)
+        return;
 
     if (GetAsyncKeyState(VK_LEFT))
     {
-        if (0 < left)
+        if (tank_mode == 1)
         {
-            if (tank_mode == 1)
+            if (0 < left && Speed < 30)
                 left -= 3;
-            else if (tank_mode == 2)
-                left -= 4;
-            else if (tank_mode == 3)
+        }
+        else if (tank_mode == 3)
+        {
+            if (0 < left && Speed < 30)
                 left -= 1.5;
+        }
+        else if (tank_mode == 2)
+        {
+            if (0 < left && Speed < 30)
+                left -= 4;
         }
     }
 
     if (GetAsyncKeyState(VK_RIGHT))
     {
-        if (1920 > left + 20)
+        if (tank_mode == 1)
         {
-            if (tank_mode == 1)
+            if (1920 > left + 20 && Speed < 30)
                 left += 3;
-            else if (tank_mode == 2)
-                left += 4;
-            else if (tank_mode == 3)
+        }
+        if (tank_mode == 3)
+        {
+            if (1920 > left + 20 && Speed < 30)
                 left += 1.5;
+        }
+        if (tank_mode == 2)
+        {
+            if (1920 > left + 20 && Speed < 30)
+                left += 4;
         }
     }
 }
-
 
 void Player::Render(HDC hdc)
 {
@@ -108,8 +118,6 @@ void Player::Update(bool isFire, HWND hWnd)
     // 스페이스(발사 버튼) 처리
     if (GetAsyncKeyState(VK_SPACE))
     {
-        if (isFire)
-            return;
         if (!isSpacePress)
         {
             isSpaceDown = true;
@@ -504,6 +512,15 @@ void Fire::shoot_2(bool* player_1turn, bool* player_2turn,
     }
 }
 
+void Fire::OnSpaceUp(int playerId)
+{
+    isSpaceUp = true;
+    set_ball();
+    SendFirePacket(playerId, static_cast<float>(left), static_cast<float>(top),
+        static_cast<float>(angle), static_cast<float>(power), shoot_mode);
+    SendPlayerState(playerId);
+}
+
 void Fire::shootmode()
 {
     if (GetAsyncKeyState(VK_F1))
@@ -554,21 +571,4 @@ void Fire::shootmode()
             }
         }
     }
-}
-
-// 발사 시 패킷 호출
-void Fire::OnSpaceUp()
-{
-    isFire = true;
-    set_ball();
-
-    PKT_FIRE pkt{};
-    pkt.type = PKT_FIRE;
-    pkt.playerId = myPlayerId;
-    pkt.startX = (float)left;
-    pkt.startY = (float)top;
-    pkt.angle = (float)angle;
-    pkt.power = (float)power;
-
-    SendPacket((char*)&pkt, sizeof(pkt));
 }

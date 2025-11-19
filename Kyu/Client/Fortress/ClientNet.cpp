@@ -1,25 +1,109 @@
-﻿#define _WINSOCK_DEPRECATED_NO_WARNINGS
-#include <winsock2.h>
+﻿#include <winsock2.h>
+#include <ws2tcpip.h>
 #include <windows.h>
-#include <cstdio>   // printf
-#include <cstring>  // memcpy
+#include <cstdio>
+#include <cstring>
 
 #include "Packet.h"
 #include "NetCommon.h"
 #include "Player.h"
+#include "Game.h"
 #include "ClientNet.h"
-
 
 #pragma comment(lib, "ws2_32.lib")
 
 SOCKET g_sock = INVALID_SOCKET;
-extern Player g_players[MAX_PLAYER];
-extern int myPlayerId;
-extern int g_playerCount;
+static HANDLE g_recvThread = NULL;
+static bool   g_isConnected = false;
+static int    g_myPlayerId = -1;
 
-DWORD WINAPI RecvThread(LPVOID arg)
+extern Fire A;
+extern Fire B;
+extern bool player1_left;
+extern bool player2_left;
+extern bool p1isMoving;
+extern bool p2isMoving;
+extern bool player_1turn;
+extern bool player_2turn;
+extern bool isFired;
+extern int  player1TankNumber;
+extern int  player2TankNumber;
+
+static Fire* GetPlayerById(int playerId)
 {
-    char buf[512];
+    if (playerId == 0) return &A;
+    if (playerId == 1) return &B;
+    return nullptr;
+}
+
+static void ApplyStatePacket(const struct PKT_STATE& pkt)
+{
+    bool firingAnim = false;
+    for (int i = 0; i < MAX_PLAYER; ++i)
+    {
+        const PlayerStateData& state = pkt.players[i];
+        if ((state.flags & PLAYER_FLAG_VALID) == 0)
+            continue;
+
+        Fire* player = GetPlayerById(i);
+        if (!player)
+            continue;
+
+        player->left = state.left;
+        player->top = state.top;
+        player->angle = state.angle;
+        player->HP = state.hp;
+        player->power = state.power;
+        player->shoot_mode = state.shoot_mode;
+
+        const bool facingLeft = (state.flags & PLAYER_FLAG_FACING_LEFT) != 0;
+        const bool moving = (state.flags & PLAYER_FLAG_MOVING) != 0;
+        const bool animFiring = (state.flags & PLAYER_FLAG_FIRING_ANIM) != 0;
+        const bool isTurn = (state.flags & PLAYER_FLAG_MY_TURN) != 0;
+        const bool projectileActive = (state.flags & PLAYER_FLAG_PROJECTILE_FIRED) != 0;
+
+        if (i == 0)
+        {
+            player1_left = facingLeft;
+            p1isMoving = moving;
+            player_1turn = isTurn;
+            player1TankNumber = state.tankType;
+        }
+        else if (i == 1)
+        {
+            player2_left = facingLeft;
+            p2isMoving = moving;
+            player_2turn = isTurn;
+            player2TankNumber = state.tankType;
+        }
+
+        player->isFire = projectileActive;
+        if (projectileActive)
+            player->set_ball();
+
+        firingAnim = firingAnim || animFiring;
+    }
+    isFired = firingAnim;
+}
+
+static void ApplyFirePacket(const struct PKT_FIRE& pkt)
+{
+    Fire* player = GetPlayerById(pkt.playerId);
+    if (!player)
+        return;
+
+    player->left = pkt.startX;
+    player->top = pkt.startY;
+    player->angle = pkt.angle;
+    player->power = pkt.power;
+    player->shoot_mode = pkt.shoot_mode;
+    player->set_ball();
+    player->isFire = true;
+}
+
+DWORD WINAPI RecvThread(LPVOID)
+{
+    char buf[1024];
 
     while (true)
     {
@@ -30,56 +114,48 @@ DWORD WINAPI RecvThread(LPVOID arg)
         if (recvlen < 1)
             continue;
 
-        BYTE type = (BYTE)buf[0];
+        BYTE type = static_cast<BYTE>(buf[0]);
 
         switch (type)
         {
         case PKT_JOIN:
-        {
-            // 패킷 크기 확인
-            if (recvlen < (int)sizeof(PKT_JOIN))
-                break;
-
-            PKT_JOIN pkt{};
-            memcpy(&pkt, buf, sizeof(PKT_JOIN));
-
-            myPlayerId = pkt.playerId;
-            g_isConnected = true;
-
-            printf("서버로부터 내 ID = %d\n", myPlayerId);
-        }
-        break;
+            if (recvlen >= (int)sizeof(struct PKT_JOIN))
+            {
+                struct PKT_JOIN pkt {};
+                memcpy(&pkt, buf, sizeof(struct PKT_JOIN));
+                g_myPlayerId = pkt.playerId;
+                g_isConnected = true;
+                printf("서버로부터 내 ID = %d\n", g_myPlayerId);
+            }
+            break;
 
         case PKT_STATE:
-        {
-            if (recvlen < (int)sizeof(PKT_STATE))
-                break;
-
-            PKT_STATE pkt{};
-            memcpy(&pkt, buf, sizeof(PKT_STATE));
-
-            g_playerCount = pkt.playerCount;
-
-            for (int i = 0; i < pkt.playerCount && i < MAX_PLAYER; i++)
+            if (recvlen >= (int)sizeof(struct PKT_STATE))
             {
-                g_players[i].left = (int)pkt.x[i];
-                g_players[i].top = (int)pkt.y[i];
-                g_players[i].angle = pkt.angle[i];
-                g_players[i].HP = (int)pkt.hp[i];
+                struct PKT_STATE pkt {};
+                memcpy(&pkt, buf, sizeof(struct PKT_STATE));
+                ApplyStatePacket(pkt);
             }
-        }
-        break;
+            break;
+
+        case PKT_FIRE:
+            if (recvlen >= (int)sizeof(struct PKT_FIRE))
+            {
+                struct PKT_FIRE pkt {};
+                memcpy(&pkt, buf, sizeof(struct PKT_FIRE));
+                if (pkt.playerId != g_myPlayerId)
+                    ApplyFirePacket(pkt);
+            }
+            break;
 
         default:
-            // 필요하면 디버그 출력
-            // printf("Unknown packet type: %d, len=%d\n", type, recvlen);
             break;
         }
     }
 
+    g_isConnected = false;
     return 0;
 }
-
 
 bool InitNetwork(const char* serverIp, int port)
 {
@@ -94,37 +170,111 @@ bool InitNetwork(const char* serverIp, int port)
     SOCKADDR_IN serveraddr;
     memset(&serveraddr, 0, sizeof(serveraddr));
     serveraddr.sin_family = AF_INET;
-    serveraddr.sin_addr.s_addr = inet_addr(serverIp);
-    serveraddr.sin_port = htons(port);
-
-    if (connect(g_sock, (SOCKADDR*)&serveraddr, sizeof(serveraddr)) == SOCKET_ERROR) {
+    // use InetPtonA instead of deprecated inet_addr
+    if (InetPtonA(AF_INET, serverIp, &serveraddr.sin_addr) != 1) {
         closesocket(g_sock);
         g_sock = INVALID_SOCKET;
+        WSACleanup();
+        return false;
+    }
+    serveraddr.sin_port = htons(port);
+
+    if (connect(g_sock, (SOCKADDR*)&serveraddr, sizeof(serveraddr)) == SOCKET_ERROR)
+    {
+        closesocket(g_sock);
+        g_sock = INVALID_SOCKET;
+        WSACleanup();
         return false;
     }
 
-    // ⭐⭐⭐ 여기 추가해야 함! RecvThread 실행 ⭐⭐⭐
-    HANDLE hThread = CreateThread(NULL, 0, RecvThread, NULL, 0, NULL);
-    CloseHandle(hThread);
+    g_recvThread = CreateThread(NULL, 0, RecvThread, NULL, 0, NULL);
+    if (g_recvThread)
+        CloseHandle(g_recvThread);
 
     return true;
 }
 
-
 void SendPacket(const char* buf, int len)
 {
-    if (g_sock == INVALID_SOCKET) return;
+    if (g_sock == INVALID_SOCKET)
+        return;
     send(g_sock, buf, len, 0);
 }
 
-Player g_players[MAX_PLAYER];    // 모든 플레이어 (내 것 + 다른 플레이어)
-int    myPlayerId = -1;          // 서버가 정해주는 내 ID
-int    g_playerCount = MAX_PLAYER;
+bool IsNetworkConnected()
+{
+    return g_isConnected;
+}
 
-double g_ballX[MAX_PLAYER];
-double g_ballY[MAX_PLAYER];
+int GetMyPlayerId()
+{
+    return g_myPlayerId;
+}
 
-bool g_isConnected = false;
+bool CanControlPlayer(int playerIndex)
+{
+    if (!g_isConnected)
+        return true;
+    return g_myPlayerId == playerIndex;
+}
+
+void SendFirePacket(int playerIndex, float startX, float startY, float angle, float power, int shootMode)
+{
+    if (!g_isConnected)
+        return;
+
+    struct PKT_FIRE pkt {};
+    pkt.type = PKT_FIRE;
+    pkt.playerId = playerIndex;
+    pkt.startX = startX;
+    pkt.startY = startY;
+    pkt.angle = angle;
+    pkt.power = power;
+    pkt.shoot_mode = shootMode;
+    SendPacket(reinterpret_cast<char*>(&pkt), sizeof(struct PKT_FIRE));
+}
+
+void SendPlayerState(int playerIndex)
+{
+    if (!g_isConnected)
+        return;
+
+    Fire* player = GetPlayerById(playerIndex);
+    if (!player)
+        return;
+
+    PlayerStateData state{};
+    state.left = static_cast<float>(player->left);
+    state.top = static_cast<float>(player->top);
+    state.angle = static_cast<float>(player->angle);
+    state.hp = static_cast<float>(player->HP);
+    state.power = static_cast<float>(player->power);
+    state.shoot_mode = player->shoot_mode;
+    state.tankType = (playerIndex == 0) ? player1TankNumber : player2TankNumber;
+
+    state.flags = PLAYER_FLAG_VALID;
+    const bool facingLeft = (playerIndex == 0) ? player1_left : player2_left;
+    const bool moving = (playerIndex == 0) ? p1isMoving : p2isMoving;
+    const bool myTurn = (playerIndex == 0) ? player_1turn : player_2turn;
+
+    if (facingLeft)
+        state.flags |= PLAYER_FLAG_FACING_LEFT;
+    if (moving)
+        state.flags |= PLAYER_FLAG_MOVING;
+    if (isFired)
+        state.flags |= PLAYER_FLAG_FIRING_ANIM;
+    if (myTurn)
+        state.flags |= PLAYER_FLAG_MY_TURN;
+    if (player->isFire)
+        state.flags |= PLAYER_FLAG_PROJECTILE_FIRED;
+
+    struct PKT_MOVE pkt {};
+    pkt.type = PKT_MOVE;
+    pkt.playerId = playerIndex;
+    pkt.state = state;
+
+    SendPacket(reinterpret_cast<char*>(&pkt), sizeof(struct PKT_MOVE));
+}
 
 void CloseNetwork()
 {
@@ -134,4 +284,6 @@ void CloseNetwork()
         g_sock = INVALID_SOCKET;
     }
     WSACleanup();
+    g_isConnected = false;
+    g_myPlayerId = -1;
 }

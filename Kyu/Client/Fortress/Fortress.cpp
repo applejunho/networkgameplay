@@ -1,7 +1,7 @@
-﻿// main.cpp
-#define WIN32_LEAN_AND_MEAN
-#define _WINSOCKAPI_ 
+﻿#define WIN32_LEAN_AND_MEAN
+#define _WINSOCKAPI_
 
+// main.cpp
 #include <windows.h>
 #include <tchar.h>
 #include "resource.h"
@@ -21,7 +21,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow)
 {
     if (!InitNetwork("127.0.0.1", 9000)) {
-        MessageBox(NULL, L"서버 접속 실패", L"Error", MB_OK);
+        MessageBox(NULL, L"서버 접속에 실패했습니다. 오프라인 모드로 진행합니다.", L"Fortress", MB_OK | MB_ICONWARNING);
     }
     HWND hWnd;
     MSG Message;
@@ -101,15 +101,70 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         OnKeyDown(hWnd, wParam);
         return 0;
 
-        // 특정 키 입력 받을 시 발사 + 패킷 전송
     case WM_KEYUP:
         if (wParam == VK_SPACE)
         {
-            if (player_1turn) {
-                A.OnSpaceUp();   // 플레이어1 발사 + 서버로 PKT_FIRE
+            if (player_1turn && CanControlPlayer(0))
+                A.OnSpaceUp(0);
+            else if (player_2turn && CanControlPlayer(1))
+                B.OnSpaceUp(1);
+        }
+        return 0;
+
+    case WM_CHAR:
+        if (wParam == 'w')
+        {
+            if (camera_mode == true)
+            {
+                if (camera_y == 0)
+                {
+                    break;
+                }
+                camera_y -= 10;
             }
-            else if (player_2turn) {
-                B.OnSpaceUp();   // 플레이어2 발사 + 서버로 PKT_FIRE
+        }
+        else if (wParam == 's')
+        {
+            if (camera_mode == true)
+            {
+                if (camera_y == 400)
+                {
+                    break;
+                }
+                camera_y += 10;
+            }
+        }
+        else if (wParam == 'a')
+        {
+            if (camera_mode == true)
+            {
+                if (camera_x == 0)
+                {
+                    break;
+                }
+                camera_x -= 10;
+            }
+        }
+        else if (wParam == 'd')
+        {
+            if (camera_mode == true)
+            {
+                if (camera_x == 1000)
+                {
+                    break;
+                }
+                camera_x += 10;
+            }
+        }
+        else if (wParam == 'e')
+        {
+            if (camera_mode == true)
+            {
+                camera_mode = false;
+            }
+            else if (camera_mode == false)
+            {
+                camera_mode = true;
             }
         }
         break;
@@ -118,7 +173,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         return 1;
 
     case WM_DESTROY:
-        DeleteObject(hBitmap);
+        if (hBackBufferBitmap)
+            DeleteObject(hBackBufferBitmap);
+        CloseNetwork();
         PostQuitMessage(0);
         break;
     }

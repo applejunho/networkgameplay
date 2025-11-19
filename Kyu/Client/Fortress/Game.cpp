@@ -2,6 +2,7 @@
 #include <tchar.h>
 #include <random>
 #include "Game.h"
+#include "ClientNet.h"
 
 #pragma comment(lib, "Msimg32.lib")
 
@@ -149,13 +150,6 @@ HBITMAP map3_wind[4];
 // WndProc에서 만들고, 여기서 사용하는 HDC
 HDC hBackBuffer = NULL;
 HDC MemDC = NULL;
-
-void ClearAllRects()
-{
-    player1_rect1 = player1_rect2 = player1_rect3 = false;
-    player2_rect1 = player2_rect2 = player2_rect3 = false;
-    map_rect1 = map_rect2 = map_rect3 = false;
-}
 
 void SetPixelColor(HBITMAP hBitmap, int x, int y, COLORREF color) {
     HDC hdcMem = CreateCompatibleDC(NULL);
@@ -1046,10 +1040,14 @@ void physics_Action(HWND hWnd)
     {
         A.Action(&player_1turn, &player_2turn, &x, &y, player1TankNumber);
         A.set_radian();
-        A.Move(A.isFire, player1TankNumber);
+        if (CanControlPlayer(0))
+            A.Move(A.isFire, player1TankNumber);
         A.set_ball();
-        A.Update(A.isFire, hWnd);
+        if (CanControlPlayer(0))
+            A.Update(A.isFire, hWnd);
         A.set_pos(A.left, A.top);
+        if (CanControlPlayer(0))
+            SendPlayerState(0);
         if (A.isFire)
             A.Hit(&player_1turn, &player_2turn, B.left, B.top, &A.HP, &B.HP, player1TankNumber);
     }
@@ -1057,10 +1055,14 @@ void physics_Action(HWND hWnd)
     {
         B.Action(&player_1turn, &player_2turn, &x, &y, player2TankNumber);
         B.set_radian();
-        B.Move(B.isFire, player2TankNumber);
+        if (CanControlPlayer(1))
+            B.Move(B.isFire, player2TankNumber);
         B.set_ball();
-        B.Update(B.isFire, hWnd);
+        if (CanControlPlayer(1))
+            B.Update(B.isFire, hWnd);
         B.set_pos(B.left, B.top);
+        if (CanControlPlayer(1))
+            SendPlayerState(1);
         if (B.isFire)
             B.Hit(&player_1turn, &player_2turn, A.left, A.top, &A.HP, &B.HP, player2TankNumber);
     }
@@ -2008,39 +2010,66 @@ void OnMouseMove(HWND hWnd, LPARAM lParam)
 
     if (player1_select)
     {
-        // 먼저 플레이어1용 rect 초기화
-        player1_rect1 = player1_rect2 = player1_rect3 = false;
-
         if (mouseX > 190 && mouseX < 260 && mouseY > 80 && mouseY < 150)
             player1_rect1 = true;
-        else if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150)
+        else {
+            if (!player1_select) return;
+            player1_rect1 = false;
+        }
+
+        if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150)
             player1_rect2 = true;
-        else if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150)
+        else {
+            if (!player1_select) return;
+            player1_rect2 = false;
+        }
+
+        if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150)
             player1_rect3 = true;
+        else {
+            if (!player1_select) return;
+            player1_rect3 = false;
+        }
     }
     else if (player2_select)
     {
-        // 플레이어2용 rect 초기화
-        player2_rect1 = player2_rect2 = player2_rect3 = false;
-
         if (mouseX > 190 && mouseX < 260 && mouseY > 80 && mouseY < 150)
             player2_rect1 = true;
-        else if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150)
+        else {
+            if (!player2_select) return;
+            player2_rect1 = false;
+        }
+
+        if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150)
             player2_rect2 = true;
-        else if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150)
+        else {
+            if (!player2_select) return;
+            player2_rect2 = false;
+        }
+
+        if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150)
             player2_rect3 = true;
+        else {
+            if (!player2_select) return;
+            player2_rect3 = false;
+        }
     }
     else
     {
-        // 맵용 rect 초기화
-        map_rect1 = map_rect2 = map_rect3 = false;
-
         if (mouseX > 0 && mouseX < 200 && mouseY > 230 && mouseY < 440)
             map_rect1 = true;
-        else if (mouseX > 201 && mouseX < 420 && mouseY > 230 && mouseY < 440)
+        else
+            map_rect1 = false;
+
+        if (mouseX > 201 && mouseX < 420 && mouseY > 230 && mouseY < 440)
             map_rect2 = true;
-        else if (mouseX > 421 && mouseX < 610 && mouseY > 230 && mouseY < 440)
+        else
+            map_rect2 = false;
+
+        if (mouseX > 421 && mouseX < 610 && mouseY > 230 && mouseY < 440)
             map_rect3 = true;
+        else
+            map_rect3 = false;
     }
 
     InvalidateRect(hWnd, NULL, FALSE);
@@ -2220,44 +2249,47 @@ void OnKeyDown(HWND hWnd, WPARAM wParam)
 {
     if (wParam == VK_LEFT)
     {
-        if (player_1turn) {
+        if (player_1turn && CanControlPlayer(0)) {
             player1_left = true;
             if (!p1isMoving) p1isMoving = true;
+            SendPlayerState(0);
         }
-        if (player_2turn) {
+        if (player_2turn && CanControlPlayer(1)) {
             player2_left = true;
             if (!p2isMoving) p2isMoving = true;
+            SendPlayerState(1);
         }
     }
     else if (wParam == VK_RIGHT)
     {
-        if (player_1turn) {
+        if (player_1turn && CanControlPlayer(0)) {
             player1_left = false;
             if (!p1isMoving) p1isMoving = true;
+            SendPlayerState(0);
         }
-        if (player_2turn) {
+        if (player_2turn && CanControlPlayer(1)) {
             player2_left = false;
             if (!p2isMoving) p2isMoving = true;
+            SendPlayerState(1);
         }
     }
     else if (wParam == VK_RETURN) {
-        if (player_1turn && A.shoot_mode == 3 && A.HP < 100)
+        if (player_1turn && CanControlPlayer(0) && A.shoot_mode == 3 && A.HP < 100)
             AitemFix = true;
-        else if (player_2turn && B.shoot_mode == 3 && B.HP < 100)
+        else if (player_2turn && CanControlPlayer(1) && B.shoot_mode == 3 && B.HP < 100)
             BitemFix = true;
     }
 
-    if (player_1turn) {
+    if (player_1turn && CanControlPlayer(0)) {
         A.shootmode();
         A.Angle(A.isFire);
+        SendPlayerState(0);
     }
-    else if (player_2turn) {
+    else if (player_2turn && CanControlPlayer(1)) {
         B.shootmode();
         B.Angle(B.isFire);
+        SendPlayerState(1);
     }
 
     InvalidateRect(hWnd, NULL, FALSE);
 }
-
-
-

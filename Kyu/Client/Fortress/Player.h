@@ -1,6 +1,12 @@
 #pragma once
+
+#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
-#define _WINSOCKAPI_ 
+#endif
+#ifndef _WINSOCKAPI_
+#define _WINSOCKAPI_
+#endif
+
 #include <Windows.h>
 #include <math.h>
 
@@ -132,6 +138,5 @@ public:
     void shoot_2(bool* player_1turn, bool* player_2turn,
         double* ball_x, double* ball_y);
 
-    void OnSpaceUp();
-    int myPlayerId;
+    void OnSpaceUp(int playerId);
 };
