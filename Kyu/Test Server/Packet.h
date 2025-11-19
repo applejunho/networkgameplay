@@ -1,19 +1,20 @@
 #pragma once
-#pragma pack(push, 1)
+#include <stdint.h>   // BYTE 정의 대신 사용
 
-enum PACKET_TYPE {
+enum PACKET_TYPE : uint8_t
+{
     PKT_FIRE = 1,
-    // 나중에 TERRAIN_UPDATE, WIND_UPDATE 등 추가
 };
 
-struct PKT_FIRE {
-    BYTE type;          // PKT_FIRE
-    int  playerId;      // 1 or 2
+#pragma pack(push, 1)
+struct PKT_FIRE
+{
+    uint8_t type;
+    int playerId;
     float startX;
     float startY;
     float angle;
     float power;
-    int   shoot_mode;   // 0,1,2,3 ...
+    int shoot_mode;
 };
-
 #pragma pack(pop)

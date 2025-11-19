@@ -138,11 +138,15 @@
     </ClCompile>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ClientNet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="NetCommon.h" />
+    <ClInclude Include="Packet.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="ClientNet.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Fortress.rc" />

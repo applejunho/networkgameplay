@@ -1,5 +1,6 @@
 #include "Player.h"
-
+#include "Packet.h"
+#include "ClientNet.h"
 // ========================== Player ===========================
 
 Player::Player()
@@ -563,23 +564,20 @@ void Fire::shootmode()
     }
 }
 
-
 // 발사 시 패킷 호출
 void Fire::OnSpaceUp()
 {
-    // 발사 가능할 때만
     isFire = true;
-    set_ball();   // x,y 초기화
-    // 기존 로직 유지
+    set_ball();
 
     PKT_FIRE pkt{};
-    pkt.type = PKT_FIRE;
-    pkt.playerId = myPlayerId; // 1 or 2
+    pkt.type = PKT_FIRE_TYPE;
+    pkt.playerId = myPlayerId;
     pkt.startX = left;
     pkt.startY = top;
     pkt.angle = angle;
     pkt.power = power;
     pkt.shoot_mode = shoot_mode;
 
-    SendPacket((char*)&pkt, sizeof(pkt)); // 클라 → 서버
+    SendPacket((char*)&pkt, sizeof(pkt));
 }

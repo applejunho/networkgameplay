@@ -1,9 +1,14 @@
 ﻿// main.cpp
+#define WIN32_LEAN_AND_MEAN
+#define _WINSOCKAPI_ 
+
 #include <windows.h>
 #include <tchar.h>
 #include "resource.h"
 #include "Player.h"
 #include "Game.h"
+#include "Packet.h"
+#include "ClientNet.h"
 
 #pragma comment(lib, "Msimg32.lib")
 
@@ -15,6 +20,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow)
 {
+    if (!InitNetwork("127.0.0.1", 9000)) {
+        MessageBox(NULL, L"서버 접속 실패", L"Error", MB_OK);
+    }
     HWND hWnd;
     MSG Message;
     WNDCLASSEX WndClass;

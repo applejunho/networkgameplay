@@ -1,5 +1,8 @@
 // Game.h
 #pragma once
+#define WIN32_LEAN_AND_MEAN
+#define _WINSOCKAPI_ 
+
 #include <windows.h>
 #include "resource.h"
 #include "Player.h"
