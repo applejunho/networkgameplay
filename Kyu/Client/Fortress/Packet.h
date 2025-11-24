@@ -70,4 +70,21 @@ struct PKT_STATE
     PlayerStateData players[MAX_PLAYER];
 };
 
+enum PACKET_TYPE : BYTE {
+    PKT_TYPE_JOIN = 1,
+    PKT_TYPE_MOVE = 2,
+    PKT_TYPE_FIRE = 3,
+    PKT_TYPE_STATE = 4,
+    PKT_TYPE_TERRAIN_DELTA = 5,   // 지형 패킷 추가
+};
+
+#pragma pack(push,1)
+struct PKT_TERRAIN_DELTA {
+    BYTE type;        // PKT_TYPE_TERRAIN_DELTA
+    int  x;           // 충돌/파괴 중심
+    int  y;
+    int  radius;
+    int  shoot_mode;
+};
+
 #pragma pack(pop)
