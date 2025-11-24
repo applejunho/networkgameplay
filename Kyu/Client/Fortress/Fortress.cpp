@@ -10,6 +10,8 @@
 #include "Packet.h"
 #include "ClientNet.h"
 
+HWND g_hWnd = nullptr;
+
 #pragma comment(lib, "Msimg32.lib")
 
 HINSTANCE g_hInst;

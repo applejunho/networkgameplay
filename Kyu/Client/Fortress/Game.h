@@ -7,6 +7,7 @@
 #include <windows.h>
 #include "resource.h"
 #include "Player.h"
+#include "Packet.h"
 
 extern int xFPos[12];
 extern int yFPos[12];
@@ -175,3 +176,8 @@ void OnLButtonDown(HWND hWnd, LPARAM lParam);
 void OnRButtonDown(HWND hWnd, LPARAM lParam);
 void OnTimer(HWND hWnd, WPARAM wParam);
 void OnKeyDown(HWND hWnd, WPARAM wParam);
+
+void ApplyTerrainDelta(const PKT_TERRAIN_DELTA& pkt);
+
+extern HWND g_hWnd;
+extern HBITMAP g_hTerrainBitmap; // 필요하면 지형 전역 비트맵도 extern 선언

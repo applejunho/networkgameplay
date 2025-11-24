@@ -12,6 +12,7 @@ enum PACKET_TYPE : BYTE
     PKT_TYPE_MOVE = 2,
     PKT_TYPE_FIRE = 3,
     PKT_TYPE_STATE = 4,
+    PKT_TYPE_TERRAIN_DELTA = 5,   // 추가
 };
 
 // ---- Player replication flags ----
@@ -68,6 +69,15 @@ struct PKT_STATE
     BYTE type;
     int  playerCount;
     PlayerStateData players[MAX_PLAYER];
+};
+
+#pragma pack(push,1)
+struct PKT_TERRAIN_DELTA {
+    BYTE type;        // PKT_TYPE_TERRAIN_DELTA
+    int  x;           // 충돌/파괴 중심
+    int  y;
+    int  radius;      
+    int  shoot_mode;  
 };
 
 #pragma pack(pop)

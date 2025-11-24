@@ -152,6 +152,12 @@ DWORD WINAPI ClientThread(LPVOID arg)
             memcpy(&pkt, buf, sizeof(PKT_FIRE));
             BroadcastPacket((char*)&pkt, sizeof(pkt), INVALID_SOCKET);
         }
+        else if (type == PKT_TYPE_TERRAIN_DELTA && recvlen >= sizeof(PKT_TERRAIN_DELTA))
+        {
+            PKT_TERRAIN_DELTA pkt{};
+            memcpy(&pkt, buf, sizeof(pkt));
+            BroadcastPacket((char*)&pkt, sizeof(pkt), INVALID_SOCKET);
+        }
         else
         {
             printf("Unknown packet type=%d len=%d\n", type, recvlen);

@@ -3,15 +3,23 @@
 #define _WINSOCKAPI_
 #include <windows.h>
 
+
 #define MAX_PLAYER 3
 
 // ---- Packet types ----
+struct PKT_HEADER
+{
+    BYTE  type;   // 패킷 타입 (예: PKT_TYPE_MOVE)
+    WORD  size;   // 패킷 전체 크기
+};
+
 enum PACKET_TYPE : BYTE
 {
     PKT_JOIN = 1,
     PKT_MOVE = 2,
     PKT_FIRE = 3,
     PKT_STATE = 4,
+    PKT_TYPE_TERRAIN_DELTA = 5,
 };
 
 // ---- Player replication flags ----
@@ -70,4 +78,12 @@ struct PKT_STATE
     PlayerStateData players[MAX_PLAYER];
 };
 
+struct PKT_TERRAIN_DELTA 
+{
+    BYTE type;        // PKT_TYPE_TERRAIN_DELTA
+    int  x;           // 충돌/파괴 중심
+    int  y;
+    int  radius;
+    int  shoot_mode;
+};
 #pragma pack(pop)
