@@ -477,7 +477,6 @@ void Draw_tank()
                 GdiTransparentBlt(hBackBuffer, A.left - 36, A.top, 56, 25, MemDC, 0, 0, 56, 25, RGB(255, 0, 255));
             }
             break;
-
         }
     }
 
@@ -603,6 +602,7 @@ void Draw_tank()
                 GdiTransparentBlt(hBackBuffer, B.left, B.top - 17, 47, 37, MemDC, 0, 0, 47, 37, RGB(255, 0, 255));
             }
             else if (tank3FireAni == 1) {
+
                 GdiTransparentBlt(hBackBuffer, B.left, B.top - 22, 52, 42, MemDC, 0, 0, 52, 42, RGB(255, 0, 255));
             }
             else if (tank3FireAni == 2) {
@@ -669,69 +669,85 @@ void Draw_tank()
             break;
 
         case 3: //3번 탱크 무빙 애니메이션
+            SelectObject(MemDC, tank3_moving_left[tank23MovingAni]);
             if (tank23MovingAni == 0) {
-                SelectObject(MemDC, tank3_moving_left[tank23MovingAni]);
                 GdiTransparentBlt(hBackBuffer, B.left, B.top, 49, 25, MemDC, 0, 0, 49, 25, RGB(255, 0, 255));
             }
             else if (tank23MovingAni == 1) {
-                SelectObject(MemDC, tank3_moving_left[tank23MovingAni]);
+
                 GdiTransparentBlt(hBackBuffer, B.left, B.top, 58, 24, MemDC, 0, 0, 58, 24, RGB(255, 0, 255));
             }
             else if (tank23MovingAni == 2) {
-                SelectObject(MemDC, tank3_moving_left[tank23MovingAni]);
+
                 GdiTransparentBlt(hBackBuffer, B.left, B.top, 61, 25, MemDC, 0, 0, 61, 25, RGB(255, 0, 255));
             }
             else if (tank23MovingAni == 3) {
-                SelectObject(MemDC, tank3_moving_left[tank23MovingAni]);
+
                 GdiTransparentBlt(hBackBuffer, B.left, B.top, 56, 25, MemDC, 0, 0, 56, 25, RGB(255, 0, 255));
             }
             break;
         }
     }
-    else if (!player2_left && !p2isMoving) {
-        switch (player2TankNumber) {
-        case 1: //1번탱크 오른쪽 idle
-            SelectObject(MemDC, tank1_idle_right);
-            GdiTransparentBlt(hBackBuffer, B.left, B.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
+    else if (!isHited) {
+        switch (player1TankNumber) {
+        case 1:
+            SelectObject(MemDC, tank1_hited_left);
+            GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
             break;
-        case 2: //2번탱크 오른쪽 idle
-            SelectObject(MemDC, tank2_idle_right);
-            GdiTransparentBlt(hBackBuffer, B.left, B.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
+        case 2:
+            SelectObject(MemDC, tank2_hited_left);
+            GdiTransparentBlt(hBackBuffer, A.left, A.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
             break;
-        case 3: //3번탱크 오른쪽 idle
-            SelectObject(MemDC, tank3_idle_right);
-            GdiTransparentBlt(hBackBuffer, B.left, B.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
+        case 3:
+            SelectObject(MemDC, tank3_hited_left);
+            GdiTransparentBlt(hBackBuffer, A.left, A.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
             break;
         }
     }
-    else if (!player2_left && p2isMoving && player_2turn) {
-        switch (player2TankNumber) {
+    else if (!player1_left && !p1isMoving) {
+        switch (player1TankNumber) {
+        case 1: //1번탱크 오른쪽 idle
+            SelectObject(MemDC, tank1_idle_right);
+            GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
+            break;
+        case 2: //2번탱크 오른쪽 idle
+            SelectObject(MemDC, tank2_idle_right);
+            GdiTransparentBlt(hBackBuffer, A.left, A.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
+            break;
+        case 3: //3번탱크 오른쪽 idle
+            SelectObject(MemDC, tank3_idle_right);
+            GdiTransparentBlt(hBackBuffer, A.left, A.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
+            break;
+        }
+    }
+    else if (!player1_left && p1isMoving && player_1turn) {
+        switch (player1TankNumber) {
         case 1: //1번 탱크 무빙 애니메이션
             SelectObject(MemDC, tank1_moving_right[tank1MovingAni]);
             if (tank1MovingAni == 0 || tank1MovingAni == 4) {
-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 36, 29, MemDC, 0, 0, 36, 29, RGB(255, 0, 255));
+                GdiTransparentBlt(hBackBuffer, A.left, A.top, 36, 29, MemDC, 0, 0, 36, 29, RGB(255, 0, 255));
             }
             else {
 
-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 37, 30, MemDC, 0, 0, 37, 30, RGB(255, 0, 255));
+                GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 30, MemDC, 0, 0, 37, 30, RGB(255, 0, 255));
             }
             break;
         case 2: //2번 탱크 무빙 애니메이션
             SelectObject(MemDC, tank2_moving_right[tank23MovingAni]);
             if (tank23MovingAni == 0) {
-                GdiTransparentBlt(hBackBuffer, B.left - 32, B.top, 52, 21, MemDC, 0, 0, 52, 21, RGB(255, 0, 255));
+                GdiTransparentBlt(hBackBuffer, A.left - 32, A.top, 52, 21, MemDC, 0, 0, 52, 21, RGB(255, 0, 255));
             }
             else if (tank23MovingAni == 1) {
 
-                GdiTransparentBlt(hBackBuffer, B.left - 53, B.top, 73, 22, MemDC, 0, 0, 73, 22, RGB(255, 0, 255));
+                GdiTransparentBlt(hBackBuffer, A.left - 53, A.top, 73, 22, MemDC, 0, 0, 73, 22, RGB(255, 0, 255));
             }
             else if (tank23MovingAni == 2) {
 
-                GdiTransparentBlt(hBackBuffer, B.left - 64, B.top, 84, 32, MemDC, 0, 0, 84, 32, RGB(255, 0, 255));
+                GdiTransparentBlt(hBackBuffer, A.left - 64, A.top, 84, 32, MemDC, 0, 0, 84, 32, RGB(255, 0, 255));
             }
             else if (tank23MovingAni == 3) {
 
-                GdiTransparentBlt(hBackBuffer, B.left - 78, B.top, 98, 27, MemDC, 0, 0, 98, 27, RGB(255, 0, 255));
+                GdiTransparentBlt(hBackBuffer, A.left - 78, A.top, 98, 27, MemDC, 0, 0, 98, 27, RGB(255, 0, 255));
             }
             break;
 
@@ -2292,4 +2308,30 @@ void OnKeyDown(HWND hWnd, WPARAM wParam)
     }
 
     InvalidateRect(hWnd, NULL, FALSE);
+}
+
+void ApplyTerrainDelta(const PKT_TERRAIN_DELTA& pkt)
+{
+    // 서버가 준 좌표 기준으로 지형 파괴
+    int cx = pkt.x;
+    int cy = pkt.y;
+    int r = pkt.radius;
+
+    HDC hdcMem = CreateCompatibleDC(nullptr);
+    HBITMAP oldBmp = (HBITMAP)SelectObject(hdcMem, hBitmap);
+
+    for (int i = -r; i <= r; ++i)
+    {
+        for (int j = -r; j <= r; ++j)
+        {
+            if (i * i + j * j <= r * r)
+                SetPixel(hdcMem, cx + i, cy + j, TARGET_COLOR);
+        }
+    }
+
+    SelectObject(hdcMem, oldBmp);
+    DeleteDC(hdcMem);
+
+    // 지형 바뀌었으니 화면 갱신
+    InvalidateRect(g_hWnd, nullptr, FALSE); // g_hWnd 전역이면
 }

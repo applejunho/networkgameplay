@@ -147,6 +147,16 @@ DWORD WINAPI RecvThread(LPVOID)
                     ApplyFirePacket(pkt);
             }
             break;
+        case PKT_TYPE_TERRAIN_DELTA:
+            if (recvlen >= (int)sizeof(PKT_TERRAIN_DELTA))
+            {
+                PKT_TERRAIN_DELTA pkt{};
+                memcpy(&pkt, buf, sizeof(PKT_TERRAIN_DELTA));
+
+                // ★ playerId 비교 X — 지형은 모든 클라 동기화
+                ApplyTerrainDelta(pkt);
+            }
+            break;
 
         default:
             break;
@@ -286,4 +296,16 @@ void CloseNetwork()
     WSACleanup();
     g_isConnected = false;
     g_myPlayerId = -1;
+}
+
+// 지형 파괴 정보 서버 전송 함수
+void SendTerrainDelta(int x, int y, int radius, int shootMode)
+{
+    if (!IsNetworkConnected()) return;
+    PKT_TERRAIN_DELTA pkt{};
+    pkt.type = PKT_TYPE_TERRAIN_DELTA;
+    pkt.x = x; pkt.y = y;
+    pkt.radius = radius;
+    pkt.shoot_mode = shootMode;
+    SendPacket((char*)&pkt, sizeof(pkt));
 }
