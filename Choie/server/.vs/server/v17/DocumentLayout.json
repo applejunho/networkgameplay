@@ -3,6 +3,9 @@
   "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\user\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\ClientNet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{ECD74D1F-360C-476B-9D76-B21D8EDE6390}|server\\server.vcxproj|C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server\\server\\server.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{ECD74D1F-360C-476B-9D76-B21D8EDE6390}|server\\server.vcxproj|solutionrelative:server\\server.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
@@ -19,15 +22,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ClientNet.cpp",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\ClientNet.cpp",
+              "RelativeDocumentMoniker": "..\\..\\Kyu\\Client\\Fortress\\ClientNet.cpp",
+              "ToolTip": "C:\\Users\\user\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\ClientNet.cpp",
+              "RelativeToolTip": "..\\..\\Kyu\\Client\\Fortress\\ClientNet.cpp",
+              "ViewState": "AgIAAJoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-11-24T17:48:55.525Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "server.cpp",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server\\server\\server.cpp",
               "RelativeDocumentMoniker": "server\\server.cpp",
               "ToolTip": "C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server\\server\\server.cpp",
               "RelativeToolTip": "server\\server.cpp",
-              "ViewState": "AgIAAAkCAAAAAAAAAADwvzICAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAADICAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-24T17:31:37.901Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T17:31:37.901Z"
             }
           ]
         }
