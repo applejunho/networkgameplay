@@ -86,4 +86,5 @@ struct PKT_TERRAIN_DELTA
     int  radius;
     int  shoot_mode;
 };
+
 #pragma pack(pop)
