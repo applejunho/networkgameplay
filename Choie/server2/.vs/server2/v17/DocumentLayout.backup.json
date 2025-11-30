@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{96B72C1B-6540-49BC-B9A6-BEAD51D0EA2A}|server2\\server2.vcxproj|C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server2\\server2\\Gameserver.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{96B72C1B-6540-49BC-B9A6-BEAD51D0EA2A}|server2\\server2.vcxproj|solutionrelative:server2\\Gameserver.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{96B72C1B-6540-49BC-B9A6-BEAD51D0EA2A}|server2\\server2.vcxproj|C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server2\\server2\\Gameserver.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{96B72C1B-6540-49BC-B9A6-BEAD51D0EA2A}|server2\\server2.vcxproj|solutionrelative:server2\\Gameserver.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{96B72C1B-6540-49BC-B9A6-BEAD51D0EA2A}|server2\\server2.vcxproj|C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server2\\server2\\Packet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{96B72C1B-6540-49BC-B9A6-BEAD51D0EA2A}|server2\\server2.vcxproj|solutionrelative:server2\\Packet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Gameserver.cpp",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server2\\server2\\Gameserver.cpp",
+              "RelativeDocumentMoniker": "server2\\Gameserver.cpp",
+              "ToolTip": "C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server2\\server2\\Gameserver.cpp",
+              "RelativeToolTip": "server2\\Gameserver.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGMBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-11-30T20:25:31.675Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Gameserver.h",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server2\\server2\\Gameserver.h",
+              "RelativeDocumentMoniker": "server2\\Gameserver.h",
+              "ToolTip": "C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server2\\server2\\Gameserver.h",
+              "RelativeToolTip": "server2\\Gameserver.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-30T20:24:45.021Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Packet.h",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server2\\server2\\Packet.h",
+              "RelativeDocumentMoniker": "server2\\Packet.h",
+              "ToolTip": "C:\\Users\\user\\Desktop\\git\\networkgameplay\\Choie\\server2\\server2\\Packet.h",
+              "RelativeToolTip": "server2\\Packet.h",
+              "ViewState": "AgIAADgAAAAAAAAAAAAswFsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-30T20:24:34.847Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
