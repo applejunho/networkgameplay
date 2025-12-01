@@ -3,3 +3,4 @@ C:\Users\sinoh\Desktop\공부\윈플\텀 프로젝트\윈도우 프로그래밍 
 C:\Users\sinoh\Desktop\git\networkgameplay\Client\Fortress\x64\Debug\Fortress.exe
 C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\x64\Debug\Fortress.exe
 C:\Users\user\Desktop\git\networkgameplay\Kyu\Client\Fortress\x64\Debug\Fortress.exe
+C:\Users\kimju\Desktop\git\networkgameplay\kim\Client\Fortress\x64\Debug\Fortress.exe
