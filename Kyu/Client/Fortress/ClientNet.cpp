@@ -15,7 +15,7 @@
 SOCKET g_sock = INVALID_SOCKET;
 static HANDLE g_recvThread = NULL;
 static bool   g_isConnected = false;
-static int    g_myPlayerId = -1;
+int    g_myPlayerId = -1;
 
 extern Fire A;
 extern Fire B;
@@ -28,6 +28,7 @@ extern bool player_2turn;
 extern bool isFired;
 extern int  player1TankNumber;
 extern int  player2TankNumber;
+
 
 static Fire* GetPlayerById(int playerId)
 {
@@ -223,9 +224,21 @@ int GetMyPlayerId()
 
 bool CanControlPlayer(int playerIndex)
 {
+    // 오프라인(서버 연결X)일 때는 그냥 자유롭게 조작
     if (!g_isConnected)
         return true;
-    return g_myPlayerId == playerIndex;
+
+    // 내 ID가 아닌 탱크는 조작 불가
+    if (g_myPlayerId != playerIndex)
+        return false;
+
+    // 내 ID는 맞는데, 현재 턴인지 확인
+    if (playerIndex == 0)
+        return player_1turn;
+    else if (playerIndex == 1)
+        return player_2turn;
+
+    return false;
 }
 
 void SendFirePacket(int playerIndex, float startX, float startY, float angle, float power, int shootMode)
@@ -263,18 +276,15 @@ void SendPlayerState(int playerIndex)
     state.tankType = (playerIndex == 0) ? player1TankNumber : player2TankNumber;
 
     state.flags = PLAYER_FLAG_VALID;
+
     const bool facingLeft = (playerIndex == 0) ? player1_left : player2_left;
     const bool moving = (playerIndex == 0) ? p1isMoving : p2isMoving;
-    const bool myTurn = (playerIndex == 0) ? player_1turn : player_2turn;
-
     if (facingLeft)
         state.flags |= PLAYER_FLAG_FACING_LEFT;
     if (moving)
         state.flags |= PLAYER_FLAG_MOVING;
     if (isFired)
         state.flags |= PLAYER_FLAG_FIRING_ANIM;
-    if (myTurn)
-        state.flags |= PLAYER_FLAG_MY_TURN;
     if (player->isFire)
         state.flags |= PLAYER_FLAG_PROJECTILE_FIRED;
 
@@ -308,4 +318,16 @@ void SendTerrainDelta(int x, int y, int radius, int shootMode)
     pkt.radius = radius;
     pkt.shoot_mode = shootMode;
     SendPacket((char*)&pkt, sizeof(pkt));
+}
+
+void SendTurnEndPacket()
+{
+    if (!g_isConnected)
+        return;
+
+    PKT_TURN_END pkt{};
+    pkt.type = PKT_TYPE_TURN_END;
+    pkt.playerId = g_myPlayerId;
+
+    SendPacket(reinterpret_cast<char*>(&pkt), sizeof(pkt));
 }

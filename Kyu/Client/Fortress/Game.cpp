@@ -1,11 +1,11 @@
-// Game.cpp
+
+// PCH 경고(E2923) 해결: #pragma comment(lib, ...)는 파일의 맨 위(헤더 포함 전)에 위치해야 함
+#pragma comment(lib, "Msimg32.lib")
+
 #include <tchar.h>
 #include <random>
 #include "Game.h"
 #include "ClientNet.h"
-
-#pragma comment(lib, "Msimg32.lib")
-
 // ===== 전역 변수 실제 정의 =====
 Fire A;
 Fire B;
@@ -20,6 +20,7 @@ extern bool map_rect1, map_rect2, map_rect3;
 extern int camera_x, camera_y;
 extern int player1TankNumber, player2TankNumber;
 extern bool player1_select, player2_select;
+extern int g_myPlayerId;
 
 extern int camera_x, camera_y;
 extern HBITMAP hBitmap;
@@ -944,6 +945,7 @@ void player_UI()
 
 void physics(HWND hWnd)
 {
+    // --- 탱크 A 중력/충돌 ---
     if (IsShapeCollidingWithBitmap(hBitmap, A.left, A.top, 5, 5))
     {
         A.top += 1;
@@ -956,6 +958,8 @@ void physics(HWND hWnd)
     {
         A.top -= 1;
     }
+
+    // --- 탱크 B 중력/충돌 ---
     if (IsShapeCollidingWithBitmap(hBitmap, B.left, B.top, 5, 5))
     {
         B.top += 1;
@@ -968,7 +972,9 @@ void physics(HWND hWnd)
     {
         B.top -= 1;
     }
-    if (A.isFire == true) //    탄환이 TRUE 일때 충돌 판정
+
+    // --- 포탄 A ---
+    if (A.isFire == true)
     {
         if (y > 0 && x > 0 && x < 1600 && y < 800)
         {
@@ -977,37 +983,40 @@ void physics(HWND hWnd)
                 isShellCollision = true;
                 SetTimer(hWnd, 9, 60, NULL);
                 SetPixelColor(hBitmap, x + 2.5, y + 2.5, TARGET_COLOR);
-                if (player_1turn == true)
-                {
-                    player_2turn = true;
-                    player_1turn = false;
-                }
-                else if (player_2turn == true)
-                {
-                    player_1turn = true;
-                    player_2turn = false;
-                }
-                if (A.shoot_mode == 2 && A.shoot2 == true) //   탄환 모드가 2일 때 포지션 set
+
+                // (선택) 지형 파괴 서버 동기화용
+                // SendTerrainDelta((int)(x + 2.5f), (int)(y + 2.5f), 30, A.shoot_mode);
+
+                // ★ 내가 A(0번 플레이어)라면 턴 종료 패킷 전송
+                if (g_myPlayerId == 0)
+                    SendTurnEndPacket();
+
+                // 탄 모드 처리
+                if (A.shoot_mode == 2 && A.shoot2 == true)
                 {
                     A.set_pos(x - 10, y);
                     A.shoot_mode = 0;
                     A.shoot2 = false;
                 }
-                if (A.shoot_mode == 1 && A.shoot1 == true) //   탄환 모드가 1일 때 충돌시 탄환의 충전횟수 없애고 탄환 모드 기본으로 설정
+                if (A.shoot_mode == 1 && A.shoot1 == true)
                 {
                     A.shoot1 = false;
                     A.shoot_mode = 0;
                 }
+
+                // ★ 게이지/스페이스 상태 전부 초기화
                 A.ResetGauge();
                 B.ResetGauge();
-                B.isSpaceUp = false;
-                B.isSpaceDown = false;
-                B.isSpacePress = false;
+
+                // 포탄 위치 초기화 (필요하다면 둘 다)
                 A.set_ball();
+                // B.set_ball();  // 필요 없으면 생략
+
                 make_random();
             }
         }
     }
+    // --- 포탄 B ---
     else if (B.isFire == true)
     {
         if (y > 0 && x > 0 && x < 1600 && y < 800)
@@ -1017,16 +1026,14 @@ void physics(HWND hWnd)
                 isShellCollision = true;
                 SetTimer(hWnd, 9, 60, NULL);
                 SetPixelColor(hBitmap, x + 2.5, y + 2.5, TARGET_COLOR);
-                if (player_1turn == true)
-                {
-                    player_2turn = true;
-                    player_1turn = false;
-                }
-                else if (player_2turn == true)
-                {
-                    player_1turn = true;
-                    player_2turn = false;
-                }
+
+                // (선택) 지형 파괴 서버 동기화용
+                // SendTerrainDelta((int)(x + 2.5f), (int)(y + 2.5f), 30, B.shoot_mode);
+
+                // ★ 내가 B(1번 플레이어)라면 턴 종료 패킷 전송
+                if (g_myPlayerId == 1)
+                    SendTurnEndPacket();
+
                 if (B.shoot_mode == 2 && B.shoot2 == true)
                 {
                     B.set_pos(x - 10, y);
@@ -1038,18 +1045,20 @@ void physics(HWND hWnd)
                     B.shoot1 = false;
                     B.shoot_mode = 0;
                 }
+
                 A.ResetGauge();
                 B.ResetGauge();
-                A.isSpaceUp = false;
-                A.isSpaceDown = false;
-                A.isSpacePress = false;
-                
+
+                // 포탄 위치 초기화
                 B.set_ball();
+                // A.set_ball();  // 필요 시
+
                 make_random();
             }
         }
     }
 }
+
 
 void physics_Action(HWND hWnd)
 {

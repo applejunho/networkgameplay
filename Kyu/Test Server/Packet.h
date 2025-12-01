@@ -3,7 +3,7 @@
 #define _WINSOCKAPI_
 #include <windows.h>
 
-#define MAX_PLAYER 3
+#define MAX_PLAYER 2
 
 // ---- Packet types ----
 enum PACKET_TYPE : BYTE
@@ -12,7 +12,8 @@ enum PACKET_TYPE : BYTE
     PKT_TYPE_MOVE = 2,
     PKT_TYPE_FIRE = 3,
     PKT_TYPE_STATE = 4,
-    PKT_TYPE_TERRAIN_DELTA = 5,   // 추가
+    PKT_TYPE_TERRAIN_DELTA = 5,
+    PKT_TYPE_TURN_END = 6, // 추가
 };
 
 // ---- Player replication flags ----
@@ -71,7 +72,12 @@ struct PKT_STATE
     PlayerStateData players[MAX_PLAYER];
 };
 
-#pragma pack(push,1)
+struct PKT_TURN_END
+{
+    BYTE type;      // PKT_TYPE_TURN_END
+    int  playerId;  // 턴을 끝내는 플레이어
+};
+
 struct PKT_TERRAIN_DELTA {
     BYTE type;        // PKT_TYPE_TERRAIN_DELTA
     int  x;           // 충돌/파괴 중심

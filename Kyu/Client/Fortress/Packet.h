@@ -4,7 +4,7 @@
 #include <windows.h>
 
 
-#define MAX_PLAYER 3
+#define MAX_PLAYER 2
 
 // ---- Packet types ----
 struct PKT_HEADER
@@ -20,6 +20,7 @@ enum PACKET_TYPE : BYTE
     PKT_FIRE = 3,
     PKT_STATE = 4,
     PKT_TYPE_TERRAIN_DELTA = 5,
+    PKT_TYPE_TURN_END = 6,
 };
 
 // ---- Player replication flags ----
@@ -76,6 +77,12 @@ struct PKT_STATE
     BYTE type;
     int  playerCount;
     PlayerStateData players[MAX_PLAYER];
+};
+
+struct PKT_TURN_END
+{
+    BYTE type;      // PKT_TYPE_TURN_END
+    int  playerId;  // 턴을 끝내는 플레이어
 };
 
 struct PKT_TERRAIN_DELTA 

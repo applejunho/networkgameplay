@@ -21,6 +21,7 @@ struct ClientSlot
 static ClientSlot g_clients[MAX_CLIENT];
 static PlayerStateData g_playerStates[MAX_PLAYER] = {};
 static std::mutex g_stateLock;
+static int g_currentTurnPlayerId = 0;
 
 DWORD WINAPI ClientThread(LPVOID arg);
 void BroadcastPacket(const char* buf, int len, SOCKET exceptSock = INVALID_SOCKET);
@@ -102,7 +103,7 @@ int main()
         join.playerId = slot;
         send(client_sock, (char*)&join, sizeof(join), 0);
 
-        printf("클라이언트 접속! slot=%d sock=%d\n", slot, (int)client_sock);
+        printf("클라이언트 접속! slot=%d sock=%d playerId=%d\n", slot, (int)client_sock, join.playerId);
 
         HANDLE hThread = CreateThread(NULL, 0, ClientThread, (LPVOID)(intptr_t)slot, 0, NULL);
         if (hThread)
@@ -143,6 +144,9 @@ DWORD WINAPI ClientThread(LPVOID arg)
                 std::lock_guard<std::mutex> lock(g_stateLock);
                 g_playerStates[pkt.playerId] = pkt.state;
                 g_playerStates[pkt.playerId].flags |= PLAYER_FLAG_VALID;
+
+                // ★ 클라가 MY_TURN 플래그를 장난쳐도 서버는 무시
+                g_playerStates[pkt.playerId].flags &= ~PLAYER_FLAG_MY_TURN;
             }
             BroadcastState();
         }
@@ -151,12 +155,34 @@ DWORD WINAPI ClientThread(LPVOID arg)
             PKT_FIRE pkt{};
             memcpy(&pkt, buf, sizeof(PKT_FIRE));
             BroadcastPacket((char*)&pkt, sizeof(pkt), INVALID_SOCKET);
+            printf("발사 currentTurn=%d\n", g_currentTurnPlayerId);
         }
         else if (type == PKT_TYPE_TERRAIN_DELTA && recvlen >= sizeof(PKT_TERRAIN_DELTA))
         {
             PKT_TERRAIN_DELTA pkt{};
             memcpy(&pkt, buf, sizeof(pkt));
             BroadcastPacket((char*)&pkt, sizeof(pkt), INVALID_SOCKET);
+            printf("지형파괴 currentTurn=%d\n", g_currentTurnPlayerId);
+        }
+        else if (type == PKT_TYPE_TURN_END && recvlen >= (int)sizeof(PKT_TURN_END))
+        {
+            PKT_TURN_END pkt{};
+            memcpy(&pkt, buf, sizeof(PKT_TURN_END));
+
+            // ★ 지금 턴을 가진 플레이어만 턴을 끝낼 수 있게 안전장치
+            if (pkt.playerId == g_currentTurnPlayerId)
+            {
+                // 2인용이면 0 <-> 1 토글 (MAX_PLAYER 3이면 조금 더 신경 써야 함)
+				if (MAX_PLAYER == 2)
+                    g_currentTurnPlayerId = 1 - g_currentTurnPlayerId;
+                else
+                g_currentTurnPlayerId = (g_currentTurnPlayerId + 1) % MAX_PLAYER;
+
+                printf("턴 변경! currentTurn=%d\n", g_currentTurnPlayerId);
+
+                // 새 턴 정보 브로드캐스트
+                BroadcastState();
+            }
         }
         else
         {
@@ -198,7 +224,14 @@ void BroadcastState()
     {
         std::lock_guard<std::mutex> lock(g_stateLock);
         for (int i = 0; i < MAX_PLAYER; ++i)
+        {
             pkt.players[i] = g_playerStates[i];
+
+            // ★ 클라가 보내온 MY_TURN 비트는 무시하고, 서버가 직접 설정
+            pkt.players[i].flags &= ~PLAYER_FLAG_MY_TURN;  // 턴 비트 제거
+            if (i == g_currentTurnPlayerId)
+                pkt.players[i].flags |= PLAYER_FLAG_MY_TURN; // 현재 턴인 애만 ON
+        }
     }
 
     BroadcastPacket((char*)&pkt, sizeof(pkt));

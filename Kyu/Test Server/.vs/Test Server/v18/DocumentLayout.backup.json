@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{70D20358-6D1A-4CA0-9A30-BEC117865091}|Test Server.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\Packet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{70D20358-6D1A-4CA0-9A30-BEC117865091}|Test Server.vcxproj|solutionrelative:Packet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{70D20358-6D1A-4CA0-9A30-BEC117865091}|Test Server.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{70D20358-6D1A-4CA0-9A30-BEC117865091}|Test Server.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70D20358-6D1A-4CA0-9A30-BEC117865091}|Test Server.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\Packet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{70D20358-6D1A-4CA0-9A30-BEC117865091}|Test Server.vcxproj|solutionrelative:Packet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,26 +26,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Packet.h",
               "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\Packet.h",
               "RelativeDocumentMoniker": "Packet.h",
               "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\Packet.h",
               "RelativeToolTip": "Packet.h",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAAEcAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-11-19T21:23:54.374Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\main.cpp",
-              "RelativeToolTip": "main.cpp",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAAEMAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\main.cpp*",
+              "RelativeToolTip": "main.cpp*",
+              "ViewState": "AgIAAFEAAAAAAAAAAAApwGkAAABhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-19T21:23:47.862Z",
               "EditorCaption": ""
