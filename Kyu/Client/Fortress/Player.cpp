@@ -309,6 +309,22 @@ Fire::Fire()
 {
 }
 
+
+void Fire::ResetGauge()
+{
+    Speed = 0;
+    power = 0;
+    power_now = 0;
+
+    Time = 1;
+    isFire = false;
+    isSpaceUp = false;
+
+    shoot_mode = 0;
+
+    set_ball();
+}
+
 void Fire::set_ball()
 {
     if (!isFire)
@@ -360,13 +376,7 @@ void Fire::Action(double* ball_x, double* ball_y, int tank_mode)
         // 화면 밖으로 나가면 "그 플레이어의 탄만" 리셋
         if (y > 800 || x > 1600 || x < 0)
         {
-            Speed = 0;
-            power = 0;
-            Time = 1;
-            power_now = 0;
-            isFire = false;
-            isSpaceUp = false;
-
+            ResetGauge();
             set_ball();
             return;
         }
@@ -397,13 +407,7 @@ void Fire::Hit(double left, double top,
             *targetHP -= 20;
 
         // 턴 전환 삭제, 탄만 리셋
-        Speed = 0;
-        power = 0;
-        Time = 1;
-        power_now = 0;
-        isFire = false;
-        isSpaceUp = false;
-
+        ResetGauge();
         set_ball();
         return;
     }

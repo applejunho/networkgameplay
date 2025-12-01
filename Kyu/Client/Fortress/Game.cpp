@@ -998,11 +998,11 @@ void physics(HWND hWnd)
                     A.shoot1 = false;
                     A.shoot_mode = 0;
                 }
-                A.Speed = 0;
-                A.power = 0;
-                A.Time = 1;
-                A.power_now = 0;
-                A.isFire = false;  A.isSpaceUp = false;
+                A.ResetGauge();
+                B.ResetGauge();
+                B.isSpaceUp = false;
+                B.isSpaceDown = false;
+                B.isSpacePress = false;
                 A.set_ball();
                 make_random();
             }
@@ -1038,11 +1038,12 @@ void physics(HWND hWnd)
                     B.shoot1 = false;
                     B.shoot_mode = 0;
                 }
-                B.Speed = 0;
-                B.power = 0;
-                B.Time = 1;
-                B.power_now = 0;
-                B.isFire = false;  B.isSpaceUp = false;
+                A.ResetGauge();
+                B.ResetGauge();
+                A.isSpaceUp = false;
+                A.isSpaceDown = false;
+                A.isSpacePress = false;
+                
                 B.set_ball();
                 make_random();
             }

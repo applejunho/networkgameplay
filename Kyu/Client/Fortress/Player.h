@@ -137,4 +137,5 @@ public:
         double* ball_x, double* ball_y);
 
     void OnSpaceUp(int playerId);
+    void ResetGauge();
 };
