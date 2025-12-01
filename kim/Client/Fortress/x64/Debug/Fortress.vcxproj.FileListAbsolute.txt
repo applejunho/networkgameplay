@@ -1,0 +1,5 @@
+C:\Users\qkrdl\Desktop\제출용\Fortress\x64\Debug\Fortress.exe
+C:\Users\sinoh\Desktop\공부\윈플\텀 프로젝트\윈도우 프로그래밍 텀프로젝트 - 포트리스\Fortress\x64\Debug\Fortress.exe
+C:\Users\sinoh\Desktop\git\networkgameplay\Client\Fortress\x64\Debug\Fortress.exe
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\x64\Debug\Fortress.exe
+C:\Users\user\Desktop\git\networkgameplay\Kyu\Client\Fortress\x64\Debug\Fortress.exe
