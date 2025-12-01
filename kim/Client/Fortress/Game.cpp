@@ -6,7 +6,6 @@
 
 #pragma comment(lib, "Msimg32.lib")
 
-
 // ===== 전역 변수 실제 정의 =====
 Fire A;
 Fire B;
@@ -100,6 +99,9 @@ int xFPos[12] = { -20 };
 int yFPos[12] = { -20 };
 
 bool isShellCollision = false;
+
+// 포탄 발사후 이동 잠금
+bool isLocked[2] = { false, false };   // 0=A, 1=B
 
 int randNum = 0;
 
@@ -941,6 +943,8 @@ void player_UI()
         B.Render_PowerGauge(hBackBuffer, camera_x, camera_y);
         B.Render_SpeedGauge(hBackBuffer, camera_x, camera_y);
     }
+
+   
 }
 
 void physics(HWND hWnd)
@@ -1053,36 +1057,34 @@ void physics(HWND hWnd)
 
 void physics_Action(HWND hWnd)
 {
-    if (player_1turn)
-    {
-        A.Action(&player_1turn, &player_2turn, &x, &y, player1TankNumber);
-        A.set_radian();
-        if (CanControlPlayer(0))
-            A.Move(A.isFire, player1TankNumber);
-        A.set_ball();
-        if (CanControlPlayer(0))
-            A.Update(A.isFire, hWnd);
-        A.set_pos(A.left, A.top);
-        if (CanControlPlayer(0))
-            SendPlayerState(0);
-        if (A.isFire)
-            A.Hit(&player_1turn, &player_2turn, B.left, B.top, &A.HP, &B.HP, player1TankNumber);
-    }
-    if (player_2turn)
-    {
-        B.Action(&player_1turn, &player_2turn, &x, &y, player2TankNumber);
-        B.set_radian();
-        if (CanControlPlayer(1))
-            B.Move(B.isFire, player2TankNumber);
-        B.set_ball();
-        if (CanControlPlayer(1))
-            B.Update(B.isFire, hWnd);
-        B.set_pos(B.left, B.top);
-        if (CanControlPlayer(1))
-            SendPlayerState(1);
-        if (B.isFire)
-            B.Hit(&player_1turn, &player_2turn, A.left, A.top, &A.HP, &B.HP, player2TankNumber);
-    }
+    // ★ 플레이어 1 항상 처리
+    A.Action(&player_1turn, &player_2turn, &x, &y, player1TankNumber);
+    A.set_radian();
+    if (CanControlPlayer(0))
+        A.Move(A.isFire, player1TankNumber);
+    A.set_ball();
+    if (CanControlPlayer(0))
+        A.Update(A.isFire, hWnd);
+    A.set_pos(A.left, A.top);
+    if (CanControlPlayer(0))
+        SendPlayerState(0);
+    if (A.isFire)
+        A.Hit(&player_1turn, &player_2turn, B.left, B.top, &A.HP, &B.HP, player1TankNumber);
+
+    // ★ 플레이어 2도 항상 처리
+    B.Action(&player_1turn, &player_2turn, &x, &y, player2TankNumber);
+    B.set_radian();
+    if (CanControlPlayer(1))
+        B.Move(B.isFire, player2TankNumber);
+    B.set_ball();
+    if (CanControlPlayer(1))
+        B.Update(B.isFire, hWnd);
+    B.set_pos(B.left, B.top);
+    if (CanControlPlayer(1))
+        SendPlayerState(1);
+    if (B.isFire)
+        B.Hit(&player_1turn, &player_2turn, A.left, A.top, &A.HP, &B.HP, player2TankNumber);
+    
 }
 
 void camera_turn()

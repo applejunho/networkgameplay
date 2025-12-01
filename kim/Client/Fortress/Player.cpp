@@ -515,6 +515,8 @@ void Fire::shoot_2(bool* player_1turn, bool* player_2turn,
 void Fire::OnSpaceUp(int playerId)
 {
     isSpaceUp = true;
+    isFire = true;      // ★ 이 줄이 없어서 발사가 안 됐던 거
+
     set_ball();
     SendFirePacket(playerId, static_cast<float>(left), static_cast<float>(top),
         static_cast<float>(angle), static_cast<float>(power), shoot_mode);
