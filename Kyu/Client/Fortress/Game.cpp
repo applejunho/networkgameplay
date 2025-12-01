@@ -1052,36 +1052,33 @@ void physics(HWND hWnd)
 
 void physics_Action(HWND hWnd)
 {
-    if (player_1turn)
-    {
-        A.Action(&player_1turn, &player_2turn, &x, &y, player1TankNumber);
-        A.set_radian();
-        if (CanControlPlayer(0))
-            A.Move(A.isFire, player1TankNumber);
-        A.set_ball();
-        if (CanControlPlayer(0))
-            A.Update(A.isFire, hWnd);
-        A.set_pos(A.left, A.top);
-        if (CanControlPlayer(0))
-            SendPlayerState(0);
-        if (A.isFire)
-            A.Hit(&player_1turn, &player_2turn, B.left, B.top, &A.HP, &B.HP, player1TankNumber);
-    }
-    if (player_2turn)
-    {
-        B.Action(&player_1turn, &player_2turn, &x, &y, player2TankNumber);
-        B.set_radian();
-        if (CanControlPlayer(1))
-            B.Move(B.isFire, player2TankNumber);
-        B.set_ball();
-        if (CanControlPlayer(1))
-            B.Update(B.isFire, hWnd);
-        B.set_pos(B.left, B.top);
-        if (CanControlPlayer(1))
-            SendPlayerState(1);
-        if (B.isFire)
-            B.Hit(&player_1turn, &player_2turn, A.left, A.top, &A.HP, &B.HP, player2TankNumber);
-    }
+    // --- 플레이어 A 처리 (항상 업데이트, 실시간) ---
+    A.Action(&x, &y, player1TankNumber);          // ★ 인자 3개
+    A.set_radian();
+    if (CanControlPlayer(0))
+        A.Move(A.isFire, player1TankNumber);
+    A.set_ball();
+    if (CanControlPlayer(0))
+        A.Update(A.isFire, hWnd);
+    A.set_pos(A.left, A.top);
+    if (CanControlPlayer(0))
+        SendPlayerState(0);
+    if (A.isFire)
+        A.Hit(B.left, B.top, &B.HP, player1TankNumber);  // ★ 타겟 HP만 넘김
+
+    // --- 플레이어 B 처리 ---
+    B.Action(&x, &y, player2TankNumber);
+    B.set_radian();
+    if (CanControlPlayer(1))
+        B.Move(B.isFire, player2TankNumber);
+    B.set_ball();
+    if (CanControlPlayer(1))
+        B.Update(B.isFire, hWnd);
+    B.set_pos(B.left, B.top);
+    if (CanControlPlayer(1))
+        SendPlayerState(1);
+    if (B.isFire)
+        B.Hit(A.left, A.top, &A.HP, player2TankNumber);
 }
 
 void camera_turn()

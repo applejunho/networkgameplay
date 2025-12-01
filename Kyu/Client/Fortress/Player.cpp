@@ -33,13 +33,13 @@ void Player::set_pos(int p1_left, int p1_top)
     right = left + 20;
 }
 
-void Player::Space_Down()
-{
-    if (GetAsyncKeyState(VK_SPACE))
-    {
-        isSpaceUp = TRUE;
-    }
-}
+//void Player::Space_Down()
+//{
+//    if (GetAsyncKeyState(VK_SPACE))
+//    {
+//        isSpaceUp = TRUE;
+//    }
+//}
 
 void Player::Move(bool isFire, int tank_mode)
 {
@@ -321,13 +321,14 @@ void Fire::set_ball()
 
 void Fire::Render_Fire(HDC hdc)
 {
-    // 발사 조건만 처리 (실제 그리기는 외부에서)
     if (isSpaceUp)
+    {
         isFire = true;
+        isSpaceUp = false;   // ★ 트리거는 한 번 쓰고 바로 끈다
+    }
 }
 
-void Fire::Action(bool* player_1turn, bool* player_2turn,
-    double* ball_x, double* ball_y, int tank_mode)
+void Fire::Action(double* ball_x, double* ball_y, int tank_mode)
 {
     if (!isFire)
     {
@@ -341,17 +342,11 @@ void Fire::Action(bool* player_1turn, bool* player_2turn,
 
         // 탱크 타입에 따른 중력 값
         if (tank_mode == 1)
-        {
             gravity = 10;
-        }
         else if (tank_mode == 2)
-        {
             gravity = 7;
-        }
         else if (tank_mode == 3)
-        {
             gravity = 15;
-        }
 
         // 포물선 운동
         x += v_0 * Time * cos(radianAngle) / 10;
@@ -362,20 +357,9 @@ void Fire::Action(bool* player_1turn, bool* player_2turn,
         *ball_x = x;
         *ball_y = y;
 
-        // 화면 밖으로 나가면 턴 종료
+        // 화면 밖으로 나가면 "그 플레이어의 탄만" 리셋
         if (y > 800 || x > 1600 || x < 0)
         {
-            if (*player_1turn)
-            {
-                *player_2turn = true;
-                *player_1turn = false;
-            }
-            else if (*player_2turn)
-            {
-                *player_2turn = false;
-                *player_1turn = true;
-            }
-
             Speed = 0;
             power = 0;
             Time = 1;
@@ -389,66 +373,30 @@ void Fire::Action(bool* player_1turn, bool* player_2turn,
     }
 }
 
-void Fire::Hit(bool* player_1turn, bool* player_2turn,
-    double left, double top,
-    double* Player1_HP, double* Player2_HP,
+void Fire::Hit(double left, double top,
+    double* targetHP,
     int tank_mode)
 {
-    // 단순 박스 충돌
     if (left - 15 < x + 5 && top - 15 < y + 5 &&
         left + 35 > x && top + 35 > y)
     {
-        if (*player_1turn)
+        // 특수탄(슈퍼탄) 처리
+        if (shoot1 && shoot_mode == 1)
         {
-            *player_2turn = true;
-            *player_1turn = false;
-
-            if (shoot1 && shoot_mode == 1)
-            {
-                *Player2_HP -= 50;
-                shoot1 = false;
-                shoot_mode = 0;
-            }
-
-            if (tank_mode == 1)
-            {
-                *Player2_HP -= 15;
-            }
-            else if (tank_mode == 2)
-            {
-                *Player2_HP -= 10;
-            }
-            else if (tank_mode == 3)
-            {
-                *Player2_HP -= 20;
-            }
-        }
-        else if (*player_2turn)
-        {
-            *player_2turn = false;
-            *player_1turn = true;
-
-            if (shoot1 && shoot_mode == 1)
-            {
-                *Player1_HP -= 50;
-                shoot1 = false;
-                shoot_mode = 0;
-            }
-
-            if (tank_mode == 1)
-            {
-                *Player1_HP -= 15;
-            }
-            else if (tank_mode == 2)
-            {
-                *Player1_HP -= 10;
-            }
-            else if (tank_mode == 3)
-            {
-                *Player1_HP -= 20;
-            }
+            *targetHP -= 50;
+            shoot1 = false;
+            shoot_mode = 0;
         }
 
+        // 탱크 타입에 따른 기본 데미지
+        if (tank_mode == 1)
+            *targetHP -= 15;
+        else if (tank_mode == 2)
+            *targetHP -= 10;
+        else if (tank_mode == 3)
+            *targetHP -= 20;
+
+        // 턴 전환 삭제, 탄만 리셋
         Speed = 0;
         power = 0;
         Time = 1;
