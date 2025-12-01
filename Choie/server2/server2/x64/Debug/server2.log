@@ -1,0 +1,22 @@
+﻿  Gameserver.cpp
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(157,19): error C2146: 구문 오류: ';'이(가) 'pktState' 식별자 앞에 없습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(157,19): error C2065: 'pktState': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(158,9): error C2065: 'pktState': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(159,9): error C2065: 'pktState': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(163,13): error C2065: 'pktState': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(167,37): error C2065: 'pktState': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(167,54): error C2065: 'pktState': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(259,35): error C2065: 'pktMove': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(262,80): error C2065: 'pktMove': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(263,52): error C2065: 'pktMove': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(273,35): error C2065: 'pktFire': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(274,41): error C2065: 'pktFire': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(275,29): error C2065: 'pktFire': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(276,29): error C2065: 'pktFire': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(277,29): error C2065: 'pktFire': 선언되지 않은 식별자입니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(274,25): error C2660: 'SpawnProjectile': 함수는 1개의 인수를 사용하지 않습니다.
+      C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(85,6):
+      'SpawnProjectile' 선언을 참조하십시오.
+      C:\Users\sinoh\Desktop\git\networkgameplay\Choie\server2\server2\Gameserver.cpp(274,25):
+      인수 목록 '()'을(를) 일치시키는 동안
+  
