@@ -18,12 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
@@ -36,7 +32,7 @@
               "RelativeDocumentMoniker": "Packet.h",
               "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\Packet.h",
               "RelativeToolTip": "Packet.h",
-              "ViewState": "AgIAADkAAAAAAAAAAAAAAE0AAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAEcAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-11-19T21:23:54.374Z",
               "EditorCaption": ""
@@ -49,9 +45,10 @@
               "RelativeDocumentMoniker": "main.cpp",
               "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AgIAAIoAAAAAAAAAAAAAABkAAABTAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAEMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-19T21:23:47.862Z"
+              "WhenOpened": "2025-11-19T21:23:47.862Z",
+              "EditorCaption": ""
             }
           ]
         }
