@@ -122,12 +122,10 @@ public:
     void set_ball();
     void Render_Fire(HDC hdc);
 
-    void Action(bool* player_1turn, bool* player_2turn,
-        double* ball_x, double* ball_y, int tank_mode);
+    void Action(double* ball_x, double* ball_y, int tank_mode);
 
-    void Hit(bool* player_1turn, bool* player_2turn,
-        double left, double top,
-        double* Player1_HP, double* Player2_HP,
+    void Hit(double left, double top,
+        double* targetHP,
         int tank_mode);
 
     void shootmode();
@@ -139,4 +137,5 @@ public:
         double* ball_x, double* ball_y);
 
     void OnSpaceUp(int playerId);
+    void ResetGauge();
 };
