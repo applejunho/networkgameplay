@@ -31,11 +31,15 @@
               "RelativeDocumentMoniker": "main.cpp",
               "ToolTip": "C:\\Users\\kimju\\Desktop\\git\\networkgameplay\\kim\\Test Server\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AgIAAMMAAAAAAAAAAAAYwLoAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAMMAAAAAAAAAAAAYwMwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-12-01T15:13:38.554Z",
               "IsPinned": true,
               "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{68487888-204a-11d3-87eb-00c04f7971a5}"
             },
             {
               "$type": "Bookmark",
@@ -51,8 +55,7 @@
               "RelativeToolTip": "..\\..\\..\\..\\..\\Downloads\\Game_step1_patched.cpp",
               "ViewState": "AgIAAFcJAAAAAAAAAAAYwHUJAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-01T16:01:48.208Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-01T16:01:48.208Z"
             },
             {
               "$type": "Document",
@@ -64,8 +67,7 @@
               "RelativeToolTip": "Packet.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAEYAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-01T15:13:50.553Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-01T15:13:50.553Z"
             }
           ]
         },
