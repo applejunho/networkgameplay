@@ -20,6 +20,14 @@ Player::Player()
     , isleftDown(false)
     , isleftPress(false)
     , isleftUp(false)
+
+    // 2P 키 변수 추가
+    , isKeyADown(false)
+    , isKeyDDown(false)
+    , isKeyWDown(false)
+    , isKeySDown(false)
+    , isKeyFDown(false)
+    , isKeyFUp(false)
     , HP(100)
     , HP_MAX(100)
     , power_now(0)
@@ -41,50 +49,101 @@ void Player::set_pos(int p1_left, int p1_top)
 //    }
 //}
 
-void Player::Move(bool isFire, int tank_mode)
+void Player::Move(bool isFire, int tank_mode, int playerIndex)
 {
-    
-    
     if (isFire)
         return;
 
-    if (GetAsyncKeyState(VK_LEFT))
+    // ========================
+    // P1 (playerIndex == 0)
+    // 방향키로 이동
+    // ========================
+    if (playerIndex == 0)
     {
-        if (tank_mode == 1)
+        if (GetAsyncKeyState(VK_LEFT))
         {
-            if (0 < left && Speed < 30)
-                left -= 3;
+            if (tank_mode == 1)
+            {
+                if (0 < left && Speed < 30)
+                    left -= 3;
+            }
+            else if (tank_mode == 3)
+            {
+                if (0 < left && Speed < 30)
+                    left -= 1.5;
+            }
+            else if (tank_mode == 2)
+            {
+                if (0 < left && Speed < 30)
+                    left -= 4;
+            }
         }
-        else if (tank_mode == 3)
+
+        if (GetAsyncKeyState(VK_RIGHT))
         {
-            if (0 < left && Speed < 30)
-                left -= 1.5;
-        }
-        else if (tank_mode == 2)
-        {
-            if (0 < left && Speed < 30)
-                left -= 4;
+            if (tank_mode == 1)
+            {
+                if (1920 > left + 20 && Speed < 30)
+                    left += 3;
+            }
+            else if (tank_mode == 3)
+            {
+                if (1920 > left + 20 && Speed < 30)
+                    left += 1.5;
+            }
+            else if (tank_mode == 2)
+            {
+                if (1920 > left + 20 && Speed < 30)
+                    left += 4;
+            }
         }
     }
 
-    if (GetAsyncKeyState(VK_RIGHT))
+    // ========================
+    // P2 (playerIndex == 1)
+    // A / D 플래그로 이동
+    // ========================
+    else if (playerIndex == 1)
     {
-        if (tank_mode == 1)
+        if (isKeyADown)
         {
-            if (1920 > left + 20 && Speed < 30)
-                left += 3;
+            if (tank_mode == 1)
+            {
+                if (0 < left && Speed < 30)
+                    left -= 3;
+            }
+            else if (tank_mode == 3)
+            {
+                if (0 < left && Speed < 30)
+                    left -= 1.5;
+            }
+            else if (tank_mode == 2)
+            {
+                if (0 < left && Speed < 30)
+                    left -= 4;
+            }
         }
-        if (tank_mode == 3)
+
+        if (isKeyDDown)
         {
-            if (1920 > left + 20 && Speed < 30)
-                left += 1.5;
-        }
-        if (tank_mode == 2)
-        {
-            if (1920 > left + 20 && Speed < 30)
-                left += 4;
+            if (tank_mode == 1)
+            {
+                if (1920 > left + 20 && Speed < 30)
+                    left += 3;
+            }
+            else if (tank_mode == 3)
+            {
+                if (1920 > left + 20 && Speed < 30)
+                    left += 1.5;
+            }
+            else if (tank_mode == 2)
+            {
+                if (1920 > left + 20 && Speed < 30)
+                    left += 4;
+            }
         }
     }
+
 }
 
 void Player::Render(HDC hdc)
@@ -277,6 +336,7 @@ void Line::Angle(bool isFire)
     if (isFire)
         return;
 
+    // 1P 각도 조절 (↑ / ↓)
     if (GetAsyncKeyState(VK_UP))
     {
         if (angle > 180)
@@ -290,6 +350,13 @@ void Line::Angle(bool isFire)
             return;
         angle -= 1;
     }
+
+    // P2 입력
+    if (isKeyWDown)
+        angle += 1;
+
+    if (isKeySDown)
+        angle -= 1;
 }
 
 // =========================== Fire ===========================

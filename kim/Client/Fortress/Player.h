@@ -27,6 +27,7 @@ public:
     double angle;
     int    start_x;
     int    start_y;
+     int id;  // 0 = P1, 1 = P2
 
     // 체력 / 파워 / 속도
     double HP;
@@ -44,11 +45,23 @@ public:
     bool isleftDown;
     bool isleftPress;
     bool isleftUp;
+    
+
+
+    // ===== P2 입력 상태 (WASD + F) =====
+    bool isKeyADown;
+    bool isKeyDDown;
+    bool isKeyWDown;
+    bool isKeySDown;
+    bool isKeyFDown;
+    bool isKeyFUp;
+
+
 
 public:
     Player();
 
-    void Move(bool isFire, int tank_mode);
+    void Move(bool isFire, int tank_mode, int playerIndex);
     void Render(HDC hdc);
     void set_pos(int p1_left, int p1_top);
 

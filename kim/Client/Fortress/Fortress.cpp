@@ -100,8 +100,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         return 0;
 
     case WM_KEYDOWN:
+    {
         OnKeyDown(hWnd, wParam);
+
+        // p2입력 추가
+        switch (wParam)
+        {
+        case 'A': B.isKeyADown = true; break;
+        case 'D': B.isKeyDDown = true; break;
+        case 'W': B.isKeyWDown = true; break;
+        case 'S': B.isKeySDown = true; break;
+        case 'F': B.isKeyFDown = true; break;
+        }
+
         return 0;
+    }
 
     case WM_KEYUP:
         if (wParam == VK_SPACE)

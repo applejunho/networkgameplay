@@ -12,6 +12,8 @@
 Fire A;
 Fire B;
 
+
+
 extern HINSTANCE g_hInst;
 extern int camera_x, camera_y;
 extern bool player1_select, player2_select;
@@ -1055,31 +1057,28 @@ void physics(HWND hWnd)
 
 void physics_Action(HWND hWnd)
 {
-    // --- 플레이어 A 처리 (항상 업데이트, 실시간) ---
-    A.Action(&x, &y, player1TankNumber);          // ★ 인자 3개
+    // --- 플레이어 A ---
+    A.Action(&x, &y, player1TankNumber);
     A.set_radian();
-    if (CanControlPlayer(0))
-        A.Move(A.isFire, player1TankNumber);
+    A.Move(A.isFire, player1TankNumber, 0);   // 턴 체크 제거
     A.set_ball();
-    if (CanControlPlayer(0))
-        A.Update(A.isFire, hWnd);
+    A.Update(A.isFire, hWnd);              // 턴 체크 제거
     A.set_pos(A.left, A.top);
-    if (CanControlPlayer(0))
-        SendPlayerState(0);
+    SendPlayerState(0);                    // 항상 업데이트
+    A.Angle(A.isFire);
     if (A.isFire)
-        A.Hit(B.left, B.top, &B.HP, player1TankNumber);  // ★ 타겟 HP만 넘김
+        A.Hit(B.left, B.top, &B.HP, player1TankNumber);
 
-    // --- 플레이어 B 처리 ---
+
+    // --- 플레이어 B ---
     B.Action(&x, &y, player2TankNumber);
     B.set_radian();
-    if (CanControlPlayer(1))
-        B.Move(B.isFire, player2TankNumber);
+    B.Move(B.isFire, player2TankNumber, 1);   // 턴 체크 제거
     B.set_ball();
-    if (CanControlPlayer(1))
-        B.Update(B.isFire, hWnd);
+    B.Update(B.isFire, hWnd);              // 턴 체크 제거
     B.set_pos(B.left, B.top);
-    if (CanControlPlayer(1))
-        SendPlayerState(1);
+    SendPlayerState(1);                    // 항상 업데이트
+    B.Angle(B.isFire);
     if (B.isFire)
         B.Hit(A.left, A.top, &A.HP, player2TankNumber);
 }
@@ -2263,52 +2262,116 @@ extern Fire A, B;
 
 void OnKeyDown(HWND hWnd, WPARAM wParam)
 {
-    if (wParam == VK_LEFT)
+    switch (wParam)
     {
-        if (CanControlPlayer(0)) {
-            player1_left = true;
-            if (!p1isMoving) p1isMoving = true;
-            SendPlayerState(0);
-        }
-        if (player_2turn && CanControlPlayer(1)) {
-            player2_left = true;
-            if (!p2isMoving) p2isMoving = true;
-            SendPlayerState(1);
-        }
-    }
-    else if (wParam == VK_RIGHT)
-    {
-        if (player_1turn && CanControlPlayer(0)) {
-            player1_left = false;
-            if (!p1isMoving) p1isMoving = true;
-            SendPlayerState(0);
-        }
-        if (player_2turn && CanControlPlayer(1)) {
-            player2_left = false;
-            if (!p2isMoving) p2isMoving = true;
-            SendPlayerState(1);
-        }
-    }
-    else if (wParam == VK_RETURN) {
-        if (player_1turn && CanControlPlayer(0) && A.shoot_mode == 3 && A.HP < 100)
+        // ======================
+        // P1 이동 (← →)
+        // ======================
+    case VK_LEFT:
+        player1_left = true;
+        p1isMoving = true;
+        SendPlayerState(0);
+        break;
+
+    case VK_RIGHT:
+        player1_left = false;
+        p1isMoving = true;
+        SendPlayerState(0);
+        break;
+
+
+        // ======================
+        // P1 아이템 사용 (엔터)
+        // ======================
+    case VK_RETURN:
+        if (A.shoot_mode == 3 && A.HP < 100)
             AitemFix = true;
-        else if (player_2turn && CanControlPlayer(1) && B.shoot_mode == 3 && B.HP < 100)
-            BitemFix = true;
+        break;
+
+
+        // ======================
+        // P2 이동 (A / D)
+        // ======================
+    case 'A':
+        B.isKeyADown = true;
+        player2_left = true;
+        p2isMoving = true;
+        break;
+
+    case 'D':
+        B.isKeyDDown = true;
+        player2_left = false;
+        p2isMoving = true;
+        break;
+        // ======================
+        // P2 조준 (W / S)
+        // ======================
+    case 'W':
+        B.isKeyWDown = true;
+        break;
+
+    case 'S':
+        B.isKeySDown = true;
+        break;
     }
 
-    if (player_1turn && CanControlPlayer(0)) {
-        A.shootmode();
-        A.Angle(A.isFire);
-        SendPlayerState(0);
-    }
-    else if (player_2turn && CanControlPlayer(1)) {
-        B.shootmode();
-        B.Angle(B.isFire);
-        SendPlayerState(1);
-    }
+    // ======================
+    // P1 조준 / 특수탄
+    // ======================
+    A.shootmode();
+    A.Angle(A.isFire);
+
+
+    // ======================
+    // P2 조준 / 특수탄
+    // ======================
+    B.shootmode();
+    B.Angle(B.isFire);
 
     InvalidateRect(hWnd, NULL, FALSE);
 }
+
+void OnKeyUp(HWND hWnd, WPARAM wParam)
+{
+    switch (wParam)
+    {
+        // ======================
+        // P1 이동 해제
+        // ======================
+    case VK_LEFT:
+    case VK_RIGHT:
+        p1isMoving = false;
+        break;
+
+        // ======================
+        // P2 이동 해제 (A / D)
+        // ======================
+    case 'A':
+        player2_left = false;   // ← 방향 끝
+        p2isMoving = false;
+        B.isKeyADown = false;   // 누른 상태 해제
+        break;
+
+    case 'D':
+        // 오른쪽 이동 끝
+        p2isMoving = false;
+        B.isKeyDDown = false;
+        break;
+
+        // ======================
+        // P2 조준 키 해제
+        // ======================
+    case 'W':
+        B.isKeyWDown = false;
+        break;
+
+    case 'S':
+        B.isKeySDown = false;
+        break;
+    }
+}
+
+
 
 void ApplyTerrainDelta(const PKT_TERRAIN_DELTA& pkt)
 {
