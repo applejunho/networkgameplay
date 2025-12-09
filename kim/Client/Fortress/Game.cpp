@@ -927,21 +927,21 @@ void Draw_shoot()
 
 void player_UI()
 {
-    if (player_1turn)
-    {
+    
         A.Render_Fire(hBackBuffer);
         A.Render_Line(hBackBuffer, camera_x, camera_y);
         A.Render_PowerGauge(hBackBuffer, camera_x, camera_y);
         A.Render_SpeedGauge(hBackBuffer, camera_x, camera_y);
-    }
+    
 
-    if (player_2turn)
+        // 일단은 플레이어1만 수정
+   /* if (player_2turn)
     {
         B.Render_Fire(hBackBuffer);
         B.Render_Line(hBackBuffer, camera_x, camera_y);
         B.Render_PowerGauge(hBackBuffer, camera_x, camera_y);
         B.Render_SpeedGauge(hBackBuffer, camera_x, camera_y);
-    }
+    }*/
 }
 
 void physics(HWND hWnd)
@@ -2265,7 +2265,7 @@ void OnKeyDown(HWND hWnd, WPARAM wParam)
 {
     if (wParam == VK_LEFT)
     {
-        if (player_1turn && CanControlPlayer(0)) {
+        if (CanControlPlayer(0)) {
             player1_left = true;
             if (!p1isMoving) p1isMoving = true;
             SendPlayerState(0);

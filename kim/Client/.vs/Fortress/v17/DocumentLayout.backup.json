@@ -1,17 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\kimju\\Desktop\\git\\networkgameplay\\kim\\Client\\",
+  "WorkspaceRootPath": "C:\\Users\\kimju\\Desktop\\networkgameplay\\kim\\Client\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\kimju\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\kimju\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\kimju\\Desktop\\networkgameplay\\kim\\Client\\Fortress\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\kimju\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Fortress.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\kimju\\Desktop\\networkgameplay\\kim\\Client\\Fortress\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\kimju\\Desktop\\networkgameplay\\kim\\Client\\Fortress\\Fortress.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\Fortress.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -31,39 +31,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Player.cpp",
-              "DocumentMoniker": "C:\\Users\\kimju\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Player.cpp",
-              "RelativeDocumentMoniker": "Fortress\\Player.cpp",
-              "ToolTip": "C:\\Users\\kimju\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Player.cpp",
-              "RelativeToolTip": "Fortress\\Player.cpp",
-              "ViewState": "AgIAAOsBAAAAAAAAAAAcwAkCAAABAAAAAAAAAA==",
+              "Title": "Game.cpp",
+              "DocumentMoniker": "C:\\Users\\kimju\\Desktop\\networkgameplay\\kim\\Client\\Fortress\\Game.cpp",
+              "RelativeDocumentMoniker": "Fortress\\Game.cpp",
+              "ToolTip": "C:\\Users\\kimju\\Desktop\\networkgameplay\\kim\\Client\\Fortress\\Game.cpp*",
+              "RelativeToolTip": "Fortress\\Game.cpp*",
+              "ViewState": "AgIAANIIAAAAAAAAAAAMwNkIAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-01T17:07:00.542Z"
+              "WhenOpened": "2025-12-01T16:51:28.504Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Player.cpp",
+              "DocumentMoniker": "C:\\Users\\kimju\\Desktop\\networkgameplay\\kim\\Client\\Fortress\\Player.cpp",
+              "RelativeDocumentMoniker": "Fortress\\Player.cpp",
+              "ToolTip": "C:\\Users\\kimju\\Desktop\\networkgameplay\\kim\\Client\\Fortress\\Player.cpp*",
+              "RelativeToolTip": "Fortress\\Player.cpp*",
+              "ViewState": "AgIAACIAAAAAAAAAAAAAADQAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-01T17:07:00.542Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Fortress.cpp",
-              "DocumentMoniker": "C:\\Users\\kimju\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Fortress.cpp",
+              "DocumentMoniker": "C:\\Users\\kimju\\Desktop\\networkgameplay\\kim\\Client\\Fortress\\Fortress.cpp",
               "RelativeDocumentMoniker": "Fortress\\Fortress.cpp",
-              "ToolTip": "C:\\Users\\kimju\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Fortress.cpp",
+              "ToolTip": "C:\\Users\\kimju\\Desktop\\networkgameplay\\kim\\Client\\Fortress\\Fortress.cpp",
               "RelativeToolTip": "Fortress\\Fortress.cpp",
               "ViewState": "AgIAADwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-12-01T17:06:55.862Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Game.cpp",
-              "DocumentMoniker": "C:\\Users\\kimju\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Game.cpp",
-              "RelativeDocumentMoniker": "Fortress\\Game.cpp",
-              "ToolTip": "C:\\Users\\kimju\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Game.cpp*",
-              "RelativeToolTip": "Fortress\\Game.cpp*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-01T16:51:28.504Z",
-              "EditorCaption": ""
             }
           ]
         },

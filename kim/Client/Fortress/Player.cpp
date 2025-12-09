@@ -43,6 +43,8 @@ void Player::set_pos(int p1_left, int p1_top)
 
 void Player::Move(bool isFire, int tank_mode)
 {
+    
+    
     if (isFire)
         return;
 
