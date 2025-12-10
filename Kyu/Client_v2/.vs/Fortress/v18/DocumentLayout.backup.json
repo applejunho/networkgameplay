@@ -62,12 +62,11 @@
               "Title": "Player.h",
               "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client_v2\\Fortress\\Player.h",
               "RelativeDocumentMoniker": "Fortress\\Player.h",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client_v2\\Fortress\\Player.h*",
-              "RelativeToolTip": "Fortress\\Player.h*",
+              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client_v2\\Fortress\\Player.h",
+              "RelativeToolTip": "Fortress\\Player.h",
               "ViewState": "AgIAACAAAAAAAAAAAAAawHQAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-19T21:22:52.383Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:22:52.383Z"
             },
             {
               "$type": "Document",
@@ -123,12 +122,11 @@
               "Title": "Player.cpp",
               "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client_v2\\Fortress\\Player.cpp",
               "RelativeDocumentMoniker": "Fortress\\Player.cpp",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client_v2\\Fortress\\Player.cpp*",
-              "RelativeToolTip": "Fortress\\Player.cpp*",
+              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client_v2\\Fortress\\Player.cpp",
+              "RelativeToolTip": "Fortress\\Player.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAHQAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-19T21:22:25.709Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:22:25.709Z"
             },
             {
               "$type": "Document",
@@ -138,7 +136,7 @@
               "RelativeDocumentMoniker": "Fortress\\Game.cpp",
               "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client_v2\\Fortress\\Game.cpp",
               "RelativeToolTip": "Fortress\\Game.cpp",
-              "ViewState": "AgIAANMDAAAAAAAAAAAqwOoDAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAALsDAAAAAAAAAAAqwNEDAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-19T21:22:26.128Z",
               "EditorCaption": ""
@@ -165,8 +163,7 @@
               "RelativeToolTip": "Fortress\\ClientNet.cpp",
               "ViewState": "AgIAAJMAAAAAAAAAAAAAALAAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-19T21:22:14.026Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:22:14.026Z"
             },
             {
               "$type": "Document",

@@ -31,6 +31,7 @@ static bool           g_hasFireInput[MAX_PLAYER] = {};
 static float          g_lastAngle[MAX_PLAYER] = {};
 static float          g_lastPower[MAX_PLAYER] = {};
 static int            g_lastShootMode[MAX_PLAYER] = {};
+static bool           g_lastProjectileActive = false;
 
 extern Fire A;
 extern Fire B;
@@ -131,11 +132,30 @@ static void ApplyStatePacket(const struct PKT_STATE& pkt)
     isFired = firingAnim;
 
 
-    // 서버에서 별도의 포탄 좌표를 내려주기 전까지는
-    // PKT_STATE로 포탄 상태를 강제로 끄지 않는다.
-    // (projectileActive가 기본값(false)인 상태로 계속 내려와
-    // 발사가 즉시 리셋되는 문제를 막기 위함)
+    // 프로젝트일 좌표는 서버 기준으로 초기화한다.
+    // 양쪽 모두 발사 중이 아닐 때에만 덮어써, 진행 중인 로컬 탄도 계산을 건드리지 않는다.
+    const bool acceptServerProjectile = !A.isFire && !B.isFire;
+
+    if (acceptServerProjectile && pkt.projectileActive)
+    {
+        x = pkt.projX;
+        y = pkt.projY;
+    }
+
+    // 서버에서 포탄이 사라졌다고 알려오면 좌표를 즉시 초기화해 잔상이 남지 않도록 한다.
+    if (!pkt.projectileActive && g_lastProjectileActive)
+    {
+        x = -100.0;
+        y = -100.0;
+        g_lastProjectileActive = false;
+    }
+
+    g_lastProjectileActive = acceptServerProjectile
+        ? pkt.projectileActive
+        : (g_lastProjectileActive && pkt.projectileActive);
 }
+
+
 
 static void ApplyFirePacket(const struct PKT_FIRE& pkt)
 {

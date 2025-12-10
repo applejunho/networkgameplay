@@ -85,6 +85,32 @@ static void ApplyStatePacket(const struct PKT_STATE& pkt)
         firingAnim = firingAnim || animFiring;
     }
     isFired = firingAnim;
+<<<<<<< ours
+=======
+
+    // 프로젝트일 좌표는 서버 기준으로 초기화한다.
+    // 양쪽 모두 발사 중이 아닐 때에만 덮어써, 진행 중인 로컬 탄도 계산을 건드리지 않는다.
+    if (!A.isFire && !B.isFire)
+    {
+        if (pkt.projectileActive)
+        {
+            x = pkt.projX;
+            y = pkt.projY;
+        }
+        else
+        {
+            // 이전에 남아 있던 좌표가 다시 사용되며 잠깐 나타나는 현상 방지
+            x = -100.0;
+            y = -100.0;
+        }
+    }
+
+
+    // 서버에서 별도의 포탄 좌표를 내려주기 전까지는
+    // PKT_STATE로 포탄 상태를 강제로 끄지 않는다.
+    // (projectileActive가 기본값(false)인 상태로 계속 내려와
+    // 발사가 즉시 리셋되는 문제를 막기 위함)
+>>>>>>> theirs
 }
 
 static void ApplyFirePacket(const struct PKT_FIRE& pkt)
