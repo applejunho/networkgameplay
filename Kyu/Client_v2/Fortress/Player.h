@@ -37,6 +37,7 @@ public:
     int    Speed_Max;
     double power_now;
 
+    // 식별자
     int    playerIndex;
 
     // 입력 상태
@@ -46,6 +47,7 @@ public:
     bool isleftDown;
     bool isleftPress;
     bool isleftUp;
+    bool spaceLock; // <-- 추가: 스페이스 잠금 플래그
 
 public:
     Player();
@@ -112,6 +114,7 @@ public:
     bool   shoot1;
     bool   shoot2;
     bool   shoot3;
+    bool   spaceLock; // 발사 후 스페이스 잠금 상태
 
     double toRadians(double degrees)
     {

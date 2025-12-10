@@ -24,6 +24,7 @@ Player::Player()
     , HP_MAX(100)
     , power_now(0)
     , playerIndex(-1)
+    , spaceLock(false) // <-- 추가: 기본 false로 초기화
 {
 }
 
@@ -112,6 +113,20 @@ void Player::Update(bool isFire, HWND hWnd)
 {
     if (isFire)
         return;
+
+    if (spaceLock)
+    {
+        const SHORT spaceState = GetAsyncKeyState(VK_SPACE);
+        if ((spaceState & 0x8000) == 0)
+        {
+            spaceLock = false;
+        }
+        else
+        {
+            return;
+        }
+    }
+
 
     // 스페이스(발사 버튼) 처리
     if (GetAsyncKeyState(VK_SPACE))
@@ -304,6 +319,7 @@ Fire::Fire()
     , shoot1(true)
     , shoot2(true)
     , shoot3(true)
+    , spaceLock(false)
 {
 }
 
@@ -319,6 +335,10 @@ void Fire::ResetGauge()
     Time = 1;
     isFire = false;
     isSpaceUp = false;
+    spaceLock = true;
+
+    isSpaceDown = false;
+    isSpacePress = false;
 
     shoot_mode = 0;
 
@@ -345,6 +365,7 @@ void Fire::Render_Fire(HDC hdc)
     {
         isFire = true;
         isSpaceUp = false;   // ★ 트리거는 한 번 쓰고 바로 끈다
+        spaceLock = true;
     }
 }
 
@@ -463,6 +484,13 @@ void Fire::OnSpaceUp(int playerId)
 {
     if (isFire)
         return;
+
+    if (spaceLock)
+    {
+        // 이전 발사 이후 첫 번째 키 업은 잠금 해제만 수행
+        spaceLock = false;
+        return;
+    }
 
     playerIndex = playerId;
     isSpaceUp = true;

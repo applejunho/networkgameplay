@@ -1,2 +1,3 @@
 C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Test Server\Debug\Test Server.exe
 C:\Users\sinoh\Desktop\git\test_net\Kyu\Test Server\Debug\Test Server.exe
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Test Server_v2\Debug\Test Server.exe
