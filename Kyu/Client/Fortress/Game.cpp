@@ -689,6 +689,73 @@ void Draw_tank()
             break;
         }
     }
+    else if (!player2_left && !p2isMoving) {
+        switch (player2TankNumber) {
+        case 1: //1번 탱크 오른쪽 idle
+            SelectObject(MemDC, tank1_idle_right);
+            GdiTransparentBlt(hBackBuffer, B.left, B.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
+            break;
+        case 2: //2번 탱크 오른쪽 idle
+            SelectObject(MemDC, tank2_idle_right);
+            GdiTransparentBlt(hBackBuffer, B.left, B.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
+            break;
+        case 3: //3번 탱크 오른쪽 idle
+            SelectObject(MemDC, tank3_idle_right);
+            GdiTransparentBlt(hBackBuffer, B.left, B.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
+            break;
+        }
+    }
+    else if (!player2_left && p2isMoving && player_2turn) {
+        switch (player2TankNumber) {
+        case 1: //1번 탱크 무빙 애니메이션
+            SelectObject(MemDC, tank1_moving_right[tank1MovingAni]);
+            if (tank1MovingAni == 0 || tank1MovingAni == 4) {
+                GdiTransparentBlt(hBackBuffer, B.left, B.top, 36, 29, MemDC, 0, 0, 36, 29, RGB(255, 0, 255));
+            }
+            else {
+
+                GdiTransparentBlt(hBackBuffer, B.left, B.top, 37, 30, MemDC, 0, 0, 37, 30, RGB(255, 0, 255));
+            }
+            break;
+        case 2: //2번 탱크 무빙 애니메이션
+            SelectObject(MemDC, tank2_moving_right[tank23MovingAni]);
+            if (tank23MovingAni == 0) {
+                GdiTransparentBlt(hBackBuffer, B.left - 32, B.top, 52, 21, MemDC, 0, 0, 52, 21, RGB(255, 0, 255));
+            }
+            else if (tank23MovingAni == 1) {
+
+                GdiTransparentBlt(hBackBuffer, B.left - 53, B.top, 73, 22, MemDC, 0, 0, 73, 22, RGB(255, 0, 255));
+            }
+            else if (tank23MovingAni == 2) {
+
+                GdiTransparentBlt(hBackBuffer, B.left - 64, B.top, 84, 32, MemDC, 0, 0, 84, 32, RGB(255, 0, 255));
+            }
+            else if (tank23MovingAni == 3) {
+
+                GdiTransparentBlt(hBackBuffer, B.left - 78, B.top, 98, 27, MemDC, 0, 0, 98, 27, RGB(255, 0, 255));
+            }
+            break;
+
+        case 3: //3번 탱크 무빙 애니메이션
+            SelectObject(MemDC, tank3_moving_right[tank23MovingAni]);
+            if (tank23MovingAni == 0) {
+                GdiTransparentBlt(hBackBuffer, B.left - 29, B.top, 49, 25, MemDC, 0, 0, 49, 25, RGB(255, 0, 255));
+            }
+            else if (tank23MovingAni == 1) {
+
+                GdiTransparentBlt(hBackBuffer, B.left - 38, B.top, 58, 24, MemDC, 0, 0, 58, 24, RGB(255, 0, 255));
+            }
+            else if (tank23MovingAni == 2) {
+
+                GdiTransparentBlt(hBackBuffer, B.left - 41, B.top, 61, 25, MemDC, 0, 0, 61, 25, RGB(255, 0, 255));
+            }
+            else if (tank23MovingAni == 3) {
+
+                GdiTransparentBlt(hBackBuffer, B.left - 36, B.top, 56, 25, MemDC, 0, 0, 56, 25, RGB(255, 0, 255));
+            }
+            break;
+        }
+    }
     else if (!isHited) {
         switch (player1TankNumber) {
         case 1:
