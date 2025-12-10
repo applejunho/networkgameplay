@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{3d9053da-759d-49cb-86fe-21f9bf584ab8}</ProjectGuid>
+    <RootNamespace>Fortress</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>C:\Users\qkrdl\Desktop\bitmap작업중\tank1\tank1_moving;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Fortress.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ClientNet.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="NetCommon.h" />
+    <ClInclude Include="Packet.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="ClientNet.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Fortress.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\bullet1\bullet1-1.bmp" />
+    <Image Include="..\bullet1\bullet1-2.bmp" />
+    <Image Include="..\bullet1\bullet1-3.bmp" />
+    <Image Include="..\bullet1\bullet1-4.bmp" />
+    <Image Include="..\bullet1\sBullet1-1.bmp" />
+    <Image Include="..\bullet1\sBullet1-2.bmp" />
+    <Image Include="..\bullet1\sBullet1-3.bmp" />
+    <Image Include="..\bullet1\sBullet1-4.bmp" />
+    <Image Include="..\bullet2\bullet2-1.bmp" />
+    <Image Include="..\bullet2\bullet2-2.bmp" />
+    <Image Include="..\bullet2\bullet2-3.bmp" />
+    <Image Include="..\bullet2\bullet2-4.bmp" />
+    <Image Include="..\bullet2\sBullet2-1.bmp" />
+    <Image Include="..\bullet2\sBullet2-2.bmp" />
+    <Image Include="..\bullet2\sBullet2-3.bmp" />
+    <Image Include="..\bullet2\sBullet2-4.bmp" />
+    <Image Include="..\flare\flame-0001.bmp" />
+    <Image Include="..\flare\flame-0002.bmp" />
+    <Image Include="..\flare\flame-0003.bmp" />
+    <Image Include="..\flare\flame-0004.bmp" />
+    <Image Include="..\flare\flame-0005.bmp" />
+    <Image Include="..\flare\flame-0006.bmp" />
+    <Image Include="..\flare\flame-0007.bmp" />
+    <Image Include="..\flare\flame-0008.bmp" />
+    <Image Include="..\flare\flame-0009.bmp" />
+    <Image Include="..\flare\flame-0010.bmp" />
+    <Image Include="..\flare\flame-0011.bmp" />
+    <Image Include="..\flare\flame-0012.bmp" />
+    <Image Include="..\item\fix.bmp" />
+    <Image Include="..\item\powerUp.bmp" />
+    <Image Include="..\item\teleport.bmp" />
+    <Image Include="..\item\usedFix.bmp" />
+    <Image Include="..\item\usedPowerUp.bmp" />
+    <Image Include="..\item\usedTeleport.bmp" />
+    <Image Include="..\tank1\tank1_fire\bitmap90.bmp" />
+    <Image Include="..\tank1\tank1_fire\tank_left_fire0.bmp" />
+    <Image Include="..\tank1\tank1_fire\tank_left_fire1.bmp" />
+    <Image Include="..\tank1\tank1_fire\tank_left_fire2.bmp" />
+    <Image Include="..\tank1\tank1_fire\tank_left_fire3.bmp" />
+    <Image Include="..\tank1\tank1_fire\tank_left_fire4.bmp" />
+    <Image Include="..\tank1\tank1_fire\tank_left_fire5.bmp" />
+    <Image Include="..\tank1\tank1_fire\tank_right_fire0.bmp" />
+    <Image Include="..\tank1\tank1_fire\tank_right_fire1.bmp" />
+    <Image Include="..\tank1\tank1_fire\tank_right_fire2.bmp" />
+    <Image Include="..\tank1\tank1_fire\tank_right_fire3.bmp" />
+    <Image Include="..\tank1\tank1_fire\tank_right_fire4.bmp" />
+    <Image Include="..\tank1\tank1_fire\tank_right_fire5.bmp" />
+    <Image Include="..\tank1\tank1_hited\tank1_left_hited.bmp" />
+    <Image Include="..\tank1\tank1_hited\tank1_right_hited.bmp" />
+    <Image Include="..\tank1\tank1_idle\tank1_idle_left.bmp" />
+    <Image Include="..\tank1\tank1_idle\tank1_idle_right.bmp" />
+    <Image Include="..\tank1\tank1_moving\tank1_moving_left0.bmp" />
+    <Image Include="..\tank1\tank1_moving\tank1_moving_left1.bmp" />
+    <Image Include="..\tank1\tank1_moving\tank1_moving_left2.bmp" />
+    <Image Include="..\tank1\tank1_moving\tank1_moving_left3.bmp" />
+    <Image Include="..\tank1\tank1_moving\tank1_moving_left4.bmp" />
+    <Image Include="..\tank1\tank1_moving\tank1_moving_right0.bmp" />
+    <Image Include="..\tank1\tank1_moving\tank1_moving_right1.bmp" />
+    <Image Include="..\tank1\tank1_moving\tank1_moving_right2.bmp" />
+    <Image Include="..\tank1\tank1_moving\tank1_moving_right3.bmp" />
+    <Image Include="..\tank1\tank1_moving\tank1_moving_right4.bmp" />
+    <Image Include="..\tank2\tank2_fire\tank2_fire_left0.bmp" />
+    <Image Include="..\tank2\tank2_fire\tank2_fire_left1.bmp" />
+    <Image Include="..\tank2\tank2_fire\tank2_fire_left2.bmp" />
+    <Image Include="..\tank2\tank2_fire\tank2_fire_left3.bmp" />
+    <Image Include="..\tank2\tank2_fire\tank2_fire_right0.bmp" />
+    <Image Include="..\tank2\tank2_fire\tank2_fire_right1.bmp" />
+    <Image Include="..\tank2\tank2_fire\tank2_fire_right2.bmp" />
+    <Image Include="..\tank2\tank2_fire\tank2_fire_right3.bmp" />
+    <Image Include="..\tank2\tank2_hited\tank2_hited_left.bmp" />
+    <Image Include="..\tank2\tank2_hited\tank2_hited_right.bmp" />
+    <Image Include="..\tank2\tank2_idle\tank2_idle_left.bmp" />
+    <Image Include="..\tank2\tank2_idle\tank2_idle_right.bmp" />
+    <Image Include="..\tank2\tank2_moving\tank2_moving_left0.bmp" />
+    <Image Include="..\tank2\tank2_moving\tank2_moving_left1.bmp" />
+    <Image Include="..\tank2\tank2_moving\tank2_moving_left2.bmp" />
+    <Image Include="..\tank2\tank2_moving\tank2_moving_left3.bmp" />
+    <Image Include="..\tank2\tank2_moving\tank2_moving_right0.bmp" />
+    <Image Include="..\tank2\tank2_moving\tank2_moving_right1.bmp" />
+    <Image Include="..\tank2\tank2_moving\tank2_moving_right2.bmp" />
+    <Image Include="..\tank2\tank2_moving\tank2_moving_right3.bmp" />
+    <Image Include="..\tank3\tank3_fire\tank3_fire_left0.bmp" />
+    <Image Include="..\tank3\tank3_fire\tank3_fire_left1.bmp" />
+    <Image Include="..\tank3\tank3_fire\tank3_fire_left2.bmp" />
+    <Image Include="..\tank3\tank3_fire\tank3_fire_left3.bmp" />
+    <Image Include="..\tank3\tank3_fire\tank3_fire_left4.bmp" />
+    <Image Include="..\tank3\tank3_fire\tank3_fire_right0.bmp" />
+    <Image Include="..\tank3\tank3_fire\tank3_fire_right1.bmp" />
+    <Image Include="..\tank3\tank3_fire\tank3_fire_right2.bmp" />
+    <Image Include="..\tank3\tank3_fire\tank3_fire_right3.bmp" />
+    <Image Include="..\tank3\tank3_fire\tank3_fire_right4.bmp" />
+    <Image Include="..\tank3\tank3_hited\tank3_hited_left.bmp" />
+    <Image Include="..\tank3\tank3_hited\tank3_hited_right.bmp" />
+    <Image Include="..\tank3\tank3_idle\tank3_idle_left.bmp" />
+    <Image Include="..\tank3\tank3_idle\tank3_idle_right.bmp" />
+    <Image Include="..\tank3\tank3_movig\tank3_moving_left0.bmp" />
+    <Image Include="..\tank3\tank3_movig\tank3_moving_left1.bmp" />
+    <Image Include="..\tank3\tank3_movig\tank3_moving_left2.bmp" />
+    <Image Include="..\tank3\tank3_movig\tank3_moving_left3.bmp" />
+    <Image Include="..\tank3\tank3_movig\tank3_moving_right0.bmp" />
+    <Image Include="..\tank3\tank3_movig\tank3_moving_right1.bmp" />
+    <Image Include="..\tank3\tank3_movig\tank3_moving_right2.bmp" />
+    <Image Include="..\tank3\tank3_movig\tank3_moving_right3.bmp" />
+    <Image Include="..\UI\character.bmp" />
+    <Image Include="..\후보\맵\graveyard\map2_wind_0.bmp" />
+    <Image Include="..\후보\맵\graveyard\map2_wind_1.bmp" />
+    <Image Include="..\후보\맵\graveyard\map2_wind_2.bmp" />
+    <Image Include="..\후보\맵\graveyard\map2_wind_3.bmp" />
+    <Image Include="..\후보\맵\graveyard\map2_wind_4.bmp" />
+    <Image Include="..\후보\맵\graveyard\map2_wind_5.bmp" />
+    <Image Include="..\후보\맵\graveyard\map2_wind_6.bmp" />
+    <Image Include="..\후보\맵\graveyard\map2_wind_7.bmp" />
+    <Image Include="..\후보\맵\leave00001\leave00001\map1_wind_0.bmp" />
+    <Image Include="..\후보\맵\leave00001\leave00001\map1_wind_1.bmp" />
+    <Image Include="..\후보\맵\leave00001\leave00001\map1_wind_2.bmp" />
+    <Image Include="..\후보\맵\leave00001\leave00001\map1_wind_3.bmp" />
+    <Image Include="..\후보\맵\stage00002(pal-stage00002)\leave00002\map3_wind_0.bmp" />
+    <Image Include="..\후보\맵\stage00002(pal-stage00002)\leave00002\map3_wind_1.bmp" />
+    <Image Include="..\후보\맵\stage00002(pal-stage00002)\leave00002\map3_wind_2.bmp" />
+    <Image Include="..\후보\맵\stage00002(pal-stage00002)\leave00002\map3_wind_3.bmp" />
+    <Image Include="..\후보\맵\stage00002(pal-stage00002)\stage00002-0001.bmp" />
+    <Image Include="map\graveyard (1).bmp" />
+    <Image Include="map\picture.bmp" />
+    <Image Include="map\The artificial satellite - icon.bmp" />
+    <Image Include="map\The artificial satellite-delback.bmp" />
+    <Image Include="map\The artificial satellite-delback.png" />
+    <Image Include="shoot\bullet03-0001.bmp" />
+    <Image Include="tank\canon\bitmap8.bmp" />
+    <Image Include="tank\canon\bitmap9.bmp" />
+    <Image Include="tank\canon\canon-left.bmp" />
+    <Image Include="tank\canon\canon-right.bmp" />
+    <Image Include="UI\removed-UI.bmp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

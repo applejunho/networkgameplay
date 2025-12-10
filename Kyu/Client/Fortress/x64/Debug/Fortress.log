@@ -1,7 +1,5 @@
 ﻿  ClientNet.cpp
-  Fortress.cpp
   Game.cpp
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Fortress.cpp(58,19): warning C4244: 'return': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(213,62): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(213,55): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(217,62): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
@@ -276,32 +274,27 @@ C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(981,51):
 C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(981,42): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(985,51): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(985,42): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(997,39): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(997,33): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1024,51): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1024,42): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1028,51): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1028,42): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1039,39): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1039,33): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1073,24): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1073,16): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1087,24): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1087,16): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1177,26): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1178,26): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1198,26): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1199,26): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(2003,43): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(2003,35): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(2004,43): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(2004,35): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(2237,28): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(2238,28): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Player.cpp
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Player.cpp(90,46): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Player.cpp(90,34): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Player.cpp(90,24): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Player.cpp(90,18): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(996,39): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(996,33): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1023,51): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1023,42): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1027,51): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1027,42): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1036,39): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1036,33): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1070,24): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1070,16): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1084,24): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1084,16): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1174,26): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1175,26): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1195,26): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(1196,26): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(2000,43): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(2000,35): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(2001,43): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(2001,35): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(2234,28): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\Fortress\Game.cpp(2235,28): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   코드를 생성하고 있습니다...
   Fortress.vcxproj -> C:\Users\sinoh\Desktop\git\networkgameplay\Kyu\Client\x64\Debug\Fortress.exe

@@ -988,8 +988,7 @@ void physics(HWND hWnd)
                 // SendTerrainDelta((int)(x + 2.5f), (int)(y + 2.5f), 30, A.shoot_mode);
 
                 // ★ 내가 A(0번 플레이어)라면 턴 종료 패킷 전송
-                if (g_myPlayerId == 0)
-                    SendTurnEndPacket();
+               
 
                 // 탄 모드 처리
                 if (A.shoot_mode == 2 && A.shoot2 == true)
@@ -1030,9 +1029,7 @@ void physics(HWND hWnd)
                 // (선택) 지형 파괴 서버 동기화용
                 // SendTerrainDelta((int)(x + 2.5f), (int)(y + 2.5f), 30, B.shoot_mode);
 
-                // ★ 내가 B(1번 플레이어)라면 턴 종료 패킷 전송
-                if (g_myPlayerId == 1)
-                    SendTurnEndPacket();
+              
 
                 if (B.shoot_mode == 2 && B.shoot2 == true)
                 {
@@ -1836,7 +1833,7 @@ void reset(HWND hWnd)
     player_1turn = true;
     player_2turn = false;
     player1_select = true;
-    player2_select = false;
+    player2_select = true;
     player1_rect1 = false;
     player1_rect2 = false;
     player1_rect3 = false;

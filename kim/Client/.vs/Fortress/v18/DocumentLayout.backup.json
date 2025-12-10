@@ -1,45 +1,41 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\",
+  "WorkspaceRootPath": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Packet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\Packet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Fortress.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Fortress.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\Fortress.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\NetCommon.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Packet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\Packet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\NetCommon.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\NetCommon.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\ClientNet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\ClientNet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\ClientNet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\ClientNet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\ClientNet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\ClientNet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\resource.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\resource.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3D9053DA-759D-49CB-86FE-21F9BF584AB8}|Fortress\\Fortress.vcxproj|solutionrelative:Fortress\\resource.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -58,11 +54,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "resource.h",
-              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\resource.h",
+              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\resource.h",
               "RelativeDocumentMoniker": "Fortress\\resource.h",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\resource.h",
+              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\resource.h",
               "RelativeToolTip": "Fortress\\resource.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -72,61 +68,57 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Player.h",
-              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Player.h",
+              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Player.h",
               "RelativeDocumentMoniker": "Fortress\\Player.h",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Player.h",
+              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Player.h",
               "RelativeToolTip": "Fortress\\Player.h",
               "ViewState": "AgIAAGwAAAAAAAAAAAAAAIsAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-19T21:22:52.383Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:22:52.383Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "NetCommon.h",
-              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\NetCommon.h",
+              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\NetCommon.h",
               "RelativeDocumentMoniker": "Fortress\\NetCommon.h",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\NetCommon.h",
+              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\NetCommon.h",
               "RelativeToolTip": "Fortress\\NetCommon.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-19T21:22:48.087Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:22:48.087Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Packet.h",
-              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Packet.h",
+              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Packet.h",
               "RelativeDocumentMoniker": "Fortress\\Packet.h",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Packet.h",
+              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Packet.h",
               "RelativeToolTip": "Fortress\\Packet.h",
               "ViewState": "AgIAAB4AAAAAAAAAAAAAAC8AAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-19T21:22:47.584Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:22:47.584Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "Game.h",
-              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Game.h",
+              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Game.h",
               "RelativeDocumentMoniker": "Fortress\\Game.h",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Game.h",
+              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Game.h",
               "RelativeToolTip": "Fortress\\Game.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAKwAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-19T21:22:43.071Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:22:43.071Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "ClientNet.h",
-              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\ClientNet.h",
+              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\ClientNet.h",
               "RelativeDocumentMoniker": "Fortress\\ClientNet.h",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\ClientNet.h",
+              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\ClientNet.h",
               "RelativeToolTip": "Fortress\\ClientNet.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -136,11 +128,11 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Player.cpp",
-              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Player.cpp",
+              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Player.cpp",
               "RelativeDocumentMoniker": "Fortress\\Player.cpp",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Player.cpp",
+              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Player.cpp",
               "RelativeToolTip": "Fortress\\Player.cpp",
-              "ViewState": "AgIAACwBAAAAAAAAAAAAADsBAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAACwBAAAAAAAAAAAAADsBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-19T21:22:25.709Z",
               "EditorCaption": ""
@@ -148,41 +140,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Game.cpp",
-              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Game.cpp",
-              "RelativeDocumentMoniker": "Fortress\\Game.cpp",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Game.cpp",
-              "RelativeToolTip": "Fortress\\Game.cpp",
-              "ViewState": "AgIAANQDAAAAAAAAAAAAAOoDAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-19T21:22:26.128Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "Fortress.cpp",
-              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Fortress.cpp",
+              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Fortress.cpp",
               "RelativeDocumentMoniker": "Fortress\\Fortress.cpp",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\Fortress.cpp",
-              "RelativeToolTip": "Fortress\\Fortress.cpp",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAIIAAAANAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\Fortress.cpp*",
+              "RelativeToolTip": "Fortress\\Fortress.cpp*",
+              "ViewState": "AgIAAHcAAAAAAAAAAAAAAIYAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-19T21:22:20.634Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "ClientNet.cpp",
-              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\ClientNet.cpp",
+              "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\ClientNet.cpp",
               "RelativeDocumentMoniker": "Fortress\\ClientNet.cpp",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Client\\Fortress\\ClientNet.cpp",
+              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\kim\\Client\\Fortress\\ClientNet.cpp",
               "RelativeToolTip": "Fortress\\ClientNet.cpp",
               "ViewState": "AgIAAAUBAAAAAAAAAAAAAAoBAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-19T21:22:14.026Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:22:14.026Z"
             }
           ]
         }

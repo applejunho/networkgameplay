@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Fortress.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientNet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientNet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="NetCommon.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Fortress.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="tank\canon\canon-right.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="map\The artificial satellite - icon.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="map\The artificial satellite-delback.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="map\The artificial satellite-delback.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="UI\removed-UI.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="tank\canon\canon-left.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="shoot\bullet03-0001.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="tank\canon\bitmap8.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="tank\canon\bitmap9.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="map\graveyard (1).bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="map\picture.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet1\bullet1-1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet1\bullet1-2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet1\bullet1-3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet1\bullet1-4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet1\sBullet1-1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet1\sBullet1-2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet1\sBullet1-3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet1\sBullet1-4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet2\bullet2-1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet2\bullet2-2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet2\bullet2-3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet2\bullet2-4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet2\sBullet2-1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet2\sBullet2-2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet2\sBullet2-3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\bullet2\sBullet2-4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\item\fix.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\item\powerUp.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\item\teleport.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\item\usedFix.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\item\usedPowerUp.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\item\usedTeleport.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\flare\flame-0001.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\flare\flame-0002.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\flare\flame-0003.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\flare\flame-0004.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\flare\flame-0005.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\flare\flame-0006.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\flare\flame-0007.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\flare\flame-0008.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\flare\flame-0009.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\flare\flame-0010.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\flare\flame-0011.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\flare\flame-0012.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\stage00002(pal-stage00002)\stage00002-0001.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_idle\tank1_idle_left.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_idle\tank1_idle_right.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_moving\tank1_moving_right4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_hited\tank1_left_hited.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_hited\tank1_right_hited.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_fire\tank_left_fire0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_fire\tank_left_fire1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_fire\tank_left_fire2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_fire\tank_left_fire3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_fire\tank_left_fire4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_fire\tank_left_fire5.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_fire\tank_right_fire0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_fire\tank_right_fire1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_fire\tank_right_fire2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_fire\tank_right_fire3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_fire\tank_right_fire4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_fire\tank_right_fire5.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_idle\tank2_idle_left.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_idle\tank2_idle_right.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_moving\tank2_moving_left0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_moving\tank2_moving_left1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_moving\tank2_moving_left2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_moving\tank2_moving_left3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_moving\tank2_moving_right0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_moving\tank2_moving_right1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_moving\tank2_moving_right2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_moving\tank2_moving_right3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_hited\tank2_hited_left.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_hited\tank2_hited_right.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_fire\tank2_fire_left0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_fire\tank2_fire_left1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_fire\tank2_fire_left2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_fire\tank2_fire_left3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_fire\tank2_fire_right0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_fire\tank2_fire_right1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_fire\tank2_fire_right2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank2\tank2_fire\tank2_fire_right3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_moving\tank1_moving_left2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_moving\tank1_moving_left3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_moving\tank1_moving_left4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_moving\tank1_moving_right0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_moving\tank1_moving_right1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_moving\tank1_moving_right2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_moving\tank1_moving_right3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_fire\bitmap90.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_moving\tank1_moving_left0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_movig\tank3_moving_right3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_idle\tank3_idle_left.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_idle\tank3_idle_right.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_movig\tank3_moving_left0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_movig\tank3_moving_left1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_movig\tank3_moving_left2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_movig\tank3_moving_left3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_movig\tank3_moving_right0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_movig\tank3_moving_right1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_movig\tank3_moving_right2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_hited\tank3_hited_left.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_hited\tank3_hited_right.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_fire\tank3_fire_left0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_fire\tank3_fire_left1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_fire\tank3_fire_left2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_fire\tank3_fire_left3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_fire\tank3_fire_left4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_fire\tank3_fire_right0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_fire\tank3_fire_right1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_fire\tank3_fire_right2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_fire\tank3_fire_right3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank3\tank3_fire\tank3_fire_right4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\tank1\tank1_moving\tank1_moving_left1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\UI\character.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\leave00001\leave00001\map1_wind_0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\leave00001\leave00001\map1_wind_1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\leave00001\leave00001\map1_wind_2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\leave00001\leave00001\map1_wind_3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\graveyard\map2_wind_0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\graveyard\map2_wind_1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\graveyard\map2_wind_2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\graveyard\map2_wind_3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\graveyard\map2_wind_4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\graveyard\map2_wind_5.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\graveyard\map2_wind_6.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\graveyard\map2_wind_7.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\stage00002(pal-stage00002)\leave00002\map3_wind_0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\stage00002(pal-stage00002)\leave00002\map3_wind_1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\stage00002(pal-stage00002)\leave00002\map3_wind_2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\후보\맵\stage00002(pal-stage00002)\leave00002\map3_wind_3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

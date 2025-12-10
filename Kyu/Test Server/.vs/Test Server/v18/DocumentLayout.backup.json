@@ -34,8 +34,7 @@
               "RelativeToolTip": "Packet.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-19T21:23:54.374Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:23:54.374Z"
             },
             {
               "$type": "Document",
@@ -43,9 +42,9 @@
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
-              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\main.cpp*",
-              "RelativeToolTip": "main.cpp*",
-              "ViewState": "AgIAAFEAAAAAAAAAAAApwGkAAABhAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\sinoh\\Desktop\\git\\networkgameplay\\Kyu\\Test Server\\main.cpp",
+              "RelativeToolTip": "main.cpp",
+              "ViewState": "AgIAAFEAAAAAAAAAAAApwHIAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-19T21:23:47.862Z",
               "EditorCaption": ""

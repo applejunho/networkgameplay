@@ -1,0 +1,3336 @@
+diff a/Kyu/Client/Fortress/Game.cpp b/Kyu/Client/Fortress/Game.cpp	(rejected hunks)
+@@ -131,2101 +131,1331 @@ HBITMAP tank2_moving_right[4];
+ HBITMAP tank2_hited_left;
+ HBITMAP tank2_hited_right;
+ HBITMAP tank2_fire_left[4];
+ HBITMAP tank2_fire_right[4];
+ 
+ HBITMAP tank3_idle_left;
+ HBITMAP tank3_idle_right;
+ HBITMAP tank3_moving_left[4];
+ HBITMAP tank3_moving_right[4];
+ HBITMAP tank3_hited_left;
+ HBITMAP tank3_hited_right;
+ HBITMAP tank3_fire_left[5];
+ HBITMAP tank3_fire_right[5];
+ 
+ HBITMAP item[6];
+ 
+ HBITMAP map1_wind[4];
+ HBITMAP map2_wind[8];
+ HBITMAP map3_wind[4];
+ 
+ // WndProc , ⼭ ϴ HDC
+ HDC hBackBuffer = NULL;
+ HDC MemDC = NULL;
+ 
+ void SetPixelColor(HBITMAP hBitmap, int x, int y, COLORREF color) {
+-    HDC hdcMem = CreateCompatibleDC(NULL);
+-    HBITMAP hOldBitmap = (HBITMAP)SelectObject(hdcMem, hBitmap);
+-
+-    SetPixel(hdcMem, x, y, color);
+-    if ((A.shoot_mode == 0) || (B.shoot_mode == 0))
+-    {
+-        y -= 5;
+-        int radius = 30; //  
+-        for (int i = -radius; i <= radius; ++i)
+-        {
+-            for (int j = -radius; j <= radius; ++j)
+-            {
+-                if (i * i + j * j <= radius * radius)
+-                {
+-                    SetPixel(hdcMem, x + i, y + j, color);
+-                }
+-            }
+-        }
+-    }
+-    if ((A.shoot_mode == 1 && A.shoot1 == true) || (B.shoot_mode == 1 && B.shoot1 == true))
+-    {
+-        y -= 5;
+-        int radius = 45; //  
+-        for (int i = -radius; i <= radius; ++i)
+-        {
+-            for (int j = -radius; j <= radius; ++j)
+-            {
+-                if (i * i + j * j <= radius * radius)
+-                {
+-                    SetPixel(hdcMem, x + i, y + j, color);
+-                }
+-            }
+-        }
+-    }
+-    SelectObject(hdcMem, hOldBitmap);
+-    DeleteDC(hdcMem);
++ HDC hdcMem = CreateCompatibleDC(NULL);
++ HBITMAP hOldBitmap = (HBITMAP)SelectObject(hdcMem, hBitmap);
++
++ SetPixel(hdcMem, x, y, color);
++ if ((A.shoot_mode == 0) || (B.shoot_mode == 0))
++ {
++ y -= 5;
++ int radius = 30; //  
++ for (int i = -radius; i <= radius; ++i)
++ {
++ for (int j = -radius; j <= radius; ++j)
++ {
++ if (i * i + j * j <= radius * radius)
++ {
++ SetPixel(hdcMem, x + i, y + j, color);
++ }
++ }
++ }
++ }
++ if ((A.shoot_mode == 1 && A.shoot1 == true) || (B.shoot_mode == 1 && B.shoot1 == true))
++ {
++ y -= 5;
++ int radius = 45; //  
++ for (int i = -radius; i <= radius; ++i)
++ {
++ for (int j = -radius; j <= radius; ++j)
++ {
++ if (i * i + j * j <= radius * radius)
++ {
++ SetPixel(hdcMem, x + i, y + j, color);
++ }
++ }
++ }
++ }
++ SelectObject(hdcMem, hOldBitmap);
++ DeleteDC(hdcMem);
+ }
+ 
+ COLORREF GetPixelColor(HBITMAP hBitmap, int x, int y) {
+-    HDC hdcMem = CreateCompatibleDC(NULL);
+-    HBITMAP hOldBitmap = (HBITMAP)SelectObject(hdcMem, hBitmap);
++ HDC hdcMem = CreateCompatibleDC(NULL);
++ HBITMAP hOldBitmap = (HBITMAP)SelectObject(hdcMem, hBitmap);
+ 
+-    COLORREF color = GetPixel(hdcMem, x, y);
++ COLORREF color = GetPixel(hdcMem, x, y);
+ 
+-    SelectObject(hdcMem, hOldBitmap);
+-    DeleteDC(hdcMem);
++ SelectObject(hdcMem, hOldBitmap);
++ DeleteDC(hdcMem);
+ 
+-    return color;
++ return color;
+ }
+ 
+ void Draw_tank()
+ {
+-    if (player1_left && isFired && player_1turn) {
+-        switch (player1TankNumber) {
+-        case 1:
+-            SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
+-            if (tank1FireAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, A.left - 36, A.top, 56, 30, MemDC, 0, 0, 56, 30, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 55, A.top, 75, 32, MemDC, 0, 0, 75, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 69, A.top, 89, 32, MemDC, 0, 0, 89, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 73, A.top, 93, 32, MemDC, 0, 0, 93, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 4) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 76, A.top, 96, 31, MemDC, 0, 0, 96, 31, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 5) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 78, A.top, 98, 31, MemDC, 0, 0, 98, 31, RGB(255, 0, 255));
+-            }
+-            break;
+-        case 2:
+-            SelectObject(MemDC, tank2_fire_left[tank2FireAni]);
+-            if (tank2FireAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, A.left - 32, A.top, 52, 30, MemDC, 0, 0, 52, 30, RGB(255, 0, 255));
+-            }
+-            else if (tank2FireAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 45, A.top, 65, 42, MemDC, 0, 0, 65, 42, RGB(255, 0, 255));
+-            }
+-            else if (tank2FireAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 58, A.top, 78, 50, MemDC, 0, 0, 78, 50, RGB(255, 0, 255));
+-            }
+-            else if (tank2FireAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 68, A.top, 88, 58, MemDC, 0, 0, 88, 58, RGB(255, 0, 255));
+-            }
+-            break;
+-        case 3:
+-            SelectObject(MemDC, tank3_fire_left[tank3FireAni]);
+-            if (tank3FireAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, A.left - 27, A.top - 17, 47, 37, MemDC, 0, 0, 47, 37, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 32, A.top - 22, 52, 42, MemDC, 0, 0, 52, 42, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 41, A.top - 25, 61, 45, MemDC, 0, 0, 61, 45, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 42, A.top - 28, 62, 48, MemDC, 0, 0, 62, 48, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 4) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 40, A.top - 30, 60, 50, MemDC, 0, 0, 60, 50, RGB(255, 0, 255));
+-            }
+-            break;
+-        }
+-    }
+-    else if (!player1_left && isFired && player_1turn) {
+-        switch (player1TankNumber) {
+-        case 1:
+-            SelectObject(MemDC, tank1_fire_right[tank1FireAni]);
+-            if (tank1FireAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 56, 30, MemDC, 0, 0, 56, 30, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 75, 32, MemDC, 0, 0, 75, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 89, 32, MemDC, 0, 0, 89, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 93, 32, MemDC, 0, 0, 93, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 4) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 96, 31, MemDC, 0, 0, 96, 31, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 5) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 98, 31, MemDC, 0, 0, 98, 31, RGB(255, 0, 255));
+-            }
+-            break;
+-        case 2:
+-            SelectObject(MemDC, tank2_fire_right[tank2FireAni]);
+-            if (tank2FireAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top - 10, 52, 30, MemDC, 0, 0, 52, 30, RGB(255, 0, 255));
+-            }
+-            else if (tank2FireAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top - 22, 65, 42, MemDC, 0, 0, 65, 42, RGB(255, 0, 255));
+-            }
+-            else if (tank2FireAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top - 30, 78, 50, MemDC, 0, 0, 78, 50, RGB(255, 0, 255));
+-            }
+-            else if (tank2FireAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top - 38, 88, 58, MemDC, 0, 0, 88, 58, RGB(255, 0, 255));
+-            }
+-            break;
+-        case 3:
+-            SelectObject(MemDC, tank3_fire_right[tank3FireAni]);
+-            if (tank3FireAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top - 17, 47, 37, MemDC, 0, 0, 47, 37, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top - 22, 52, 42, MemDC, 0, 0, 52, 42, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top - 25, 61, 45, MemDC, 0, 0, 61, 45, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top - 28, 62, 48, MemDC, 0, 0, 62, 48, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 4) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top - 30, 60, 50, MemDC, 0, 0, 60, 50, RGB(255, 0, 255));
+-            }
+-            break;
+-        }
+-    }
+-    else if (player1_left && !p1isMoving) {
+-        //1 ũ idle 
+-        switch (player1TankNumber) {
+-        case 1:
+-            SelectObject(MemDC, tank1_idle_left);
+-            GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
+-            break;
+-        case 2:
+-            SelectObject(MemDC, tank2_idle_left);
+-            GdiTransparentBlt(hBackBuffer, A.left, A.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
+-            break;
+-        case 3:
+-            SelectObject(MemDC, tank3_idle_left);
+-            GdiTransparentBlt(hBackBuffer, A.left, A.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
+-            break;
+-        }
+-    }
+-    else if (player1_left && p1isMoving && player_1turn) {
+-        switch (player1TankNumber) {
+-        case 1: //1 ũ  ִϸ̼
+-            SelectObject(MemDC, tank1_moving_left[tank1MovingAni]);
+-            if (tank1MovingAni == 0 || tank1MovingAni == 4) {
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 36, 29, MemDC, 0, 0, 36, 29, RGB(255, 0, 255));
+-            }
+-            else {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 30, MemDC, 0, 0, 37, 30, RGB(255, 0, 255));
+-            }
+-            break;
+-        case 2: //2 ũ  ִϸ̼
+-            SelectObject(MemDC, tank2_moving_left[tank23MovingAni]);
+-            if (tank23MovingAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 52, 21, MemDC, 0, 0, 52, 21, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 73, 22, MemDC, 0, 0, 73, 22, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 84, 32, MemDC, 0, 0, 84, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 98, 27, MemDC, 0, 0, 98, 27, RGB(255, 0, 255));
+-            }
+-            break;
+-
+-        case 3: //3 ũ  ִϸ̼
+-            SelectObject(MemDC, tank3_moving_left[tank23MovingAni]);
+-            if (tank23MovingAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 49, 25, MemDC, 0, 0, 49, 25, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 58, 24, MemDC, 0, 0, 58, 24, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 61, 25, MemDC, 0, 0, 61, 25, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 56, 25, MemDC, 0, 0, 56, 25, RGB(255, 0, 255));
+-            }
+-            break;
+-        }
+-    }
+-    else if (!player1_left && !p1isMoving) {
+-        switch (player1TankNumber) {
+-        case 1: //1ũ  idle
+-            SelectObject(MemDC, tank1_idle_right);
+-            GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
+-            break;
+-        case 2: //2ũ  idle
+-            SelectObject(MemDC, tank2_idle_right);
+-            GdiTransparentBlt(hBackBuffer, A.left, A.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
+-            break;
+-        case 3: //3ũ  idle
+-            SelectObject(MemDC, tank3_idle_right);
+-            GdiTransparentBlt(hBackBuffer, A.left, A.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
+-            break;
+-        }
+-    }
+-    else if (!player1_left && p1isMoving && player_1turn) {
+-        switch (player1TankNumber) {
+-        case 1: //1 ũ  ִϸ̼
+-            SelectObject(MemDC, tank1_moving_right[tank1MovingAni]);
+-            if (tank1MovingAni == 0 || tank1MovingAni == 4) {
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 36, 29, MemDC, 0, 0, 36, 29, RGB(255, 0, 255));
+-            }
+-            else {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 30, MemDC, 0, 0, 37, 30, RGB(255, 0, 255));
+-            }
+-            break;
+-        case 2: //2 ũ  ִϸ̼
+-            SelectObject(MemDC, tank2_moving_right[tank23MovingAni]);
+-            if (tank23MovingAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, A.left - 32, A.top, 52, 21, MemDC, 0, 0, 52, 21, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 53, A.top, 73, 22, MemDC, 0, 0, 73, 22, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 64, A.top, 84, 32, MemDC, 0, 0, 84, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 78, A.top, 98, 27, MemDC, 0, 0, 98, 27, RGB(255, 0, 255));
+-            }
+-            break;
+-
+-        case 3: //3 ũ  ִϸ̼
+-            SelectObject(MemDC, tank3_moving_right[tank23MovingAni]);
+-            if (tank23MovingAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, A.left - 29, A.top, 49, 25, MemDC, 0, 0, 49, 25, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 38, A.top, 58, 24, MemDC, 0, 0, 58, 24, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 41, A.top, 61, 25, MemDC, 0, 0, 61, 25, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 36, A.top, 56, 25, MemDC, 0, 0, 56, 25, RGB(255, 0, 255));
+-            }
+-            break;
+-        }
+-    }
+-
+-    if (player2_left && isFired && player_2turn) {
+-        switch (player2TankNumber) {
+-        case 1:
+-            SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
+-            if (tank1FireAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, B.left - 36, B.top, 56, 30, MemDC, 0, 0, 56, 30, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 1) {
+-                //SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
+-                GdiTransparentBlt(hBackBuffer, B.left - 55, B.top, 75, 32, MemDC, 0, 0, 75, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 2) {
+-                //SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
+-                GdiTransparentBlt(hBackBuffer, B.left - 69, B.top, 89, 32, MemDC, 0, 0, 89, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 3) {
+-                //SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
+-                GdiTransparentBlt(hBackBuffer, B.left - 73, B.top, 93, 32, MemDC, 0, 0, 93, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 4) {
+-                //SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
+-                GdiTransparentBlt(hBackBuffer, B.left - 76, B.top, 96, 31, MemDC, 0, 0, 96, 31, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 5) {
+-                //SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
+-                GdiTransparentBlt(hBackBuffer, B.left - 78, B.top - 11, 98, 31, MemDC, 0, 0, 98, 31, RGB(255, 0, 255));
+-            }
+-            break;
+-        case 2:
+-            SelectObject(MemDC, tank2_fire_left[tank2FireAni]);
+-            if (tank2FireAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, B.left - 32, B.top - 10, 52, 30, MemDC, 0, 0, 52, 30, RGB(255, 0, 255));
+-            }
+-            else if (tank2FireAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left - 45, B.top - 22, 65, 42, MemDC, 0, 0, 65, 42, RGB(255, 0, 255));
+-            }
+-            else if (tank2FireAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left - 58, B.top - 30, 78, 50, MemDC, 0, 0, 78, 50, RGB(255, 0, 255));
+-            }
+-            else if (tank2FireAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left - 68, B.top - 38, 88, 58, MemDC, 0, 0, 88, 58, RGB(255, 0, 255));
+-            }
+-            break;
+-        case 3:
+-            SelectObject(MemDC, tank3_fire_left[tank3FireAni]);
+-            if (tank3FireAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, B.left - 27, B.top - 17, 47, 37, MemDC, 0, 0, 47, 37, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left - 32, B.top - 22, 52, 42, MemDC, 0, 0, 52, 42, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left - 41, B.top - 25, 61, 45, MemDC, 0, 0, 61, 45, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left - 42, B.top - 28, 62, 48, MemDC, 0, 0, 62, 48, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 4) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left - 40, B.top - 30, 60, 50, MemDC, 0, 0, 60, 50, RGB(255, 0, 255));
+-            }
+-            break;
+-        }
+-    }
+-    else if (!player2_left && isFired && player_2turn) {
+-        switch (player2TankNumber) {
+-        case 1:
+-            SelectObject(MemDC, tank1_fire_right[tank1FireAni]);
+-            if (tank1FireAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 56, 30, MemDC, 0, 0, 56, 30, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 75, 32, MemDC, 0, 0, 75, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 89, 32, MemDC, 0, 0, 89, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 93, 32, MemDC, 0, 0, 93, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 4) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 96, 31, MemDC, 0, 0, 96, 31, RGB(255, 0, 255));
+-            }
+-            else if (tank1FireAni == 5) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 98, 31, MemDC, 0, 0, 98, 31, RGB(255, 0, 255));
+-            }
+-            break;
+-        case 2:
+-            SelectObject(MemDC, tank2_fire_right[tank2FireAni]);
+-            if (tank2FireAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top - 10, 52, 30, MemDC, 0, 0, 52, 30, RGB(255, 0, 255));
+-            }
+-            else if (tank2FireAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top - 22, 65, 42, MemDC, 0, 0, 65, 42, RGB(255, 0, 255));
+-            }
+-            else if (tank2FireAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top - 30, 78, 50, MemDC, 0, 0, 78, 50, RGB(255, 0, 255));
+-            }
+-            else if (tank2FireAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top - 38, 88, 58, MemDC, 0, 0, 88, 58, RGB(255, 0, 255));
+-            }
+-            break;
+-        case 3:
+-            SelectObject(MemDC, tank3_fire_right[tank3FireAni]);
+-            if (tank3FireAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top - 17, 47, 37, MemDC, 0, 0, 47, 37, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top - 22, 52, 42, MemDC, 0, 0, 52, 42, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top - 25, 61, 45, MemDC, 0, 0, 61, 45, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top - 28, 62, 48, MemDC, 0, 0, 62, 48, RGB(255, 0, 255));
+-            }
+-            else if (tank3FireAni == 4) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top - 30, 60, 50, MemDC, 0, 0, 60, 50, RGB(255, 0, 255));
+-            }
+-            break;
+-        }
+-    }
+-    else if (player2_left && !p2isMoving) {
+-        //1 ũ idle 
+-        switch (player2TankNumber) {
+-        case 1:
+-            SelectObject(MemDC, tank1_idle_left);
+-            GdiTransparentBlt(hBackBuffer, B.left, B.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
+-            break;
+-        case 2:
+-            SelectObject(MemDC, tank2_idle_left);
+-            GdiTransparentBlt(hBackBuffer, B.left, B.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
+-            break;
+-        case 3:
+-            SelectObject(MemDC, tank3_idle_left);
+-            GdiTransparentBlt(hBackBuffer, B.left, B.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
+-            break;
+-        }
+-    }
+-    else if (player2_left && p2isMoving && player_2turn) {
+-        switch (player2TankNumber) {
+-        case 1: //1 ũ  ִϸ̼
+-            SelectObject(MemDC, tank1_moving_left[tank1MovingAni]);
+-            if (tank1MovingAni == 0 || tank1MovingAni == 4) {
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 36, 29, MemDC, 0, 0, 36, 29, RGB(255, 0, 255));
+-            }
+-            else {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 37, 30, MemDC, 0, 0, 37, 30, RGB(255, 0, 255));
+-            }
+-            break;
+-        case 2: //2 ũ  ִϸ̼
+-            SelectObject(MemDC, tank2_moving_left[tank23MovingAni]);
+-            if (tank23MovingAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 52, 21, MemDC, 0, 0, 52, 21, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 73, 22, MemDC, 0, 0, 73, 22, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 84, 32, MemDC, 0, 0, 84, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 98, 27, MemDC, 0, 0, 98, 27, RGB(255, 0, 255));
+-            }
+-            break;
+-
+-        case 3: //3 ũ  ִϸ̼
+-            SelectObject(MemDC, tank3_moving_left[tank23MovingAni]);
+-            if (tank23MovingAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 49, 25, MemDC, 0, 0, 49, 25, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 58, 24, MemDC, 0, 0, 58, 24, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 61, 25, MemDC, 0, 0, 61, 25, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left, B.top, 56, 25, MemDC, 0, 0, 56, 25, RGB(255, 0, 255));
+-            }
+-            break;
+-        }
+-    }
+-    else if (!isHited) {
+-        switch (player1TankNumber) {
+-        case 1:
+-            SelectObject(MemDC, tank1_hited_left);
+-            GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
+-            break;
+-        case 2:
+-            SelectObject(MemDC, tank2_hited_left);
+-            GdiTransparentBlt(hBackBuffer, A.left, A.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
+-            break;
+-        case 3:
+-            SelectObject(MemDC, tank3_hited_left);
+-            GdiTransparentBlt(hBackBuffer, A.left, A.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
+-            break;
+-        }
+-    }
+-    else if (!player1_left && !p1isMoving) {
+-        switch (player1TankNumber) {
+-        case 1: //1ũ  idle
+-            SelectObject(MemDC, tank1_idle_right);
+-            GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
+-            break;
+-        case 2: //2ũ  idle
+-            SelectObject(MemDC, tank2_idle_right);
+-            GdiTransparentBlt(hBackBuffer, A.left, A.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
+-            break;
+-        case 3: //3ũ  idle
+-            SelectObject(MemDC, tank3_idle_right);
+-            GdiTransparentBlt(hBackBuffer, A.left, A.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
+-            break;
+-        }
+-    }
+-    else if (!player1_left && p1isMoving && player_1turn) {
+-        switch (player1TankNumber) {
+-        case 1: //1 ũ  ִϸ̼
+-            SelectObject(MemDC, tank1_moving_right[tank1MovingAni]);
+-            if (tank1MovingAni == 0 || tank1MovingAni == 4) {
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 36, 29, MemDC, 0, 0, 36, 29, RGB(255, 0, 255));
+-            }
+-            else {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 30, MemDC, 0, 0, 37, 30, RGB(255, 0, 255));
+-            }
+-            break;
+-        case 2: //2 ũ  ִϸ̼
+-            SelectObject(MemDC, tank2_moving_right[tank23MovingAni]);
+-            if (tank23MovingAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, A.left - 32, A.top, 52, 21, MemDC, 0, 0, 52, 21, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 53, A.top, 73, 22, MemDC, 0, 0, 73, 22, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 64, A.top, 84, 32, MemDC, 0, 0, 84, 32, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, A.left - 78, A.top, 98, 27, MemDC, 0, 0, 98, 27, RGB(255, 0, 255));
+-            }
+-            break;
+-
+-        case 3: //3 ũ  ִϸ̼
+-            SelectObject(MemDC, tank3_moving_right[tank23MovingAni]);
+-            if (tank23MovingAni == 0) {
+-                GdiTransparentBlt(hBackBuffer, B.left - 29, B.top, 49, 25, MemDC, 0, 0, 49, 25, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 1) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left - 38, B.top, 58, 24, MemDC, 0, 0, 58, 24, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 2) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left - 41, B.top, 61, 25, MemDC, 0, 0, 61, 25, RGB(255, 0, 255));
+-            }
+-            else if (tank23MovingAni == 3) {
+-
+-                GdiTransparentBlt(hBackBuffer, B.left - 36, B.top, 56, 25, MemDC, 0, 0, 56, 25, RGB(255, 0, 255));
+-            }
+-            break;
+-
+-        }
+-    }
++ if (player1_left && isFired) {
++ switch (player1TankNumber) {
++ case 1:
++ SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
++ if (tank1FireAni == 0) {
++ GdiTransparentBlt(hBackBuffer, A.left - 36, A.top, 56, 30, MemDC, 0, 0, 56, 30, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 55, A.top, 75, 32, MemDC, 0, 0, 75, 32, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 69, A.top, 89, 32, MemDC, 0, 0, 89, 32, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 73, A.top, 93, 32, MemDC, 0, 0, 93, 32, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 4) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 76, A.top, 96, 31, MemDC, 0, 0, 96, 31, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 5) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 78, A.top, 98, 31, MemDC, 0, 0, 98, 31, RGB(255, 0, 255));
++ }
++ break;
++ case 2:
++ SelectObject(MemDC, tank2_fire_left[tank2FireAni]);
++ if (tank2FireAni == 0) {
++ GdiTransparentBlt(hBackBuffer, A.left - 32, A.top, 52, 30, MemDC, 0, 0, 52, 30, RGB(255, 0, 255));
++ }
++ else if (tank2FireAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 45, A.top, 65, 42, MemDC, 0, 0, 65, 42, RGB(255, 0, 255));
++ }
++ else if (tank2FireAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 58, A.top, 78, 50, MemDC, 0, 0, 78, 50, RGB(255, 0, 255));
++ }
++ else if (tank2FireAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 68, A.top, 88, 58, MemDC, 0, 0, 88, 58, RGB(255, 0, 255));
++ }
++ break;
++ case 3:
++ SelectObject(MemDC, tank3_fire_left[tank3FireAni]);
++ if (tank3FireAni == 0) {
++ GdiTransparentBlt(hBackBuffer, A.left - 27, A.top - 17, 47, 37, MemDC, 0, 0, 47, 37, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 32, A.top - 22, 52, 42, MemDC, 0, 0, 52, 42, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 41, A.top - 25, 61, 45, MemDC, 0, 0, 61, 45, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 42, A.top - 28, 62, 48, MemDC, 0, 0, 62, 48, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 4) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 40, A.top - 30, 60, 50, MemDC, 0, 0, 60, 50, RGB(255, 0, 255));
++ }
++ break;
++ }
++ }
++ else if (!player1_left && isFired) {
++ switch (player1TankNumber) {
++ case 1:
++ SelectObject(MemDC, tank1_fire_right[tank1FireAni]);
++ if (tank1FireAni == 0) {
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 56, 30, MemDC, 0, 0, 56, 30, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 75, 32, MemDC, 0, 0, 75, 32, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 89, 32, MemDC, 0, 0, 89, 32, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 93, 32, MemDC, 0, 0, 93, 32, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 4) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 96, 31, MemDC, 0, 0, 96, 31, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 5) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 98, 31, MemDC, 0, 0, 98, 31, RGB(255, 0, 255));
++ }
++ break;
++ case 2:
++ SelectObject(MemDC, tank2_fire_right[tank2FireAni]);
++ if (tank2FireAni == 0) {
++ GdiTransparentBlt(hBackBuffer, A.left, A.top - 10, 52, 30, MemDC, 0, 0, 52, 30, RGB(255, 0, 255));
++ }
++ else if (tank2FireAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top - 22, 65, 42, MemDC, 0, 0, 65, 42, RGB(255, 0, 255));
++ }
++ else if (tank2FireAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top - 30, 78, 50, MemDC, 0, 0, 78, 50, RGB(255, 0, 255));
++ }
++ else if (tank2FireAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top - 38, 88, 58, MemDC, 0, 0, 88, 58, RGB(255, 0, 255));
++ }
++ break;
++ case 3:
++ SelectObject(MemDC, tank3_fire_right[tank3FireAni]);
++ if (tank3FireAni == 0) {
++ GdiTransparentBlt(hBackBuffer, A.left, A.top - 17, 47, 37, MemDC, 0, 0, 47, 37, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top - 22, 52, 42, MemDC, 0, 0, 52, 42, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top - 25, 61, 45, MemDC, 0, 0, 61, 45, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top - 28, 62, 48, MemDC, 0, 0, 62, 48, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 4) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top - 30, 60, 50, MemDC, 0, 0, 60, 50, RGB(255, 0, 255));
++ }
++ break;
++ }
++ }
++ else if (player1_left && !p1isMoving) {
++ //1 ũ idle 
++ switch (player1TankNumber) {
++ case 1:
++ SelectObject(MemDC, tank1_idle_left);
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
++ break;
++ case 2:
++ SelectObject(MemDC, tank2_idle_left);
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
++ break;
++ case 3:
++ SelectObject(MemDC, tank3_idle_left);
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
++ break;
++ }
++ }
++ else if (player1_left && p1isMoving) {
++ switch (player1TankNumber) {
++ case 1: //1 ũ  ִϸ̼
++ SelectObject(MemDC, tank1_moving_left[tank1MovingAni]);
++ if (tank1MovingAni == 0 || tank1MovingAni == 4) {
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 36, 29, MemDC, 0, 0, 36, 29, RGB(255, 0, 255));
++ }
++ else {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 30, MemDC, 0, 0, 37, 30, RGB(255, 0, 255));
++ }
++ break;
++ case 2: //2 ũ  ִϸ̼
++ SelectObject(MemDC, tank2_moving_left[tank23MovingAni]);
++ if (tank23MovingAni == 0) {
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 52, 21, MemDC, 0, 0, 52, 21, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 73, 22, MemDC, 0, 0, 73, 22, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 84, 32, MemDC, 0, 0, 84, 32, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 98, 27, MemDC, 0, 0, 98, 27, RGB(255, 0, 255));
++ }
++ break;
++
++ case 3: //3 ũ  ִϸ̼
++ SelectObject(MemDC, tank3_moving_left[tank23MovingAni]);
++ if (tank23MovingAni == 0) {
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 49, 25, MemDC, 0, 0, 49, 25, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 58, 24, MemDC, 0, 0, 58, 24, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 61, 25, MemDC, 0, 0, 61, 25, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 56, 25, MemDC, 0, 0, 56, 25, RGB(255, 0, 255));
++ }
++ break;
++ }
++ }
++ else if (!player1_left && !p1isMoving) {
++ switch (player1TankNumber) {
++ case 1: //1ũ  idle
++ SelectObject(MemDC, tank1_idle_right);
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
++ break;
++ case 2: //2ũ  idle
++ SelectObject(MemDC, tank2_idle_right);
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
++ break;
++ case 3: //3ũ  idle
++ SelectObject(MemDC, tank3_idle_right);
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
++ break;
++ }
++ }
++ else if (!player1_left && p1isMoving) {
++ switch (player1TankNumber) {
++ case 1: //1 ũ  ִϸ̼
++ SelectObject(MemDC, tank1_moving_right[tank1MovingAni]);
++ if (tank1MovingAni == 0 || tank1MovingAni == 4) {
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 36, 29, MemDC, 0, 0, 36, 29, RGB(255, 0, 255));
++ }
++ else {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 30, MemDC, 0, 0, 37, 30, RGB(255, 0, 255));
++ }
++ break;
++ case 2: //2 ũ  ִϸ̼
++ SelectObject(MemDC, tank2_moving_right[tank23MovingAni]);
++ if (tank23MovingAni == 0) {
++ GdiTransparentBlt(hBackBuffer, A.left - 32, A.top, 52, 21, MemDC, 0, 0, 52, 21, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 53, A.top, 73, 22, MemDC, 0, 0, 73, 22, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 64, A.top, 84, 32, MemDC, 0, 0, 84, 32, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 78, A.top, 98, 27, MemDC, 0, 0, 98, 27, RGB(255, 0, 255));
++ }
++ break;
++
++ case 3: //3 ũ  ִϸ̼
++ SelectObject(MemDC, tank3_moving_right[tank23MovingAni]);
++ if (tank23MovingAni == 0) {
++ GdiTransparentBlt(hBackBuffer, A.left - 29, A.top, 49, 25, MemDC, 0, 0, 49, 25, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 38, A.top, 58, 24, MemDC, 0, 0, 58, 24, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 41, A.top, 61, 25, MemDC, 0, 0, 61, 25, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 36, A.top, 56, 25, MemDC, 0, 0, 56, 25, RGB(255, 0, 255));
++ }
++ break;
++ }
++ }
++
++ if (player2_left && isFired) {
++ switch (player2TankNumber) {
++ case 1:
++ SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
++ if (tank1FireAni == 0) {
++ GdiTransparentBlt(hBackBuffer, B.left - 36, B.top, 56, 30, MemDC, 0, 0, 56, 30, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 1) {
++ //SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
++ GdiTransparentBlt(hBackBuffer, B.left - 55, B.top, 75, 32, MemDC, 0, 0, 75, 32, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 2) {
++ //SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
++ GdiTransparentBlt(hBackBuffer, B.left - 69, B.top, 89, 32, MemDC, 0, 0, 89, 32, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 3) {
++ //SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
++ GdiTransparentBlt(hBackBuffer, B.left - 73, B.top, 93, 32, MemDC, 0, 0, 93, 32, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 4) {
++ //SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
++ GdiTransparentBlt(hBackBuffer, B.left - 76, B.top, 96, 31, MemDC, 0, 0, 96, 31, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 5) {
++ //SelectObject(MemDC, tank1_fire_left[tank1FireAni]);
++ GdiTransparentBlt(hBackBuffer, B.left - 78, B.top - 11, 98, 31, MemDC, 0, 0, 98, 31, RGB(255, 0, 255));
++ }
++ break;
++ case 2:
++ SelectObject(MemDC, tank2_fire_left[tank2FireAni]);
++ if (tank2FireAni == 0) {
++ GdiTransparentBlt(hBackBuffer, B.left - 32, B.top - 10, 52, 30, MemDC, 0, 0, 52, 30, RGB(255, 0, 255));
++ }
++ else if (tank2FireAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, B.left - 45, B.top - 22, 65, 42, MemDC, 0, 0, 65, 42, RGB(255, 0, 255));
++ }
++ else if (tank2FireAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, B.left - 58, B.top - 30, 78, 50, MemDC, 0, 0, 78, 50, RGB(255, 0, 255));
++ }
++ else if (tank2FireAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, B.left - 68, B.top - 38, 88, 58, MemDC, 0, 0, 88, 58, RGB(255, 0, 255));
++ }
++ break;
++ case 3:
++ SelectObject(MemDC, tank3_fire_left[tank3FireAni]);
++ if (tank3FireAni == 0) {
++ GdiTransparentBlt(hBackBuffer, B.left - 27, B.top - 17, 47, 37, MemDC, 0, 0, 47, 37, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, B.left - 32, B.top - 22, 52, 42, MemDC, 0, 0, 52, 42, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, B.left - 41, B.top - 25, 61, 45, MemDC, 0, 0, 61, 45, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, B.left - 42, B.top - 28, 62, 48, MemDC, 0, 0, 62, 48, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 4) {
++
++ GdiTransparentBlt(hBackBuffer, B.left - 40, B.top - 30, 60, 50, MemDC, 0, 0, 60, 50, RGB(255, 0, 255));
++ }
++ break;
++ }
++ }
++ else if (!player2_left && isFired) {
++ switch (player2TankNumber) {
++ case 1:
++ SelectObject(MemDC, tank1_fire_right[tank1FireAni]);
++ if (tank1FireAni == 0) {
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 56, 30, MemDC, 0, 0, 56, 30, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 75, 32, MemDC, 0, 0, 75, 32, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 89, 32, MemDC, 0, 0, 89, 32, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 93, 32, MemDC, 0, 0, 93, 32, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 4) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 96, 31, MemDC, 0, 0, 96, 31, RGB(255, 0, 255));
++ }
++ else if (tank1FireAni == 5) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 98, 31, MemDC, 0, 0, 98, 31, RGB(255, 0, 255));
++ }
++ break;
++ case 2:
++ SelectObject(MemDC, tank2_fire_right[tank2FireAni]);
++ if (tank2FireAni == 0) {
++ GdiTransparentBlt(hBackBuffer, B.left, B.top - 10, 52, 30, MemDC, 0, 0, 52, 30, RGB(255, 0, 255));
++ }
++ else if (tank2FireAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top - 22, 65, 42, MemDC, 0, 0, 65, 42, RGB(255, 0, 255));
++ }
++ else if (tank2FireAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top - 30, 78, 50, MemDC, 0, 0, 78, 50, RGB(255, 0, 255));
++ }
++ else if (tank2FireAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top - 38, 88, 58, MemDC, 0, 0, 88, 58, RGB(255, 0, 255));
++ }
++ break;
++ case 3:
++ SelectObject(MemDC, tank3_fire_right[tank3FireAni]);
++ if (tank3FireAni == 0) {
++ GdiTransparentBlt(hBackBuffer, B.left, B.top - 17, 47, 37, MemDC, 0, 0, 47, 37, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top - 22, 52, 42, MemDC, 0, 0, 52, 42, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top - 25, 61, 45, MemDC, 0, 0, 61, 45, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top - 28, 62, 48, MemDC, 0, 0, 62, 48, RGB(255, 0, 255));
++ }
++ else if (tank3FireAni == 4) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top - 30, 60, 50, MemDC, 0, 0, 60, 50, RGB(255, 0, 255));
++ }
++ break;
++ }
++ }
++ else if (player2_left && !p2isMoving) {
++ //1 ũ idle 
++ switch (player2TankNumber) {
++ case 1:
++ SelectObject(MemDC, tank1_idle_left);
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
++ break;
++ case 2:
++ SelectObject(MemDC, tank2_idle_left);
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
++ break;
++ case 3:
++ SelectObject(MemDC, tank3_idle_left);
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
++ break;
++ }
++ }
++ else if (player2_left && p2isMoving) {
++ switch (player2TankNumber) {
++ case 1: //1 ũ  ִϸ̼
++ SelectObject(MemDC, tank1_moving_left[tank1MovingAni]);
++ if (tank1MovingAni == 0 || tank1MovingAni == 4) {
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 36, 29, MemDC, 0, 0, 36, 29, RGB(255, 0, 255));
++ }
++ else {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 37, 30, MemDC, 0, 0, 37, 30, RGB(255, 0, 255));
++ }
++ break;
++ case 2: //2 ũ  ִϸ̼
++ SelectObject(MemDC, tank2_moving_left[tank23MovingAni]);
++ if (tank23MovingAni == 0) {
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 52, 21, MemDC, 0, 0, 52, 21, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 73, 22, MemDC, 0, 0, 73, 22, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 84, 32, MemDC, 0, 0, 84, 32, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 98, 27, MemDC, 0, 0, 98, 27, RGB(255, 0, 255));
++ }
++ break;
++
++ case 3: //3 ũ  ִϸ̼
++ SelectObject(MemDC, tank3_moving_left[tank23MovingAni]);
++ if (tank23MovingAni == 0) {
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 49, 25, MemDC, 0, 0, 49, 25, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 58, 24, MemDC, 0, 0, 58, 24, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 61, 25, MemDC, 0, 0, 61, 25, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, B.left, B.top, 56, 25, MemDC, 0, 0, 56, 25, RGB(255, 0, 255));
++ }
++ break;
++ }
++ }
++ else if (!isHited) {
++ switch (player1TankNumber) {
++ case 1:
++ SelectObject(MemDC, tank1_hited_left);
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
++ break;
++ case 2:
++ SelectObject(MemDC, tank2_hited_left);
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
++ break;
++ case 3:
++ SelectObject(MemDC, tank3_hited_left);
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
++ break;
++ }
++ }
++ else if (!player1_left && !p1isMoving) {
++ switch (player1TankNumber) {
++ case 1: //1ũ  idle
++ SelectObject(MemDC, tank1_idle_right);
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 29, MemDC, 0, 0, 37, 29, RGB(255, 0, 255));
++ break;
++ case 2: //2ũ  idle
++ SelectObject(MemDC, tank2_idle_right);
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 35, 21, MemDC, 0, 0, 35, 21, RGB(255, 0, 255));
++ break;
++ case 3: //3ũ  idle
++ SelectObject(MemDC, tank3_idle_right);
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 32, 25, MemDC, 0, 0, 32, 25, RGB(255, 0, 255));
++ break;
++ }
++ }
++ else if (!player1_left && p1isMoving) {
++ switch (player1TankNumber) {
++ case 1: //1 ũ  ִϸ̼
++ SelectObject(MemDC, tank1_moving_right[tank1MovingAni]);
++ if (tank1MovingAni == 0 || tank1MovingAni == 4) {
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 36, 29, MemDC, 0, 0, 36, 29, RGB(255, 0, 255));
++ }
++ else {
++
++ GdiTransparentBlt(hBackBuffer, A.left, A.top, 37, 30, MemDC, 0, 0, 37, 30, RGB(255, 0, 255));
++ }
++ break;
++ case 2: //2 ũ  ִϸ̼
++ SelectObject(MemDC, tank2_moving_right[tank23MovingAni]);
++ if (tank23MovingAni == 0) {
++ GdiTransparentBlt(hBackBuffer, A.left - 32, A.top, 52, 21, MemDC, 0, 0, 52, 21, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 53, A.top, 73, 22, MemDC, 0, 0, 73, 22, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 64, A.top, 84, 32, MemDC, 0, 0, 84, 32, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, A.left - 78, A.top, 98, 27, MemDC, 0, 0, 98, 27, RGB(255, 0, 255));
++ }
++ break;
++
++ case 3: //3 ũ  ִϸ̼
++ SelectObject(MemDC, tank3_moving_right[tank23MovingAni]);
++ if (tank23MovingAni == 0) {
++ GdiTransparentBlt(hBackBuffer, B.left - 29, B.top, 49, 25, MemDC, 0, 0, 49, 25, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 1) {
++
++ GdiTransparentBlt(hBackBuffer, B.left - 38, B.top, 58, 24, MemDC, 0, 0, 58, 24, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 2) {
++
++ GdiTransparentBlt(hBackBuffer, B.left - 41, B.top, 61, 25, MemDC, 0, 0, 61, 25, RGB(255, 0, 255));
++ }
++ else if (tank23MovingAni == 3) {
++
++ GdiTransparentBlt(hBackBuffer, B.left - 36, B.top, 56, 25, MemDC, 0, 0, 56, 25, RGB(255, 0, 255));
++ }
++ break;
++
++ }
++ }
+ 
+ }
+ 
+ void Draw_skill()
+ {
+-    if (A.shoot_mode == 1 && player_1turn && A.shoot1 == true)
+-    {
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-        Rectangle(hBackBuffer, camera_x + 500, camera_y + 360, camera_x + 527, camera_y + 385);
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-    }
+-    if (B.shoot_mode == 1 && player_2turn && B.shoot1 == true)
+-    {
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-        Rectangle(hBackBuffer, camera_x + 500, camera_y + 360, camera_x + 527, camera_y + 385);
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-    }
+-    // ---
+-    if (A.shoot_mode == 2 && player_1turn && A.shoot2 == true)
+-    {
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-        Rectangle(hBackBuffer, camera_x + 530, camera_y + 360, camera_x + 557, camera_y + 385);
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-    }
+-    if (B.shoot_mode == 2 && player_2turn && B.shoot2 == true)
+-    {
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-        Rectangle(hBackBuffer, camera_x + 530, camera_y + 360, camera_x + 557, camera_y + 385);
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-    }
+-    // ---
+-    if (A.shoot_mode == 3 && player_1turn && A.shoot3 == true)
+-    {
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-        Rectangle(hBackBuffer, camera_x + 560, camera_y + 360, camera_x + 587, camera_y + 385);
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-    }
+-    if (B.shoot_mode == 3 && player_2turn && B.shoot3 == true)
+-    {
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-        Rectangle(hBackBuffer, camera_x + 560, camera_y + 360, camera_x + 587, camera_y + 385);
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-    }
+-    //----------------- ׵θ-----------Ʒ -----------
+-    if ((!AitemPowerup && player_1turn) || (!BitemPowerup && player_2turn)) {
+-        SelectObject(MemDC, item[0]);
+-        GdiTransparentBlt(hBackBuffer, camera_x + 500, camera_y + 360, 26, 24, MemDC, 0, 0, 26, 24, RGB(255, 0, 255));
+-    }
+-    else {
+-        SelectObject(MemDC, item[1]);
+-        GdiTransparentBlt(hBackBuffer, camera_x + 500, camera_y + 360, 26, 24, MemDC, 0, 0, 26, 24, RGB(255, 0, 255));
+-    }
+-
+-    if ((!AitemTeleport && player_1turn) || (!BitemTeleport && player_2turn)) {
+-        SelectObject(MemDC, item[2]);
+-        GdiTransparentBlt(hBackBuffer, camera_x + 530, camera_y + 360, 26, 24, MemDC, 0, 0, 26, 24, RGB(255, 0, 255));
+-    }
+-    else {
+-        SelectObject(MemDC, item[3]);
+-        GdiTransparentBlt(hBackBuffer, camera_x + 530, camera_y + 360, 26, 24, MemDC, 0, 0, 26, 24, RGB(255, 0, 255));
+-    }
+-
+-    if ((!AitemFix && player_1turn) || (!BitemFix && player_2turn)) {
+-        SelectObject(MemDC, item[4]);
+-        GdiTransparentBlt(hBackBuffer, camera_x + 560, camera_y + 360, 26, 24, MemDC, 0, 0, 26, 24, RGB(255, 0, 255));
+-    }
+-    else {
+-        SelectObject(MemDC, item[5]);
+-        GdiTransparentBlt(hBackBuffer, camera_x + 560, camera_y + 360, 26, 24, MemDC, 0, 0, 26, 24, RGB(255, 0, 255));
+-    }
++ if (A.shoot_mode == 1 && A.shoot1 == true)
++ {
++ HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
++ HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
++ SelectObject(hBackBuffer, myPen);
++ Rectangle(hBackBuffer, camera_x + 500, camera_y + 360, camera_x + 527, camera_y + 385);
++ SelectObject(hBackBuffer, OldPen);
++ DeleteObject(myPen);
++ }
++ if (B.shoot_mode == 1 && B.shoot1 == true)
++ {
++ HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
++ HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
++ SelectObject(hBackBuffer, myPen);
++ Rectangle(hBackBuffer, camera_x + 500, camera_y + 360, camera_x + 527, camera_y + 385);
++ SelectObject(hBackBuffer, OldPen);
++ DeleteObject(myPen);
++ }
++ // ---
++ if (A.shoot_mode == 2 && A.shoot2 == true)
++ {
++ HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
++ HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
++ SelectObject(hBackBuffer, myPen);
++ Rectangle(hBackBuffer, camera_x + 530, camera_y + 360, camera_x + 557, camera_y + 385);
++ SelectObject(hBackBuffer, OldPen);
++ DeleteObject(myPen);
++ }
++ if (B.shoot_mode == 2 && B.shoot2 == true)
++ {
++ HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
++ HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
++ SelectObject(hBackBuffer, myPen);
++ Rectangle(hBackBuffer, camera_x + 530, camera_y + 360, camera_x + 557, camera_y + 385);
++ SelectObject(hBackBuffer, OldPen);
++ DeleteObject(myPen);
++ }
++ // ---
++ if (A.shoot_mode == 3 && A.shoot3 == true)
++ {
++ HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
++ HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
++ SelectObject(hBackBuffer, myPen);
++ Rectangle(hBackBuffer, camera_x + 560, camera_y + 360, camera_x + 587, camera_y + 385);
++ SelectObject(hBackBuffer, OldPen);
++ DeleteObject(myPen);
++ }
++ if (B.shoot_mode == 3 && B.shoot3 == true)
++ {
++ HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
++ HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
++ SelectObject(hBackBuffer, myPen);
++ Rectangle(hBackBuffer, camera_x + 560, camera_y + 360, camera_x + 587, camera_y + 385);
++ SelectObject(hBackBuffer, OldPen);
++ DeleteObject(myPen);
++ }
++ //----------------- ׵θ-----------Ʒ -----------
++ if ((!AitemPowerup) || (!BitemPowerup)) {
++ SelectObject(MemDC, item[0]);
++ GdiTransparentBlt(hBackBuffer, camera_x + 500, camera_y + 360, 26, 24, MemDC, 0, 0, 26, 24, RGB(255, 0, 255));
++ }
++ else {
++ SelectObject(MemDC, item[1]);
++ GdiTransparentBlt(hBackBuffer, camera_x + 500, camera_y + 360, 26, 24, MemDC, 0, 0, 26, 24, RGB(255, 0, 255));
++ }
++
++ if ((!AitemTeleport) || (!BitemTeleport)) {
++ SelectObject(MemDC, item[2]);
++ GdiTransparentBlt(hBackBuffer, camera_x + 530, camera_y + 360, 26, 24, MemDC, 0, 0, 26, 24, RGB(255, 0, 255));
++ }
++ else {
++ SelectObject(MemDC, item[3]);
++ GdiTransparentBlt(hBackBuffer, camera_x + 530, camera_y + 360, 26, 24, MemDC, 0, 0, 26, 24, RGB(255, 0, 255));
++ }
++
++ if ((!AitemFix) || (!BitemFix)) {
++ SelectObject(MemDC, item[4]);
++ GdiTransparentBlt(hBackBuffer, camera_x + 560, camera_y + 360, 26, 24, MemDC, 0, 0, 26, 24, RGB(255, 0, 255));
++ }
++ else {
++ SelectObject(MemDC, item[5]);
++ GdiTransparentBlt(hBackBuffer, camera_x + 560, camera_y + 360, 26, 24, MemDC, 0, 0, 26, 24, RGB(255, 0, 255));
++ }
+ }
+ 
+ void Draw_shoot()
+ {
+-    if (A.isFire)
+-    {
+-        if (A.shoot_mode == 1 && A.shoot1 == true) {
+-            AitemPowerup = true;
+-            SelectObject(MemDC, sBullet1[bulletAni]);
+-            if (bulletAni == 0)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 11, 9, MemDC, 0, 0, 11, 9, RGB(255, 0, 255)); //  κ
+-            else if (bulletAni == 1)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 11, 11, MemDC, 0, 0, 11, 11, RGB(255, 0, 255)); //  κ
+-            else if (bulletAni == 2)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 11, 11, MemDC, 0, 0, 11, 11, RGB(255, 0, 255)); //  κ
+-            else if (bulletAni == 3)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 11, 11, MemDC, 0, 0, 11, 11, RGB(255, 0, 255)); //  κ
+-        }
+-        else {
+-            if (A.shoot_mode == 2) {
+-                AitemTeleport = true;
+-            }
+-            SelectObject(MemDC, bullet1[bulletAni]);// ϴµ Ʈ ?? ϱ...
+-            if (bulletAni == 0)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 18, 17, MemDC, 0, 0, 18, 17, RGB(255, 0, 255)); //  κ
+-            else if (bulletAni == 1)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 18, 17, MemDC, 0, 0, 18, 17, RGB(255, 0, 255)); //  κ
+-            else if (bulletAni == 2)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 17, 18, MemDC, 0, 0, 17, 18, RGB(255, 0, 255)); //  κ
+-            else if (bulletAni == 3)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 18, 17, MemDC, 0, 0, 18, 17, RGB(255, 0, 255)); //  κ
+-        }
+-    }
+-    else if (B.isFire) {
+-        if (B.shoot_mode == 1 && B.shoot1 == true) {
+-            BitemPowerup = true;
+-            SelectObject(MemDC, sBullet2[bulletAni]);
+-            if (bulletAni == 0)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 9, 12, MemDC, 0, 0, 9, 12, RGB(255, 0, 255)); //  κ
+-            else if (bulletAni == 1)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 13, 9, MemDC, 0, 0, 13, 9, RGB(255, 0, 255)); //  κ
+-            else if (bulletAni == 2)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 9, 11, MemDC, 0, 0, 9, 11, RGB(255, 0, 255)); //  κ
+-            else if (bulletAni == 3)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 18, 9, MemDC, 0, 0, 18, 9, RGB(255, 0, 255)); //  κ
+-        }
+-        else {
+-            if (B.shoot_mode == 2) {
+-                BitemTeleport = true;
+-            }
+-            SelectObject(MemDC, bullet2[bulletAni]);// ϴµ Ʈ ?? ϱ...
+-            if (bulletAni == 0)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 13, 15, MemDC, 0, 0, 13, 15, RGB(255, 0, 255)); //  κ
+-            else if (bulletAni == 1)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 17, 13, MemDC, 0, 0, 17, 13, RGB(255, 0, 255)); //  κ
+-            else if (bulletAni == 2)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 13, 18, MemDC, 0, 0, 13, 18, RGB(255, 0, 255)); //  κ
+-            else if (bulletAni == 3)
+-                GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 23, 13, MemDC, 0, 0, 23, 13, RGB(255, 0, 255)); //  κ
+-        }
+-    }
++ if (A.isFire)
++ {
++ if (A.shoot_mode == 1 && A.shoot1 == true) {
++ AitemPowerup = true;
++ SelectObject(MemDC, sBullet1[bulletAni]);
++ if (bulletAni == 0)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 11, 9, MemDC, 0, 0, 11, 9, RGB(255, 0, 255)); //  κ
++ else if (bulletAni == 1)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 11, 11, MemDC, 0, 0, 11, 11, RGB(255, 0, 255)); //  κ
++ else if (bulletAni == 2)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 11, 11, MemDC, 0, 0, 11, 11, RGB(255, 0, 255)); //  κ
++ else if (bulletAni == 3)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 11, 11, MemDC, 0, 0, 11, 11, RGB(255, 0, 255)); //  κ
++ }
++ else {
++ if (A.shoot_mode == 2) {
++ AitemTeleport = true;
++ }
++ SelectObject(MemDC, bullet1[bulletAni]);// ϴµ Ʈ ?? ϱ...
++ if (bulletAni == 0)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 18, 17, MemDC, 0, 0, 18, 17, RGB(255, 0, 255)); //  κ
++ else if (bulletAni == 1)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 18, 17, MemDC, 0, 0, 18, 17, RGB(255, 0, 255)); //  κ
++ else if (bulletAni == 2)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 17, 18, MemDC, 0, 0, 17, 18, RGB(255, 0, 255)); //  κ
++ else if (bulletAni == 3)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 18, 17, MemDC, 0, 0, 18, 17, RGB(255, 0, 255)); //  κ
++ }
++ }
++ else if (B.isFire) {
++ if (B.shoot_mode == 1 && B.shoot1 == true) {
++ BitemPowerup = true;
++ SelectObject(MemDC, sBullet2[bulletAni]);
++ if (bulletAni == 0)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 9, 12, MemDC, 0, 0, 9, 12, RGB(255, 0, 255)); //  κ
++ else if (bulletAni == 1)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 13, 9, MemDC, 0, 0, 13, 9, RGB(255, 0, 255)); //  κ
++ else if (bulletAni == 2)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 9, 11, MemDC, 0, 0, 9, 11, RGB(255, 0, 255)); //  κ
++ else if (bulletAni == 3)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 18, 9, MemDC, 0, 0, 18, 9, RGB(255, 0, 255)); //  κ
++ }
++ else {
++ if (B.shoot_mode == 2) {
++ BitemTeleport = true;
++ }
++ SelectObject(MemDC, bullet2[bulletAni]);// ϴµ Ʈ ?? ϱ...
++ if (bulletAni == 0)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 13, 15, MemDC, 0, 0, 13, 15, RGB(255, 0, 255)); //  κ
++ else if (bulletAni == 1)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 17, 13, MemDC, 0, 0, 17, 13, RGB(255, 0, 255)); //  κ
++ else if (bulletAni == 2)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 13, 18, MemDC, 0, 0, 13, 18, RGB(255, 0, 255)); //  κ
++ else if (bulletAni == 3)
++ GdiTransparentBlt(hBackBuffer, x - 3.5, y - 3.5, 23, 13, MemDC, 0, 0, 23, 13, RGB(255, 0, 255)); //  κ
++ }
++ }
+ }
+ 
+ void player_UI()
+ {
+-    if (player_1turn)
+-    {
+-        A.Render_Fire(hBackBuffer);
+-        A.Render_Line(hBackBuffer, camera_x, camera_y);
+-        A.Render_PowerGauge(hBackBuffer, camera_x, camera_y);
+-        /*A.Render_SpeedGauge(hBackBuffer, camera_x, camera_y);*/
+-    }
+-
+-    if (player_2turn)
+-    {
+-        B.Render_Fire(hBackBuffer);
+-        B.Render_Line(hBackBuffer, camera_x, camera_y);
+-        B.Render_PowerGauge(hBackBuffer, camera_x, camera_y);
+-       /* B.Render_SpeedGauge(hBackBuffer, camera_x, camera_y);*/
+-    }
+-}
+-
+-void physics(HWND hWnd)
+-{
+-    // --- ũ A ߷/浹 ---
+-    if (IsShapeCollidingWithBitmap(hBitmap, A.left, A.top, 5, 5))
+-    {
+-        A.top += 1;
+-        if (A.top + 20 >= 800)
+-        {
+-            A.HP = 0;
+-        }
+-    }
+-    if (IsShapeCollidingWithBitmap_2(hBitmap, A.left, A.top, 5, 5))
+-    {
+-        A.top -= 1;
+-    }
+-
+-    // --- ũ B ߷/浹 ---
+-    if (IsShapeCollidingWithBitmap(hBitmap, B.left, B.top, 5, 5))
+-    {
+-        B.top += 1;
+-        if (B.top + 20 >= 800)
+-        {
+-            B.HP = 0;
+-        }
+-    }
+-    if (IsShapeCollidingWithBitmap_2(hBitmap, B.left, B.top, 5, 5))
+-    {
+-        B.top -= 1;
+-    }
+-
+-    // --- ź A ---
+-    if (A.isFire == true)
+-    {
+-        if (y > 0 && x > 0 && x < 1600 && y < 800)
+-        {
+-            if (GetPixelColor(hBitmap, x + 2.5, y + 2.5) != TARGET_COLOR)
+-            {
+-                isShellCollision = true;
+-                SetTimer(hWnd, 9, 60, NULL);
+-                SetPixelColor(hBitmap, x + 2.5, y + 2.5, TARGET_COLOR);
+-
+-                // ()  ı  ȭ
+-                // SendTerrainDelta((int)(x + 2.5f), (int)(y + 2.5f), 30, A.shoot_mode);
+-
+-                //   A(0 ÷̾)   Ŷ 
+-                if (g_myPlayerId == 0)
+-                    SendTurnEndPacket();
+-
+-                // ź  ó
+-                if (A.shoot_mode == 2 && A.shoot2 == true)
+-                {
+-                    A.set_pos(x - 10, y);
+-                    A.shoot_mode = 0;
+-                    A.shoot2 = false;
+-                }
+-                if (A.shoot_mode == 1 && A.shoot1 == true)
+-                {
+-                    A.shoot1 = false;
+-                    A.shoot_mode = 0;
+-                }
+-
+-                //  /̽   ʱȭ
+-                A.ResetGauge();
+-                B.ResetGauge();
+-
+-                // ź ġ ʱȭ (ʿϴٸ  )
+-                A.set_ball();
+-                // B.set_ball();  // ʿ  
+-
+-                make_random();
+-            }
+-        }
+-    }
+-    // --- ź B ---
+-    else if (B.isFire == true)
+-    {
+-        if (y > 0 && x > 0 && x < 1600 && y < 800)
+-        {
+-            if (GetPixelColor(hBitmap, x + 2.5, y + 2.5) != TARGET_COLOR)
+-            {
+-                isShellCollision = true;
+-                SetTimer(hWnd, 9, 60, NULL);
+-                SetPixelColor(hBitmap, x + 2.5, y + 2.5, TARGET_COLOR);
+-
+-                // ()  ı  ȭ
+-                // SendTerrainDelta((int)(x + 2.5f), (int)(y + 2.5f), 30, B.shoot_mode);
+-
+-                //   B(1 ÷̾)   Ŷ 
+-                if (g_myPlayerId == 1)
+-                    SendTurnEndPacket();
+-
+-                if (B.shoot_mode == 2 && B.shoot2 == true)
+-                {
+-                    B.set_pos(x - 10, y);
+-                    B.shoot_mode = 0;
+-                    B.shoot2 = false;
+-                }
+-                if (B.shoot_mode == 1 && B.shoot1 == true)
+-                {
+-                    B.shoot1 = false;
+-                    B.shoot_mode = 0;
+-                }
+-
+-                A.ResetGauge();
+-                B.ResetGauge();
+-
+-                // ź ġ ʱȭ
+-                B.set_ball();
+-                // A.set_ball();  // ʿ 
+-
+-                make_random();
+-            }
+-        }
+-    }
+-}
+-
+-
+-void physics_Action(HWND hWnd)
+-{
+-    // --- ÷̾ A ó (׻ Ʈ, ǽð) ---
+-    A.Action(&x, &y, player1TankNumber);          //   3
+-    A.set_radian();
+-    if (CanControlPlayer(0))
+-        A.Move(A.isFire, player1TankNumber);
+-    A.set_ball();
+-    if (CanControlPlayer(0))
+-        A.Update(A.isFire, hWnd);
+-    A.set_pos(A.left, A.top);
+-    if (CanControlPlayer(0))
+-        SendPlayerState(0);
+-    if (A.isFire)
+-        A.Hit(B.left, B.top, &B.HP, player1TankNumber);  //  Ÿ HP ѱ
+-
+-    // --- ÷̾ B ó ---
+-    B.Action(&x, &y, player2TankNumber);
+-    B.set_radian();
+-    if (CanControlPlayer(1))
+-        B.Move(B.isFire, player2TankNumber);
+-    B.set_ball();
+-    if (CanControlPlayer(1))
+-        B.Update(B.isFire, hWnd);
+-    B.set_pos(B.left, B.top);
+-    if (CanControlPlayer(1))
+-        SendPlayerState(1);
+-    if (B.isFire)
+-        B.Hit(A.left, A.top, &A.HP, player2TankNumber);
+-}
+-
+-void camera_turn()
+-{
+-   
+-}
+-
+-
+-void Fire_turn()
+-{
+-   
+-}
+-
+-void InsertBitmap(HINSTANCE hInst) {
+-    {//ũ Ʈ ε
+-        {//ũ1
+-            tank1_idle_left = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP90));
+-            tank1_idle_right = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP91));
+-
+-            tank1_moving_left[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP46));//
+-            tank1_moving_left[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP47));//
+-            tank1_moving_left[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP82));
+-            tank1_moving_left[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP83));
+-            tank1_moving_left[4] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP84));
+-
+-            tank1_moving_right[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP85));
+-            tank1_moving_right[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP86));
+-            tank1_moving_right[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP87));
+-            tank1_moving_right[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP88));
+-            tank1_moving_right[4] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP89));
+-
+-            tank1_hited_left = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP48));
+-            tank1_hited_right = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP49));
+-
+-            tank1_fire_left[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP50));
+-            tank1_fire_left[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP51));
+-            tank1_fire_left[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP52));
+-            tank1_fire_left[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP53));
+-            tank1_fire_left[4] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP54));
+-            tank1_fire_left[5] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP55));
+-
+-            tank1_fire_right[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP56));
+-            tank1_fire_right[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP57));
+-            tank1_fire_right[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP58));
+-            tank1_fire_right[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP59));
+-            tank1_fire_right[4] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP60));
+-            tank1_fire_right[5] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP61));
+-        }
+-
+-        {//ũ2
+-            tank2_idle_left = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP62));
+-            tank2_idle_right = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP63));
+-
+-            tank2_moving_left[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP64));
+-            tank2_moving_left[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP65));
+-            tank2_moving_left[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP66));
+-            tank2_moving_left[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP67));
+-
+-            tank2_moving_right[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP68));
+-            tank2_moving_right[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP69));
+-            tank2_moving_right[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP70));
+-            tank2_moving_right[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP71));
+-
+-            tank2_hited_left = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP72));
+-            tank2_hited_right = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP73));
+-
+-            tank2_fire_left[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP74));
+-            tank2_fire_left[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP75));
+-            tank2_fire_left[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP76));
+-            tank2_fire_left[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP77));
+-
+-            tank2_fire_right[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP78));
+-            tank2_fire_right[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP79));
+-            tank2_fire_right[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP80));
+-            tank2_fire_right[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP81));
+-        }
+-
+-        {//ũ3
+-            tank3_idle_left = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP92));
+-            tank3_idle_right = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP93));
+-
+-            tank3_moving_left[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP94));
+-            tank3_moving_left[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP95));
+-            tank3_moving_left[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP96));
+-            tank3_moving_left[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP97));
+-
+-            tank3_moving_right[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP98));
+-            tank3_moving_right[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP99));
+-            tank3_moving_right[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP100));
+-            tank3_moving_right[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP101));
+-
+-            tank3_hited_left = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP102));
+-            tank3_hited_right = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP103));
+-
+-            tank3_fire_left[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP104));
+-            tank3_fire_left[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP105));
+-            tank3_fire_left[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP106));
+-            tank3_fire_left[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP107));
+-            tank3_fire_left[4] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP108));
+-
+-            tank3_fire_right[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP109));
+-            tank3_fire_right[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP110));
+-            tank3_fire_right[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP111));
+-            tank3_fire_right[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP112));
+-            tank3_fire_right[4] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP113));
+-        }
+-    }
+-    {//źȯ Ʈ ε
+-        bullet1[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP11));
+-        bullet1[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP12));
+-        bullet1[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP13));
+-        bullet1[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP14));
+-
+-        sBullet1[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP15));
+-        sBullet1[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP16));
+-        sBullet1[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP17));
+-        sBullet1[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP18));
+-
+-        bullet2[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP19));
+-        bullet2[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP20));
+-        bullet2[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP21));
+-        bullet2[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP22));
+-
+-        sBullet2[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP23));
+-        sBullet2[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP24));
+-        sBullet2[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP25));
+-        sBullet2[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP26));
+-    }
+-    {// Ʈ ε
+-        item[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP28)); //powerup
+-        item[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP31)); //usedpowerup
+-        item[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP29)); //teleport 
+-        item[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP32)); //usedteleport
+-        item[4] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP27)); //usedfix
+-        item[5] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP30)); //fix
+-    }
+-    {// ı Ʈ Ʈ ε
+-        flare[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP33));
+-        flare[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP34));
+-        flare[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP35));
+-        flare[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP36));
+-        flare[4] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP37));
+-        flare[5] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP38));
+-        flare[6] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP39));
+-        flare[7] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP40));
+-        flare[8] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP41));
+-        flare[9] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP42));
+-        flare[10] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP43));
+-        flare[11] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP44));
+-    }
+-    {//1 ٶ Ʈ ε
+-        map1_wind[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP115));
+-        map1_wind[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP116));
+-        map1_wind[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP117));
+-        map1_wind[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP118));
+-    }
+-    {//2 ٶ Ʈ ε
+-        map2_wind[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP119));
+-        map2_wind[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP120));
+-        map2_wind[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP121));
+-        map2_wind[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP122));
+-        map2_wind[4] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP123));
+-        map2_wind[5] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP124));
+-        map2_wind[6] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP125));
+-        map2_wind[7] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP126));
+-    }
+-    {//3 ٶ Ʈ ε
+-        map3_wind[0] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP127));
+-        map3_wind[1] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP128));
+-        map3_wind[2] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP129));
+-        map3_wind[3] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP130));
+-    }
+-}
+-
+-bool IsShapeCollidingWithBitmap(HBITMAP hBitmap, int shapeX, int shapeY, int shapeWidth, int shapeHeight) {
+-
+-    int xl = shapeX;
+-    int yt = shapeY + 20;
+-    if (GetPixelColor(hBitmap, xl + 10, yt) == TARGET_COLOR) {
+-        return true;
+-    }
+-    return false;
+-}
+-
+-bool IsShapeCollidingWithBitmap_2(HBITMAP hBitmap, int shapeX, int shapeY, int shapeWidth, int shapeHeight) {
+-
+-    int x = shapeX;
+-    int y = shapeY + 20;
+-    if (GetPixelColor(hBitmap, x + 10, y) != TARGET_COLOR) {
+-        return true;
+-    }
+-    return false;
+-}
+-
+-bool IsBitmapsIntersecting(HBITMAP hBitmap1, int x1, int y1, HBITMAP hBitmap2, int x2, int y2, int width, int height)
+-{
+-    HDC hdcBitmap1 = CreateCompatibleDC(NULL);
+-    if (hdcBitmap1 == NULL)
+-    {
+-        return false;
+-    }
+-
+-    HDC hdcBitmap2 = CreateCompatibleDC(NULL);
+-    if (hdcBitmap2 == NULL)
+-    {
+-        DeleteDC(hdcBitmap1);
+-        return false;
+-    }
+-
+-    HGDIOBJ oldBitmap1 = SelectObject(hdcBitmap1, hBitmap1);
+-
+-    HGDIOBJ oldBitmap2 = SelectObject(hdcBitmap2, hBitmap2);
+-
+-    bool isColliding = false;
+-
+-    RECT rect1 = { x1, y1, x1 + width, y1 + height };
+-    RECT rect2 = { x2, y2, x2 + width, y2 + height };
+-    RECT intersection;
+-    if (IntersectRect(&intersection, &rect1, &rect2))
+-    {
+-        isColliding = true;
+-    }
+-
+-    SelectObject(hdcBitmap1, oldBitmap1);
+-    SelectObject(hdcBitmap2, oldBitmap2);
+-
+-    DeleteDC(hdcBitmap1);
+-    DeleteDC(hdcBitmap2);
+-
+-    return isColliding;
+-}
+-
+-void wind(HWND hWnd)
+-{
+-    if (wind_left && A.isFire)
+-    {
+-
+-        physics_Action(hWnd); // źȯ  ó
+-        if (A.angle > 90)
+-        {
+-            A.power += 0.04 * A.Time;
+-        }
+-        else if (A.angle < 90)
+-        {
+-            A.power -= 0.04 * A.Time;
+-        }
+-        else
+-        {
+-            A.x -= 0.5;
+-        }
+-    }
+-    else if (wind_right && A.isFire)
+-    {
+-
+-        physics_Action(hWnd); // źȯ  ó
+-        if (A.angle > 90)
+-        {
+-            A.power -= 0.04 * A.Time;
+-        }
+-        else if (A.angle < 90)
+-        {
+-            A.power += 0.04 * A.Time;
+-        }
+-        else
+-        {
+-            A.x += 0.5;
+-        }
+-    }
+-    else if (wind_left && B.isFire)
+-    {
+-
+-        physics_Action(hWnd); // źȯ  ó
+-        if (B.angle > 90)
+-        {
+-            B.power += 0.04 * B.Time;
+-        }
+-        else if (B.angle < 90)
+-        {
+-            B.power -= 0.04 * B.Time;
+-        }
+-        else
+-        {
+-            B.x -= 0.5;
+-        }
+-    }
+-    else if (wind_right && B.isFire)
+-    {
+-
+-        physics_Action(hWnd); // źȯ  ó
+-        if (B.angle > 90)
+-        {
+-            B.power -= 0.04 * B.Time;
+-        }
+-        else if (B.angle < 90)
+-        {
+-            B.power += 0.04 * B.Time;
+-        }
+-        else
+-        {
+-            B.x += 0.5;
+-        }
+-    }
+-    else
+-    {
+-        physics_Action(hWnd); // źȯ  ó
+-    }
+-    Fire_turn(); // źȯ  ī޶
+-    camera_turn(); // ÷̾  ī޶
+-}
+-
+-void make_random()
+-{
+-    std::random_device rd;
+-    std::mt19937 mt(rd());
+-    std::uniform_int_distribution<int> dist(0, 10);
+-    randNum = dist(mt);
+-    if (randNum == 1 || randNum == 3)
+-    {
+-        wind_left = true;
+-        wind_right = false;
+-    }
+-    else if (randNum == 2 || randNum == 4)
+-    {
+-        wind_left = false;
+-        wind_right = true;
+-    }
+-    else
+-    {
+-        wind_left = false;
+-        wind_right = false;
+-    }
+-}
+-
+-void Draw_wind()
+-{
+-    if (select_map == 1) {
+-        SelectObject(MemDC, map1_wind[map13WindAni]);
+-        for (int i = 0; i < 9; ++i) {
+-            if (map13WindAni == 0 || map13WindAni == 2)
+-                GdiTransparentBlt(hBackBuffer, xPos[i], yPos[i], 29, 27, MemDC, 0, 0, 29, 27, RGB(255, 0, 255));
+-            else if (map13WindAni == 1 || map13WindAni == 3)
+-                GdiTransparentBlt(hBackBuffer, xPos[i], yPos[i], 27, 29, MemDC, 0, 0, 27, 29, RGB(255, 0, 255));
+-        }
+-    }
+-    else if (select_map == 2) {
+-        SelectObject(MemDC, map2_wind[map2WindAni]);
+-        for (int i = 0; i < 9; ++i) {
+-            if (map2WindAni == 0 || map2WindAni == 4)
+-                GdiTransparentBlt(hBackBuffer, xPos[i], yPos[i], 23, 37, MemDC, 0, 0, 23, 37, RGB(255, 0, 255));
+-            else if (map2WindAni == 1 || map2WindAni == 3 || map2WindAni == 5 || map2WindAni == 7)
+-                GdiTransparentBlt(hBackBuffer, xPos[i], yPos[i], 29, 29, MemDC, 0, 0, 29, 29, RGB(255, 0, 255));
+-            else if (map2WindAni == 2 || map2WindAni == 6)
+-                GdiTransparentBlt(hBackBuffer, xPos[i], yPos[i], 37, 23, MemDC, 0, 0, 37, 23, RGB(255, 0, 255));
+-        }
+-    }
+-    else if (select_map == 3) {
+-        SelectObject(MemDC, map3_wind[map13WindAni]);
+-        for (int i = 0; i < 9; ++i) {
+-            if (map13WindAni == 0 || map13WindAni == 2)
+-                GdiTransparentBlt(hBackBuffer, xPos[i], yPos[i], 35, 31, MemDC, 0, 0, 35, 31, RGB(255, 0, 255));
+-            else if (map13WindAni == 1 || map13WindAni == 3)
+-                GdiTransparentBlt(hBackBuffer, xPos[i], yPos[i], 25, 31, MemDC, 0, 0, 25, 31, RGB(255, 0, 255));
+-        }
+-    }
+-}
+-
+-void player_dead(HWND hWnd)
+-{
+-    if (A.HP <= 0)
+-    {
+-        reset(hWnd);
+-        InvalidateRect(hWnd, NULL, TRUE);
+-    }
+-    else if (B.HP <= 0)
+-    {
+-        reset(hWnd);
+-        InvalidateRect(hWnd, NULL, TRUE);
+-    }
+-}
+-
+-void select_UI()
+-{
+-    if (player2_rect1 == true)
+-    {
+-        HBRUSH myBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+-        HBRUSH oldBrush = (HBRUSH)SelectObject(hBackBuffer, myBrush);
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(0, 0, 255));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-
+-        Rectangle(hBackBuffer, 190, 80, 260, 150);
+-
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-        SelectObject(hBackBuffer, oldBrush);
+-        DeleteObject(myBrush);
+-    }
+-    else if (player2_rect2 == true)
+-    {
+-        HBRUSH myBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+-        HBRUSH oldBrush = (HBRUSH)SelectObject(hBackBuffer, myBrush);
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(0, 0, 255));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-
+-        Rectangle(hBackBuffer, 275, 80, 350, 150);
+-
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-        SelectObject(hBackBuffer, oldBrush);
+-        DeleteObject(myBrush);
+-    }
+-    else if (player2_rect3 == true)
+-    {
+-        HBRUSH myBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+-        HBRUSH oldBrush = (HBRUSH)SelectObject(hBackBuffer, myBrush);
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(0, 0, 255));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-
+-        Rectangle(hBackBuffer, 360, 80, 430, 150);
+-
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-        SelectObject(hBackBuffer, oldBrush);
+-        DeleteObject(myBrush);
+-    }
+-    // ---
+-    if (player1_rect1 == true)
+-    {
+-        HBRUSH myBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+-        HBRUSH oldBrush = (HBRUSH)SelectObject(hBackBuffer, myBrush);
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-
+-        Rectangle(hBackBuffer, 190, 80, 260, 150);
+-
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-        SelectObject(hBackBuffer, oldBrush);
+-        DeleteObject(myBrush);
+-    }
+-    else if (player1_rect2 == true)
+-    {
+-        HBRUSH myBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+-        HBRUSH oldBrush = (HBRUSH)SelectObject(hBackBuffer, myBrush);
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-
+-        Rectangle(hBackBuffer, 275, 80, 350, 150);
+-
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-        SelectObject(hBackBuffer, oldBrush);
+-        DeleteObject(myBrush);
+-    }
+-    else if (player1_rect3 == true)
+-    {
+-        HBRUSH myBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+-        HBRUSH oldBrush = (HBRUSH)SelectObject(hBackBuffer, myBrush);
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(255, 0, 0));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-
+-        Rectangle(hBackBuffer, 360, 80, 430, 150);
+-
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-        SelectObject(hBackBuffer, oldBrush);
+-        DeleteObject(myBrush);
+-    }
+-
+-    if (map_rect1 == true)
+-    {
+-        HBRUSH myBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+-        HBRUSH oldBrush = (HBRUSH)SelectObject(hBackBuffer, myBrush);
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(0, 255, 0));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-
+-        Rectangle(hBackBuffer, 0, 230, 200, 440);
+-
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-        SelectObject(hBackBuffer, oldBrush);
+-        DeleteObject(myBrush);
+-    }
+-    if (map_rect2 == true)
+-    {
+-        HBRUSH myBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+-        HBRUSH oldBrush = (HBRUSH)SelectObject(hBackBuffer, myBrush);
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(0, 255, 0));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-
+-        Rectangle(hBackBuffer, 201, 230, 420, 440);
+-
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-        SelectObject(hBackBuffer, oldBrush);
+-        DeleteObject(myBrush);
+-    }
+-    if (map_rect3 == true)
+-    {
+-        HBRUSH myBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+-        HBRUSH oldBrush = (HBRUSH)SelectObject(hBackBuffer, myBrush);
+-        HPEN myPen = CreatePen(PS_SOLID, 4, RGB(0, 255, 0));
+-        HPEN OldPen = (HPEN)SelectObject(hBackBuffer, myPen);
+-        SelectObject(hBackBuffer, myPen);
+-
+-        Rectangle(hBackBuffer, 421, 230, 610, 440);
+-
+-        SelectObject(hBackBuffer, OldPen);
+-        DeleteObject(myPen);
+-        SelectObject(hBackBuffer, oldBrush);
+-        DeleteObject(myBrush);
+-    }
+-}
+-
+-void mouse_moving(int mouseX, int mouseY)
+-{
+-    if (mouseX > 190 && mouseX < 260 && mouseY > 80 && mouseY < 150 && player2_select == true)
+-    {
+-        //player2TankNumber = 1;
+-        isCharacter2Selected = true;
+-        player2_select = false;
+-        player2_rect1 = true;
+-    }
+-    else if (mouseX > 275 && mouseX < 350 && mouseY>80 && mouseY < 150 && player2_select == true)
+-    {
+-        //player2TankNumber = 2;
+-        isCharacter2Selected = true;
+-        player2_select = false;
+-        player2_rect2 = true;
+-    }
+-    else if (mouseX > 360 && mouseX < 430 && mouseY>80 && mouseY < 150 && player2_select == true)
+-    {
+-        //player2TankNumber = 3;
+-        isCharacter2Selected = true;
+-        player2_select = false;
+-        player2_rect3 = true;
+-    }
+-    // ---
+-    if (mouseX > 190 && mouseX < 260 && mouseY>80 && mouseY < 150 && player1_select == true)
+-    {
+-        //player1TankNumber = 1;
+-        isCharacter1Selected = true;
+-        player1_select = false;
+-        player2_select = true;
+-    }
+-    else if (mouseX > 275 && mouseX < 350 && mouseY>80 && mouseY < 150 && player1_select == true)
+-    {
+-        //player1TankNumber = 2;
+-        isCharacter1Selected = true;
+-        player1_select = false;
+-        player2_select = true;
+-    }
+-    else if (mouseX > 360 && mouseX < 430 && mouseY>80 && mouseY < 150 && player1_select == true)
+-    {
+-        //player1TankNumber = 3;
+-        isCharacter1Selected = true;
+-        player1_select = false;
+-        player2_select = true;
+-    }
+-    if (mouseX > 0 && mouseX < 200 && mouseY>230 && mouseY < 440) {
+-        select_map = 1;
+-        isMapSelected = true;
+-    }
+-    else if (mouseX > 201 && mouseX < 420 && mouseY>230 && mouseY < 440) {
+-        select_map = 2;
+-        isMapSelected = true;
+-    }
+-    else if (mouseX > 421 && mouseX < 610 && mouseY>230 && mouseY < 440) {
+-        select_map = 3;
+-        isMapSelected = true;
+-    }
+-}
+-
+-void Draw_Flare() {
+-    if (isShellCollision) {
+-        for (int i = 0; i < 12; ++i) {
+-            SelectObject(MemDC, flare[i]);
+-            if (i == 0) {
+-                GdiTransparentBlt(hBackBuffer, xFPos[i] + 15, yFPos[i] - 20, 5, 8, MemDC, 0, 0, 5, 8, RGB(255, 0, 255));
+-            }
+-            else if (i == 1 || i == 3) {
+-                GdiTransparentBlt(hBackBuffer, xFPos[i] - 15, yFPos[i], 5, 6, MemDC, 0, 0, 5, 6, RGB(255, 0, 255));
+-            }
+-            else if (i == 2) {
+-                GdiTransparentBlt(hBackBuffer, xFPos[i], yFPos[i] - 30, 5, 7, MemDC, 0, 0, 5, 7, RGB(255, 0, 255));
+-            }
+-            else if (i == 4 || i == 11) {
+-                GdiTransparentBlt(hBackBuffer, xFPos[i], yFPos[i] - 20, 9, 11, MemDC, 0, 0, 9, 11, RGB(255, 0, 255));
+-            }
+-            else if (i == 5 || i == 6) {
+-                GdiTransparentBlt(hBackBuffer, xFPos[i] + 10, yFPos[i], 9, 12, MemDC, 0, 0, 9, 12, RGB(255, 0, 255));
+-            }
+-            else if (i == 7) {
+-                GdiTransparentBlt(hBackBuffer, xFPos[i], yFPos[i], 9, 10, MemDC, 0, 0, 9, 10, RGB(255, 0, 255));
+-            }
+-            else if (i == 8) {
+-                GdiTransparentBlt(hBackBuffer, xFPos[i] - 10, yFPos[i], 13, 14, MemDC, 0, 0, 13, 14, RGB(255, 0, 255));
+-            }
+-            else if (i == 9) {
+-                GdiTransparentBlt(hBackBuffer, xFPos[i], yFPos[i] - 30, 11, 12, MemDC, 0, 0, 11, 12, RGB(255, 0, 255));
+-            }
+-            else if (i == 10) {
+-                GdiTransparentBlt(hBackBuffer, xFPos[i], yFPos[i], 12, 12, MemDC, 0, 0, 12, 12, RGB(255, 0, 255));
+-            }
+-        }
+-    }
++    A.Render_Fire(hBackBuffer);
++    A.Render_Line(hBackBuffer, camera_x, camera_y);
++    A.Render_PowerGauge(hBackBuffer, camera_x, camera_y);
+ 
++    B.Render_Fire(hBackBuffer);
++    B.Render_Line(hBackBuffer, camera_x, camera_y);
++    B.Render_PowerGauge(hBackBuffer, camera_x, camera_y);
+ }
+ 
+ void reset(HWND hWnd)
+ {
+-    camera_x = 0;
+-    camera_y = 0;
+-    A.shoot1 = true;
+-    A.shoot2 = true;
+-    A.shoot3 = true;
+-    B.shoot1 = true;
+-    B.shoot2 = true;
+-    B.shoot3 = true;
+-    wind_right = false;
+-    wind_left = false;
+-    randNum = 0;
+-    player_1turn = true;
+-    player_2turn = false;
+-    player1_select = true;
+-    player2_select = false;
+-    player1_rect1 = false;
+-    player1_rect2 = false;
+-    player1_rect3 = false;
+-    player2_rect1 = false;
+-    player2_rect2 = false;
+-    player2_rect3 = false;
+-    map_rect1 = false;
+-    map_rect2 = false;
+-    map_rect3 = false;
+-    p1isMoving = false;
+-    p2isMoving = false;
+-    bulletAni = 0;
+-    map13WindAni = 0; // 4
+-    map2WindAni = 0; // 8
+-    select_map = 0;
+-    player1TankNumber = 0;
+-    player2TankNumber = 0;
+-    isCharacter1Selected = false; //ӽ۽ ĳ 
+-    isCharacter2Selected = false; //ӽ۽ ĳ 
+-    isMapSelected = false; //ʼ
+-    isStarted = false;
+-    isSelectedMap = false;
+-    isMapSelected = false;
+-    AitemFix = false;
+-    AitemPowerup = false;
+-    AitemTeleport = false;
+-    BitemFix = false;
+-    BitemPowerup = false;
+-    BitemTeleport = false;
+-    player1_left = false;
+-    player2_left = true;
+-    isShellCollision = false;
+-    isHited = false;
+-    isFired = false;
+-    tank1MovingAni = 0; //5
+-    tank23MovingAni = 0; //4
+-    tank1FireAni = 0; //6
+-    tank2FireAni = 0; //4
+-    tank3FireAni = 0; //5
+-    flareAni = 0; //12
+-    camera_mode = false;
+-    isSelectedCharacter = false;
+-    A.Speed = 0;
+-    B.Speed = 0;
+-    A.power = 0;
+-    B.power = 0;
+-    A.Time = 1;
+-    B.Time = 1;
+-    A.power_now = 0;
+-    B.power_now = 0;
+-    A.isFire = false; A.isSpaceUp = false;
+-    B.isFire = false; B.isSpaceUp = false;
+-    A.set_ball();
+-    B.set_ball();
+-    A.angle = 90;
+-    B.angle = 90;
+-    B.HP = 100;
+-    A.HP = 100;
+-    A.top = 0;
+-    B.top = 0;
+-    KillTimer(hWnd, 1);
+-    KillTimer(hWnd, 2);
+-    KillTimer(hWnd, 3);
+-    KillTimer(hWnd, 4);
+-    KillTimer(hWnd, 5);
+-    KillTimer(hWnd, 6);
+-    KillTimer(hWnd, 7);
+-    KillTimer(hWnd, 8);
+-    KillTimer(hWnd, 9);
++ camera_x = 0;
++ camera_y = 0;
++ A.shoot1 = true;
++ A.shoot2 = true;
++ A.shoot3 = true;
++ B.shoot1 = true;
++ B.shoot2 = true;
++ B.shoot3 = true;
++ wind_right = false;
++ wind_left = false;
++ randNum = 0;
++ player_1turn = true;
++ player_2turn = true;
++ player1_select = true;
++ player2_select = false;
++ player1_rect1 = false;
++ player1_rect2 = false;
++ player1_rect3 = false;
++ player2_rect1 = false;
++ player2_rect2 = false;
++ player2_rect3 = false;
++ map_rect1 = false;
++ map_rect2 = false;
++ map_rect3 = false;
++ p1isMoving = false;
++ p2isMoving = false;
++ bulletAni = 0;
++ map13WindAni = 0; // 4
++ map2WindAni = 0; // 8
++ select_map = 0;
++ player1TankNumber = 0;
++ player2TankNumber = 0;
++ isCharacter1Selected = false; //ӽ۽ ĳ 
++ isCharacter2Selected = false; //ӽ۽ ĳ 
++ isMapSelected = false; //ʼ
++ isStarted = false;
++ isSelectedMap = false;
++ isMapSelected = false;
++ AitemFix = false;
++ AitemPowerup = false;
++ AitemTeleport = false;
++ BitemFix = false;
++ BitemPowerup = false;
++ BitemTeleport = false;
++ player1_left = false;
++ player2_left = true;
++ isShellCollision = false;
++ isHited = false;
++ isFired = false;
++ tank1MovingAni = 0; //5
++ tank23MovingAni = 0; //4
++ tank1FireAni = 0; //6
++ tank2FireAni = 0; //4
++ tank3FireAni = 0; //5
++ flareAni = 0; //12
++ camera_mode = false;
++ isSelectedCharacter = false;
++ A.Speed = 0;
++ B.Speed = 0;
++ A.power = 0;
++ B.power = 0;
++ A.Time = 1;
++ B.Time = 1;
++ A.power_now = 0;
++ B.power_now = 0;
++ A.isFire = false; A.isSpaceUp = false;
++ B.isFire = false; B.isSpaceUp = false;
++ A.set_ball();
++ B.set_ball();
++ A.angle = 90;
++ B.angle = 90;
++ B.HP = 100;
++ A.HP = 100;
++ A.top = 0;
++ B.top = 0;
++ KillTimer(hWnd, 1);
++ KillTimer(hWnd, 2);
++ KillTimer(hWnd, 3);
++ KillTimer(hWnd, 4);
++ KillTimer(hWnd, 5);
++ KillTimer(hWnd, 6);
++ KillTimer(hWnd, 7);
++ KillTimer(hWnd, 8);
++ KillTimer(hWnd, 9);
+ 
+ }
+ 
+ void DrawFrame(HWND hWnd, HDC hDC)
+ {
+-    const int kBackBufferWidth = 1600;
+-    const int kBackBufferHeight = 800;
+-    HBITMAP hBackBufferBitmap;
+-
+-    if (!isCharacter1Selected && !isCharacter2Selected && !isMapSelected)
+-    {
+-        //  ȭ
+-        CMSelect = LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP114));
+-
+-        MemDC = CreateCompatibleDC(hDC);
+-        hBackBuffer = CreateCompatibleDC(hDC);
+-
+-        hBackBufferBitmap = CreateCompatibleBitmap(hDC, kBackBufferWidth, kBackBufferHeight);
+-        SelectObject(hBackBuffer, hBackBufferBitmap);
+-        SelectObject(MemDC, CMSelect);
+-
+-        GdiTransparentBlt(hBackBuffer, 0, 0, 610, 440,
+-            MemDC, 0, 0, 610, 440, RGB(255, 0, 255));
+-
+-        select_UI();
+-
+-        BitBlt(hDC, 0, 0, kBackBufferWidth, kBackBufferHeight, hBackBuffer, 0, 0, SRCCOPY);
+-
+-        DeleteObject(hBackBufferBitmap);
+-        DeleteDC(hBackBuffer);
+-        DeleteDC(MemDC);
+-        return;
+-    }
+-
+-    // =======================
+-    // ʹ   ȭ
+-    // =======================
+-    if (isCharacter1Selected && isCharacter2Selected && isMapSelected)
+-    {
+-        if (select_map == 1)
+-        {
+-            if (!isStarted)
+-            {
+-                hBitmap = LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP3));
+-                SetTimer(hWnd, 1, 10, NULL);
+-                SetTimer(hWnd, 2, 30, NULL);
+-                SetTimer(hWnd, 3, 60, NULL);
+-                A.set_pos(100, 0);
+-                B.set_pos(1400, 0);
+-                isStarted = true;
+-            }
+-        }
+-        else if (select_map == 2)
+-        {
+-            if (!isStarted)
+-            {
+-                hBitmap = LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP9));
+-                SetTimer(hWnd, 1, 10, NULL);
+-                SetTimer(hWnd, 2, 30, NULL);
+-                SetTimer(hWnd, 3, 60, NULL);
+-                A.set_pos(100, 600);
+-                B.set_pos(1400, 600);
+-                isStarted = true;
+-            }
+-        }
+-        else if (select_map == 3)
+-        {
+-            if (!isStarted)
+-            {
+-                hBitmap = LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP45));
+-                SetTimer(hWnd, 1, 10, NULL);
+-                SetTimer(hWnd, 2, 30, NULL);
+-                SetTimer(hWnd, 3, 60, NULL);
+-                A.set_pos(100, 0);
+-                B.set_pos(1400, 0);
+-                isStarted = true;
+-            }
+-        }
+-
+-        // ----   κ (1/2/3 ) ----
+-        MemDC = CreateCompatibleDC(hDC);
+-        hBackBuffer = CreateCompatibleDC(hDC);
+-
+-        hBackBufferBitmap = CreateCompatibleBitmap(hDC, kBackBufferWidth, kBackBufferHeight);
+-        SelectObject(hBackBuffer, hBackBufferBitmap);
+-
+-        // 
+-        SelectObject(MemDC, hBitmap);
+-        GdiTransparentBlt(hBackBuffer, 0, 0, kBackBufferWidth, kBackBufferHeight,
+-            MemDC, 0, 0, kBackBufferWidth, kBackBufferHeight, RGB(255, 0, 255));
+-
+-        Draw_wind();
+-        Draw_tank();
+-        Draw_shoot();
+-        Draw_Flare();
+-
+-        A.Render_HP(hBackBuffer, A.left, A.top);
+-        B.Render_HP(hBackBuffer, B.left, B.top);
+-
+-        // UI
+-        UI = LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP4));
+-        SelectObject(MemDC, UI);
+-        GdiTransparentBlt(hBackBuffer, camera_x, camera_y - 40, 600, 440,
+-            MemDC, 0, 0, 600, 450, RGB(255, 0, 255));
+-
+-        Draw_skill();
+-        player_UI();
+-
+-        //  ȭ 
+-        BitBlt(hDC, 0, 0, kBackBufferWidth, kBackBufferHeight, hBackBuffer,
+-            0 + camera_x, 0 + camera_y, SRCCOPY);
+-
+-        // ޸  (: hDC DeleteDC ϸ ȵ!)
+-        DeleteObject(hBackBufferBitmap);
+-        DeleteDC(hBackBuffer);
+-        DeleteDC(MemDC);
+-        // DeleteObject(UI);  // ̰    , ߿  Լ
+-        // DeleteObject(TankBitmap1); // ׵ 
+-        // DeleteObject(TankBitmap2);
+-    }
++ const int kBackBufferWidth = 1600;
++ const int kBackBufferHeight = 800;
++ HBITMAP hBackBufferBitmap;
++
++ if (!isCharacter1Selected && !isCharacter2Selected && !isMapSelected)
++ {
++ //  ȭ
++ CMSelect = LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP114));
++
++ MemDC = CreateCompatibleDC(hDC);
++ hBackBuffer = CreateCompatibleDC(hDC);
++
++ hBackBufferBitmap = CreateCompatibleBitmap(hDC, kBackBufferWidth, kBackBufferHeight);
++ SelectObject(hBackBuffer, hBackBufferBitmap);
++ SelectObject(MemDC, CMSelect);
++
++ GdiTransparentBlt(hBackBuffer, 0, 0, 610, 440,
++ MemDC, 0, 0, 610, 440, RGB(255, 0, 255));
++
++ select_UI();
++
++ BitBlt(hDC, 0, 0, kBackBufferWidth, kBackBufferHeight, hBackBuffer, 0, 0, SRCCOPY);
++
++ DeleteObject(hBackBufferBitmap);
++ DeleteDC(hBackBuffer);
++ DeleteDC(MemDC);
++ return;
++ }
++
++ // =======================
++ // ʹ   ȭ
++ // =======================
++ if (isCharacter1Selected && isCharacter2Selected && isMapSelected)
++ {
++ if (select_map == 1)
++ {
++ if (!isStarted)
++ {
++ hBitmap = LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP3));
++ SetTimer(hWnd, 1, 10, NULL);
++ SetTimer(hWnd, 2, 30, NULL);
++ SetTimer(hWnd, 3, 60, NULL);
++ A.set_pos(100, 0);
++ B.set_pos(1400, 0);
++ isStarted = true;
++ }
++ }
++ else if (select_map == 2)
++ {
++ if (!isStarted)
++ {
++ hBitmap = LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP9));
++ SetTimer(hWnd, 1, 10, NULL);
++ SetTimer(hWnd, 2, 30, NULL);
++ SetTimer(hWnd, 3, 60, NULL);
++ A.set_pos(100, 600);
++ B.set_pos(1400, 600);
++ isStarted = true;
++ }
++ }
++ else if (select_map == 3)
++ {
++ if (!isStarted)
++ {
++ hBitmap = LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP45));
++ SetTimer(hWnd, 1, 10, NULL);
++ SetTimer(hWnd, 2, 30, NULL);
++ SetTimer(hWnd, 3, 60, NULL);
++ A.set_pos(100, 0);
++ B.set_pos(1400, 0);
++ isStarted = true;
++ }
++ }
++
++ // ----   κ (1/2/3 ) ----
++ MemDC = CreateCompatibleDC(hDC);
++ hBackBuffer = CreateCompatibleDC(hDC);
++
++ hBackBufferBitmap = CreateCompatibleBitmap(hDC, kBackBufferWidth, kBackBufferHeight);
++ SelectObject(hBackBuffer, hBackBufferBitmap);
++
++ // 
++ SelectObject(MemDC, hBitmap);
++ GdiTransparentBlt(hBackBuffer, 0, 0, kBackBufferWidth, kBackBufferHeight,
++ MemDC, 0, 0, kBackBufferWidth, kBackBufferHeight, RGB(255, 0, 255));
++
++ Draw_wind();
++ Draw_tank();
++ Draw_shoot();
++ Draw_Flare();
++
++ A.Render_HP(hBackBuffer, A.left, A.top);
++ B.Render_HP(hBackBuffer, B.left, B.top);
++
++ // UI
++ UI = LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP4));
++ SelectObject(MemDC, UI);
++ GdiTransparentBlt(hBackBuffer, camera_x, camera_y - 40, 600, 440,
++ MemDC, 0, 0, 600, 450, RGB(255, 0, 255));
++
++ Draw_skill();
++ player_UI();
++
++ //  ȭ 
++ BitBlt(hDC, 0, 0, kBackBufferWidth, kBackBufferHeight, hBackBuffer,
++ 0 + camera_x, 0 + camera_y, SRCCOPY);
++
++ // ޸  (: hDC DeleteDC ϸ ȵ!)
++ DeleteObject(hBackBufferBitmap);
++ DeleteDC(hBackBuffer);
++ DeleteDC(MemDC);
++ // DeleteObject(UI); // ̰    , ߿  Լ
++ // DeleteObject(TankBitmap1); // ׵ 
++ // DeleteObject(TankBitmap2);
++ }
+ }
+ 
+ void OnMouseMove(HWND hWnd, LPARAM lParam)
+ {
+-    int mouseX = LOWORD(lParam) + camera_x;
+-    int mouseY = HIWORD(lParam) + camera_y;
+-
+-    if (player1_select)
+-    {
+-        if (mouseX > 190 && mouseX < 260 && mouseY > 80 && mouseY < 150)
+-            player1_rect1 = true;
+-        else {
+-            if (!player1_select) return;
+-            player1_rect1 = false;
+-        }
+-
+-        if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150)
+-            player1_rect2 = true;
+-        else {
+-            if (!player1_select) return;
+-            player1_rect2 = false;
+-        }
+-
+-        if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150)
+-            player1_rect3 = true;
+-        else {
+-            if (!player1_select) return;
+-            player1_rect3 = false;
+-        }
+-    }
+-    else if (player2_select)
+-    {
+-        if (mouseX > 190 && mouseX < 260 && mouseY > 80 && mouseY < 150)
+-            player2_rect1 = true;
+-        else {
+-            if (!player2_select) return;
+-            player2_rect1 = false;
+-        }
+-
+-        if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150)
+-            player2_rect2 = true;
+-        else {
+-            if (!player2_select) return;
+-            player2_rect2 = false;
+-        }
+-
+-        if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150)
+-            player2_rect3 = true;
+-        else {
+-            if (!player2_select) return;
+-            player2_rect3 = false;
+-        }
+-    }
+-    else
+-    {
+-        if (mouseX > 0 && mouseX < 200 && mouseY > 230 && mouseY < 440)
+-            map_rect1 = true;
+-        else
+-            map_rect1 = false;
+-
+-        if (mouseX > 201 && mouseX < 420 && mouseY > 230 && mouseY < 440)
+-            map_rect2 = true;
+-        else
+-            map_rect2 = false;
+-
+-        if (mouseX > 421 && mouseX < 610 && mouseY > 230 && mouseY < 440)
+-            map_rect3 = true;
+-        else
+-            map_rect3 = false;
+-    }
+-
+-    InvalidateRect(hWnd, NULL, FALSE);
++ int mouseX = LOWORD(lParam) + camera_x;
++ int mouseY = HIWORD(lParam) + camera_y;
++
++ if (player1_select)
++ {
++ if (mouseX > 190 && mouseX < 260 && mouseY > 80 && mouseY < 150)
++ player1_rect1 = true;
++ else {
++ if (!player1_select) return;
++ player1_rect1 = false;
++ }
++
++ if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150)
++ player1_rect2 = true;
++ else {
++ if (!player1_select) return;
++ player1_rect2 = false;
++ }
++
++ if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150)
++ player1_rect3 = true;
++ else {
++ if (!player1_select) return;
++ player1_rect3 = false;
++ }
++ }
++ else if (player2_select)
++ {
++ if (mouseX > 190 && mouseX < 260 && mouseY > 80 && mouseY < 150)
++ player2_rect1 = true;
++ else {
++ if (!player2_select) return;
++ player2_rect1 = false;
++ }
++
++ if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150)
++ player2_rect2 = true;
++ else {
++ if (!player2_select) return;
++ player2_rect2 = false;
++ }
++
++ if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150)
++ player2_rect3 = true;
++ else {
++ if (!player2_select) return;
++ player2_rect3 = false;
++ }
++ }
++ else
++ {
++ if (mouseX > 0 && mouseX < 200 && mouseY > 230 && mouseY < 440)
++ map_rect1 = true;
++ else
++ map_rect1 = false;
++
++ if (mouseX > 201 && mouseX < 420 && mouseY > 230 && mouseY < 440)
++ map_rect2 = true;
++ else
++ map_rect2 = false;
++
++ if (mouseX > 421 && mouseX < 610 && mouseY > 230 && mouseY < 440)
++ map_rect3 = true;
++ else
++ map_rect3 = false;
++ }
++
++ InvalidateRect(hWnd, NULL, FALSE);
+ }
+ 
+ void OnLButtonDown(HWND hWnd, LPARAM lParam)
+ {
+-    int mouseX = LOWORD(lParam) + camera_x;
+-    int mouseY = HIWORD(lParam) + camera_y;
+-
+-    // ÷̾ 2 ũ 
+-    if (mouseX > 190 && mouseX < 260 && mouseY > 80 && mouseY < 150 && player2_select)
+-        player2TankNumber = 1;
+-    else if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150 && player2_select)
+-        player2TankNumber = 3;
+-    else if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150 && player2_select)
+-        player2TankNumber = 2;
+-
+-    // ÷̾ 1 ũ 
+-    if (mouseX > 190 && mouseX < 260 && mouseY > 80 && mouseY < 150 && player1_select)
+-        player1TankNumber = 1;
+-    else if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150 && player1_select)
+-        player1TankNumber = 3;
+-    else if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150 && player1_select)
+-        player1TankNumber = 2;
+-
+-    // ĳ /   
+-    mouse_moving(mouseX, mouseY);
+-
+-    InvalidateRect(hWnd, NULL, TRUE);
++ int mouseX = LOWORD(lParam) + camera_x;
++ int mouseY = HIWORD(lParam) + camera_y;
++
++ // ÷̾ 2 ũ 
++ if (mouseX > 190 && mouseX < 260 && mouseY > 80 && mouseY < 150 && player2_select)
++ player2TankNumber = 1;
++ else if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150 && player2_select)
++ player2TankNumber = 3;
++ else if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150 && player2_select)
++ player2TankNumber = 2;
++
++ // ÷̾ 1 ũ 
++ if (mouseX > 190 && mouseX < 260 && mouseY > 80 && mouseY < 150 && player1_select)
++ player1TankNumber = 1;
++ else if (mouseX > 275 && mouseX < 350 && mouseY > 80 && mouseY < 150 && player1_select)
++ player1TankNumber = 3;
++ else if (mouseX > 360 && mouseX < 430 && mouseY > 80 && mouseY < 150 && player1_select)
++ player1TankNumber = 2;
++
++ // ĳ /   
++ mouse_moving(mouseX, mouseY);
++
++ InvalidateRect(hWnd, NULL, TRUE);
+ }
+ 
+ void OnRButtonDown(HWND hWnd, LPARAM lParam)
+ {
+-    int mouseX = LOWORD(lParam) + camera_x;
+-    int mouseY = HIWORD(lParam) + camera_y;
++ int mouseX = LOWORD(lParam) + camera_x;
++ int mouseY = HIWORD(lParam) + camera_y;
+ 
+-    SetPixelColor(hBitmap, mouseX, mouseY, TARGET_COLOR);
+-    InvalidateRect(hWnd, NULL, TRUE);
++ SetPixelColor(hBitmap, mouseX, mouseY, TARGET_COLOR);
++ InvalidateRect(hWnd, NULL, TRUE);
+ }
+ 
+ extern int bulletAni, tank1MovingAni, tank23MovingAni;
+ extern int map13WindAni, map2WindAni;
+ extern bool wind_left, wind_right;
+ extern int xPos[10], yPos[10], xSet[10];
+ extern int select_map;
+ extern double x, y;
+ extern bool isShellCollision;
+ extern int xFPos[12], yFPos[12];
+ 
+ void OnTimer(HWND hWnd, WPARAM wParam)
+ {
+-    if (wParam == 1) {
+-        player_dead(hWnd);
+-        physics(hWnd);
+-    }
+-    else if (wParam == 2) {
+-        wind(hWnd);
+-        Fire_turn();
+-        camera_turn();
+-    }
+-    else if (wParam == 3) {
+-        // ִ   κ ״
+-        ++bulletAni;
+-        if (bulletAni == 4) bulletAni = 0;
+-
+-        ++tank1MovingAni;
+-        if (tank1MovingAni == 5) tank1MovingAni = 0;
+-
+-        ++tank23MovingAni;
+-        if (tank23MovingAni == 4) tank23MovingAni = 0;
+-
+-        ++map13WindAni;
+-        if (map13WindAni == 4) map13WindAni = 0;
+-
+-        ++map2WindAni;
+-        if (map2WindAni == 8) map2WindAni = 0;
+-
+-        for (int i = 0; i < 9; ++i) {
+-            if (xPos[i] < 0 || xPos[i] > 1600)
+-                xPos[i] = xSet[i];
+-
+-            if (select_map == 1 && yPos[i] > 800) {
+-                yPos[i] = 0;
+-                xPos[i] = xSet[i];
+-            }
+-            else if (select_map == 2 && yPos[i] > 800) {
+-                yPos[i] = 360;
+-                xPos[i] = xSet[i];
+-            }
+-            else if (select_map == 3 && yPos[i] > 800) {
+-                yPos[i] = 0;
+-                xPos[i] = xSet[i];
+-            }
+-        }
+-
+-        if (!wind_left && !wind_right) {
+-            for (int i = 0; i < 9; ++i)
+-                yPos[i] += 5;
+-        }
+-        else if (wind_left) {
+-            for (int i = 0; i < 9; ++i) {
+-                yPos[i] += 5;
+-                xPos[i] -= 10;
+-            }
+-        }
+-        else if (wind_right) {
+-            for (int i = 0; i < 9; ++i) {
+-                yPos[i] += 5;
+-                xPos[i] += 10;
+-            }
+-        }
+-    }
+-    else if (wParam == 6) {
+-        isFired = true;
+-        ++tank1FireAni;
+-        if (tank1FireAni == 5) {
+-            tank1FireAni = 0;
+-            isFired = false;
+-            KillTimer(hWnd, 6);
+-        }
+-    }
+-    else if (wParam == 7) {
+-        ++tank2FireAni;
+-        if (tank2FireAni == 3) {
+-            tank2FireAni = 0;
+-            isFired = true;
+-            KillTimer(hWnd, 7);
+-        }
+-    }
+-    else if (wParam == 8) {
+-        ++tank3FireAni;
+-        if (tank3FireAni == 4) {
+-            tank3FireAni = 0;
+-            isFired = true;
+-            KillTimer(hWnd, 8);
+-        }
+-    }
+-    else if (wParam == 9) {
+-        if (xFPos[0] == -20 && yFPos[0] == -20) {
+-            for (int i = 0; i < 12; ++i) {
+-                xFPos[i] = x;
+-                yFPos[i] = y;
+-            }
+-        }
+-
+-        if (yFPos[11] > 600) {
+-            for (int i = 0; i < 12; ++i) {
+-                xFPos[i] = -20;
+-                yFPos[i] = -20;
+-            }
+-            isShellCollision = false;
+-            KillTimer(hWnd, 9);
+-        }
+-
+-        for (int i = 0; i < 12; ++i) {
+-            if (i % 2 == 0)
+-                xFPos[i] += i;
+-            else
+-                xFPos[i] -= 3 * i;
+-
+-            yFPos[11] += 5;
+-            yFPos[i] += i;
+-        }
+-    }
+-
+-    InvalidateRect(hWnd, NULL, FALSE);
++ if (wParam == 1) {
++ player_dead(hWnd);
++ physics(hWnd);
++ }
++ else if (wParam == 2) {
++ wind(hWnd);
++ Fire_turn();
++ camera_turn();
++ }
++ else if (wParam == 3) {
++ // ִ   κ ״
++ ++bulletAni;
++ if (bulletAni == 4) bulletAni = 0;
++
++ ++tank1MovingAni;
++ if (tank1MovingAni == 5) tank1MovingAni = 0;
++
++ ++tank23MovingAni;
++ if (tank23MovingAni == 4) tank23MovingAni = 0;
++
++ ++map13WindAni;
++ if (map13WindAni == 4) map13WindAni = 0;
++
++ ++map2WindAni;
++ if (map2WindAni == 8) map2WindAni = 0;
++
++ for (int i = 0; i < 9; ++i) {
++ if (xPos[i] < 0 || xPos[i] > 1600)
++ xPos[i] = xSet[i];
++
++ if (select_map == 1 && yPos[i] > 800) {
++ yPos[i] = 0;
++ xPos[i] = xSet[i];
++ }
++ else if (select_map == 2 && yPos[i] > 800) {
++ yPos[i] = 360;
++ xPos[i] = xSet[i];
++ }
++ else if (select_map == 3 && yPos[i] > 800) {
++ yPos[i] = 0;
++ xPos[i] = xSet[i];
++ }
++ }
++
++ if (!wind_left && !wind_right) {
++ for (int i = 0; i < 9; ++i)
++ yPos[i] += 5;
++ }
++ else if (wind_left) {
++ for (int i = 0; i < 9; ++i) {
++ yPos[i] += 5;
++ xPos[i] -= 10;
++ }
++ }
++ else if (wind_right) {
++ for (int i = 0; i < 9; ++i) {
++ yPos[i] += 5;
++ xPos[i] += 10;
++ }
++ }
++ }
++ else if (wParam == 6) {
++ isFired = true;
++ ++tank1FireAni;
++ if (tank1FireAni == 5) {
++ tank1FireAni = 0;
++ isFired = false;
++ KillTimer(hWnd, 6);
++ }
++ }
++ else if (wParam == 7) {
++ ++tank2FireAni;
++ if (tank2FireAni == 3) {
++ tank2FireAni = 0;
++ isFired = true;
++ KillTimer(hWnd, 7);
++ }
++ }
++ else if (wParam == 8) {
++ ++tank3FireAni;
++ if (tank3FireAni == 4) {
++ tank3FireAni = 0;
++ isFired = true;
++ KillTimer(hWnd, 8);
++ }
++ }
++ else if (wParam == 9) {
++ if (xFPos[0] == -20 && yFPos[0] == -20) {
++ for (int i = 0; i < 12; ++i) {
++ xFPos[i] = x;
++ yFPos[i] = y;
++ }
++ }
++
++ if (yFPos[11] > 600) {
++ for (int i = 0; i < 12; ++i) {
++ xFPos[i] = -20;
++ yFPos[i] = -20;
++ }
++ isShellCollision = false;
++ KillTimer(hWnd, 9);
++ }
++
++ for (int i = 0; i < 12; ++i) {
++ if (i % 2 == 0)
++ xFPos[i] += i;
++ else
++ xFPos[i] -= 3 * i;
++
++ yFPos[11] += 5;
++ yFPos[i] += i;
++ }
++ }
++
++ InvalidateRect(hWnd, NULL, FALSE);
+ }
+ 
+ extern bool player_1turn, player_2turn;
+ extern bool player1_left, player2_left;
+ extern bool p1isMoving, p2isMoving;
+ extern bool AitemFix, BitemFix;
+ extern Fire A, B;
+ 
+ void OnKeyDown(HWND hWnd, WPARAM wParam)
+ {
+-    if (wParam == VK_LEFT)
+-    {
+-        if (player_1turn && CanControlPlayer(0)) {
+-            player1_left = true;
+-            if (!p1isMoving) p1isMoving = true;
+-            SendPlayerState(0);
+-        }
+-        if (player_2turn && CanControlPlayer(1)) {
+-            player2_left = true;
+-            if (!p2isMoving) p2isMoving = true;
+-            SendPlayerState(1);
+-        }
+-    }
+-    else if (wParam == VK_RIGHT)
+-    {
+-        if (player_1turn && CanControlPlayer(0)) {
+-            player1_left = false;
+-            if (!p1isMoving) p1isMoving = true;
+-            SendPlayerState(0);
+-        }
+-        if (player_2turn && CanControlPlayer(1)) {
+-            player2_left = false;
+-            if (!p2isMoving) p2isMoving = true;
+-            SendPlayerState(1);
+-        }
+-    }
+-    else if (wParam == VK_RETURN) {
+-        if (player_1turn && CanControlPlayer(0) && A.shoot_mode == 3 && A.HP < 100)
+-            AitemFix = true;
+-        else if (player_2turn && CanControlPlayer(1) && B.shoot_mode == 3 && B.HP < 100)
+-            BitemFix = true;
+-    }
+-
+-    if (player_1turn && CanControlPlayer(0)) {
+-        A.shootmode();
+-        A.Angle(A.isFire);
+-        SendPlayerState(0);
+-    }
+-    else if (player_2turn && CanControlPlayer(1)) {
+-        B.shootmode();
+-        B.Angle(B.isFire);
+-        SendPlayerState(1);
+-    }
+-
+-    InvalidateRect(hWnd, NULL, FALSE);
++ if (wParam == VK_LEFT)
++ {
++ if (CanControlPlayer(0)) {
++ player1_left = true;
++ if (!p1isMoving) p1isMoving = true;
++ SendPlayerState(0);
++ }
++ if (CanControlPlayer(1)) {
++ player2_left = true;
++ if (!p2isMoving) p2isMoving = true;
++ SendPlayerState(1);
++ }
++ }
++ else if (wParam == VK_RIGHT)
++ {
++ if (CanControlPlayer(0)) {
++ player1_left = false;
++ if (!p1isMoving) p1isMoving = true;
++ SendPlayerState(0);
++ }
++ if (CanControlPlayer(1)) {
++ player2_left = false;
++ if (!p2isMoving) p2isMoving = true;
++ SendPlayerState(1);
++ }
++ }
++ else if (wParam == VK_RETURN) {
++ if (CanControlPlayer(0) && A.shoot_mode == 3 && A.HP < 100)
++ AitemFix = true;
++ else if (CanControlPlayer(1) && B.shoot_mode == 3 && B.HP < 100)
++ BitemFix = true;
++ }
++
++ if (CanControlPlayer(0)) {
++ A.shootmode();
++ A.Angle(A.isFire);
++ SendPlayerState(0);
++ }
++ else if (CanControlPlayer(1)) {
++ B.shootmode();
++ B.Angle(B.isFire);
++ SendPlayerState(1);
++ }
++
++ InvalidateRect(hWnd, NULL, FALSE);
+ }
+ 
+ void ApplyTerrainDelta(const PKT_TERRAIN_DELTA& pkt)
+ {
+-    //   ǥ   ı
+-    int cx = pkt.x;
+-    int cy = pkt.y;
+-    int r = pkt.radius;
+-
+-    HDC hdcMem = CreateCompatibleDC(nullptr);
+-    HBITMAP oldBmp = (HBITMAP)SelectObject(hdcMem, hBitmap);
+-
+-    for (int i = -r; i <= r; ++i)
+-    {
+-        for (int j = -r; j <= r; ++j)
+-        {
+-            if (i * i + j * j <= r * r)
+-                SetPixel(hdcMem, cx + i, cy + j, TARGET_COLOR);
+-        }
+-    }
+-
+-    SelectObject(hdcMem, oldBmp);
+-    DeleteDC(hdcMem);
+-
+-    //  ٲ ȭ 
+-    InvalidateRect(g_hWnd, nullptr, FALSE); // g_hWnd ̸
++ //   ǥ   ı
++ int cx = pkt.x;
++ int cy = pkt.y;
++ int r = pkt.radius;
++
++ HDC hdcMem = CreateCompatibleDC(nullptr);
++ HBITMAP oldBmp = (HBITMAP)SelectObject(hdcMem, hBitmap);
++
++ for (int i = -r; i <= r; ++i)
++ {
++ for (int j = -r; j <= r; ++j)
++ {
++ if (i * i + j * j <= r * r)
++ SetPixel(hdcMem, cx + i, cy + j, TARGET_COLOR);
++ }
++ }
++
++ SelectObject(hdcMem, oldBmp);
++ DeleteDC(hdcMem);
++
++ //  ٲ ȭ 
++ InvalidateRect(g_hWnd, nullptr, FALSE); // g_hWnd ̸
+ }
+\ No newline at end of file
