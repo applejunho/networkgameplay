@@ -1,0 +1,19 @@
+# Visual Studio cache
+.vs/
+*.ipch
+*.opendb
+*.VC.db
+*.VC.db-wal
+*.db
+*.tlog
+
+# Build artifacts
+Debug/
+Release/
+x64/
+bin/
+obj/
+
+# OS files
+Thumbs.db
+Desktop.ini
